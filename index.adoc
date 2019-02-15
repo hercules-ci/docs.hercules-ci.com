@@ -1,0 +1,14 @@
+---
+layout: page
+title: Introduction
+---
+
+Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
+
+ - hercules-ci.com
+ - github.com
+ - cachix.org
+ - your agent machines
+
+This documentation helps you set up these integrations for your accounts.
+
