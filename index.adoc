@@ -53,9 +53,9 @@ Hercules-ci.com will now show the application instead of the regular front page.
 Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
 
 // TODO frontend
-Click the "Install hercules-ci application" button near the bottom of https://hercules-ci.com[hercules-ci.com].
+Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard].
 
-GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, in order to prevent that Hercules CI will report commit statuses on repositories that have no suitable Nix expressions, etc.
+GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, assuming not all your repositories have suitable Nix expressions.
 
 == Collaborators
 
@@ -64,9 +64,7 @@ Hercules CI will automatically pick up permissions from GitHub. Collaborators wi
 
 = Agent Setup
 
-Hercules CI lets you deploy your agents on your own infrastructure.
-
-The Hercules agent authenticates itself to the Hercules CI Service by means of tokens.
+The agent authenticates itself to the Hercules CI Service by means of tokens.
 
 // TODO frontend
 After selecting an account on https://hercules-ci.com[hercules-ci.com], you will find a "Generate agent token" button at the bottom of the page. This produces a private token that should be protected like a password.
@@ -103,9 +101,7 @@ include::network.example.nix[]
 
 Go to https://hercules-ci.com[hercules-ci.com], log in and use the menu/dropdown to select the account that the agent will build for. Click the *Generate agent token* button. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
-Add a physical network specification and deploy the network.
-
-Adapt the concurrency configuration as appropriate for your hardware. 
+Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network.
 
 The agent will start working as soon as the deployment has succeeded and work is pending.
 
