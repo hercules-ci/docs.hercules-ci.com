@@ -1,7 +1,9 @@
 ---
 layout: page
-title: Introduction
+title: Hercules CI Manual
 ---
+
+:toc: macro
 
 Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
 
@@ -10,58 +12,57 @@ Hercules CI is a continuous integration service for Nix. In order to provide thi
  - cachix.org
  - your agent machines
 
-This documentation helps you set up these integrations for your accounts.
+This document describes the steps to set up the integration. The process should be self-explanatory, guided by the https://hercules-ci.com[hercules-ci.com] web application. If you find yourself stuck, or if you want to know the process in advance, this document is intended to provide reference.
 
 EARLY ACCESS PHASE
 ------------------
 
 [WARNING]
 ====
-This is preview software. Not all features have been implemented yet and the quality of service is not according to our standards yet.
+This is preview software. We're gathering feedback to improve the service. It is not meant to be relied upon just yet.
 ====
 
-= Limitations
+= Roadmap
 
+ - Web interface rework (hercules-ci.com)
+ - Cachix integration
+ - Impure tasks (CD)
+ - Multi-agent support (cluster)
+ - requiredFeatures support
+ - Non-linux architecture support
+ - Remove source code permission from the GitHub App
 
- - The web interface at hercules-ci.com is a prototype and we are reworking it.
- - No cachix integration yet.
- - Your build farm should be a single persistent machine.
- - The identity token must be manually deleted when rekeying the agent token.
- - Hooks/impure tasks are not implemented yet.
- - Work is not routed according to architecture or requiredFeatures yet.
- - The GitHub App still requests source code permission. It is not read by our service.
+= Known issues
+
+ - The identity token must be manually deleted when rekeying the agent token. https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
 
 '''
 
-GitHub Setup
-------------
+toc::[]
 
-Sign in
-~~~~~~~
+= GitHub Setup
 
-Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com].
+== Sign in
 
-You will be presented a dialog from GitHub where you can authorize the Hercules CI application to verify your identity.
+Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
 
+Hercules-ci.com will now show the application instead of the regular front page.
 
-Install the app
-~~~~~~~~~~~~~~~
+== Install the app
 
-Now that you are signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
+Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
 
 // TODO frontend
 Click the "Install hercules-ci application" button near the bottom of https://hercules-ci.com[hercules-ci.com].
 
 GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, in order to prevent that Hercules CI will report commit statuses on repositories that have no suitable Nix expressions, etc.
 
-Collaborators
-~~~~~~~~~~~~~
+== Collaborators
 
 Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
 
 
-Hercules Agent Setup
---------------------
+= Agent Setup
 
 Hercules CI lets you deploy your agents on your own infrastructure.
 
@@ -70,66 +71,59 @@ The Hercules agent authenticates itself to the Hercules CI Service by means of t
 // TODO frontend
 After selecting an account on https://hercules-ci.com[hercules-ci.com], you will find a "Generate agent token" button at the bottom of the page. This produces a private token that should be protected like a password.
 
+////
+// TODO multi-agent
 [NOTE]
 ====
 The agent token will be used by the agent to request a token that identifies the agent itself. A single agent token can therefore be used to deploy a cluster of agents.
 ====
+//
+////
 
 [WARNING]
 ====
-When updating the agent token on a previously deployed agent, you may need to remove the `identity.token` file and restart the agent in order to start using the new agent token.
-This file is stored in `~/.local/share/hercules-agent` by default.
+When updating the agent token on a previously deployed agent, you will need to remove the `identity.token` file and restart the agent in order to start using the new agent token.
+This file is stored in `~/.local/share/hercules-agent` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
 ====
 
-Deploy with NixOps
-~~~~~~~~~~~~~~~~~~
+== Deploy with NixOps
 
-==== Stable
+=== Stable
 
 Not available yet.
 
-==== Bleeding edge
+=== Bleeding edge
 
 Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
 
-```nix
-let
-  # To pin, use niv and
-  # sources = import ./nix/sources.nix;
-  sources = {
-    hercules-ci-agent =
-      builtins.fetchTarball "https://github.com/hercules-ci/hercules-ci-agent/archive/master.tar.gz";
-  };
-in
-{
-  network.description = "Build farm";
-
-  agent = {
-    imports = [
-      (sources.hercules-ci-agent + "/nixops-profile.nix")
-    ];
-    config = {
-      deployment.keys."agent-token.key".keyFile = ./agent-token.key;
-      services.hercules-ci-agent.concurrentTasks = 4; # Example
-      nix.maxJobs = 4; # Example
-    };
-  };
-}
-```
+[source,nix]
+----
+include::network.example.nix[]
+----
 
 Go to https://hercules-ci.com[hercules-ci.com], log in and use the menu/dropdown to select the account that the agent will build for. Click the *Generate agent token* button. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
-Adapt the concurrency configuration as appropriate for your hardware. Add a physical network specification and deploy the network.
+Add a physical network specification and deploy the network.
+
+Adapt the concurrency configuration as appropriate for your hardware. 
 
 The agent will start working as soon as the deployment has succeeded and work is pending.
 
-To inspect the local log, run `nixops ssh staging-agent-1 journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
+////
 
-Run locally
-~~~~~~~~~~~
+TODO
+
+== Run locally
+
 
 The agent can be run on any machine by installing the agent and invoking the `hercules-agent` command. We recommend running the agent on machines that remain connected to the internet.
 
 This method of running the agent is not officially supported yet: its interface may change in breaking ways.
 
 // TODO is running on your laptop sufficient for some situations?
+
+////
+
+== Troubleshooting
+
+To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
