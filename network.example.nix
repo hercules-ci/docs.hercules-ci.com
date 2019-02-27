@@ -1,3 +1,4 @@
+# network.nix
 let
   sources = {
     hercules-ci-agent =

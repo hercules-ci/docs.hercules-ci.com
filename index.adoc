@@ -9,7 +9,7 @@ Hercules CI is a continuous integration service for Nix. In order to provide thi
 
  - hercules-ci.com
  - github.com
- - cachix.org
+// TODO - cachix.org
  - your agent machines
 
 This document describes the steps to set up the integration. The process should be self-explanatory, guided by the https://hercules-ci.com[hercules-ci.com] web application. If you find yourself stuck, or if you want to know the process in advance, this document is intended to provide reference.
@@ -44,18 +44,18 @@ toc::[]
 
 == Sign in
 
-Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
+ 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
 
-Hercules-ci.com will now show the application instead of the regular front page.
+ 2. Hercules-ci.com will now show the application instead of the regular front page.
 
 == Install the app
 
 Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
 
 // TODO frontend
-Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard].
+ 1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard].
 
-GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, assuming not all your repositories have suitable Nix expressions.
+ 2. GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, assuming not all your repositories have suitable Nix expressions. Follow the steps.
 
 == Collaborators
 
@@ -66,8 +66,6 @@ Hercules CI will automatically pick up permissions from GitHub. Collaborators wi
 
 The agent authenticates itself to the Hercules CI Service by means of tokens.
 
-// TODO frontend
-After selecting an account on https://hercules-ci.com[hercules-ci.com], you will find a "Generate agent token" button at the bottom of the page. This produces a private token that should be protected like a password.
 
 ////
 // TODO multi-agent
@@ -99,9 +97,33 @@ Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a
 include::network.example.nix[]
 ----
 
-Go to https://hercules-ci.com[hercules-ci.com], log in and use the menu/dropdown to select the account that the agent will build for. Click the *Generate agent token* button. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+// TODO frontend
+1. Selecting an account in the https://hercules-ci.com[dashboard]
+2. Click the "Generate agent token" button near the bottom of the page
+   This produces a private token that should be protected like a password.
+3. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
-Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network.
+4. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
+     - https://nixos.org/nixops/manual/#sec-deploying-to-physical-nixos[Any existing NixOS machine]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-ec2[Amazon EC2]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-gce[Google Cloud Engine]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-azure[Microsoft Azure]
+     - https://nixos.org/nixops/manual/#idm140737318355376[Hetzner]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-digital-ocean[Digital Ocean]
+
+   An example physical specification:
+[source,nix]
+----
+include::network-nixos.example.nix[]
+----
+
+5. To deploy the agent run the shell commands:
+
+[source,bash]
+----
+$ nixops create -d my-agent ./network.nix ./network-physical.nix 
+$ nixops deploy -d my-agent
+----
 
 The agent will start working as soon as the deployment has succeeded and work is pending.
 
