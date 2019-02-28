@@ -40,7 +40,7 @@ This is preview software. We're gathering feedback to improve the service. It is
 
 toc::[]
 
-= GitHub Setup
+= Step 1. GitHub Setup
 
 == Sign in
 
@@ -62,7 +62,7 @@ Having signed in, you are ready to add Hercules CI to your GitHub user account o
 Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
 
 
-= Agent Setup
+= Step 2. Agent Setup
 
 The agent authenticates itself to the Hercules CI Service by means of tokens.
 
@@ -90,20 +90,19 @@ Not available yet.
 
 === Bleeding edge
 
-Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
-
+1. Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
++
 [source,nix]
 ----
 include::network.example.nix[]
 ----
-
 // TODO frontend
-1. Selecting an account in the https://hercules-ci.com[dashboard]
-2. Click the "Generate agent token" button near the bottom of the page
+2. Selecting an account in the https://hercules-ci.com[dashboard]
+3. Click the "Generate agent token" button near the bottom of the page
    This produces a private token that should be protected like a password.
-3. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+4. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
-4. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
+5. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
      - https://nixos.org/nixops/manual/#sec-deploying-to-physical-nixos[Any existing NixOS machine]
      - https://nixos.org/nixops/manual/#sec-deploying-to-ec2[Amazon EC2]
      - https://nixos.org/nixops/manual/#sec-deploying-to-gce[Google Cloud Engine]
@@ -117,15 +116,15 @@ include::network.example.nix[]
 include::network-nixos.example.nix[]
 ----
 
-5. To deploy the agent run the shell commands:
-
+6. To deploy the agent run the shell commands:
++
 [source,bash]
 ----
 $ nixops create -d my-agent ./network.nix ./network-physical.nix 
 $ nixops deploy -d my-agent
 ----
-
-The agent will start working as soon as the deployment has succeeded and work is pending.
++
+The agent will start working as soon as the deployment has succeeded and work is pending. See link:#add-a-repository[Add a repository].
 
 ////
 
@@ -142,10 +141,19 @@ This method of running the agent is not officially supported yet: its interface 
 
 ////
 
-== Add a repository
+== Troubleshooting
+
+To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
+
+= Step 3. Add a repository
 
  1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard] and follow the steps.
  2. Write a `default.nix` in the root of your repository.
++
+If `default.nix` is a function, it must define default arguments in order to be auto-callable. `NIX_PATH` will be empty.
++
+Hercules CI behaves similarly to `nix-build`. `default.nix` can provide multiple derivations by returning an attribute set. Nested attribute sets can be traversed by calling Nixpkgs' `pkgs.recurseIntoAttrs`.
+
  3. Test it locally by running the command
 +
 [source,bash]
@@ -153,7 +161,3 @@ This method of running the agent is not officially supported yet: its interface 
 myrepo/$ NIX_PATH= nix-build --no-out-link
 ----
  4. Commit and push, so Hercules CI will pick it up.
-
-== Troubleshooting
-
-To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
