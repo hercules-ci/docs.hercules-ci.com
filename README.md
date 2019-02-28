@@ -9,4 +9,4 @@ It is configured to be auto-deployed via netlify.
 
 # Development (non-authoritative)
 
-    $ nix-shell --run "jekyREAll serve"
+    $ nix-shell --run "jekyll serve"
