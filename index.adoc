@@ -90,20 +90,19 @@ Not available yet.
 
 === Bleeding edge
 
-Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
-
+1. Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
++
 [source,nix]
 ----
 include::network.example.nix[]
 ----
-
 // TODO frontend
-1. Selecting an account in the https://hercules-ci.com[dashboard]
-2. Click the "Generate agent token" button near the bottom of the page
+2. Selecting an account in the https://hercules-ci.com[dashboard]
+3. Click the "Generate agent token" button near the bottom of the page
    This produces a private token that should be protected like a password.
-3. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+4. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
-4. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
+5. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
      - https://nixos.org/nixops/manual/#sec-deploying-to-physical-nixos[Any existing NixOS machine]
      - https://nixos.org/nixops/manual/#sec-deploying-to-ec2[Amazon EC2]
      - https://nixos.org/nixops/manual/#sec-deploying-to-gce[Google Cloud Engine]
@@ -117,8 +116,8 @@ include::network.example.nix[]
 include::network-nixos.example.nix[]
 ----
 
-5. To deploy the agent run the shell commands:
-
+6. To deploy the agent run the shell commands:
++
 [source,bash]
 ----
 $ nixops create -d my-agent ./network.nix ./network-physical.nix 
