@@ -142,6 +142,18 @@ This method of running the agent is not officially supported yet: its interface 
 
 ////
 
+== Add a repository
+
+ 1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard] and follow the steps.
+ 2. Write a `default.nix` in the root of your repository.
+ 3. Test it locally by running the command
++
+[source,bash]
+----
+myrepo/$ NIX_PATH= nix-build --no-out-link
+----
+ 4. Commit and push, so Hercules CI will pick it up.
+
 == Troubleshooting
 
 To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
