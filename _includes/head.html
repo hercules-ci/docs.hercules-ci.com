@@ -26,8 +26,58 @@
     <link rel="stylesheet" href="{{ "/assets/frontend.c61c7dbe.css" | prepend: site.baseurl }}?{{ site.time | date: "%Y%m%d%H%M" }}" type="text/css">
 
 <style type="text/css">
-    * {
+    /* TODO: override this in semantic ui instead */
+    body, .ui.menu {
       font-family: 'Montserrat', sans-serif;
+    }
+
+    /* font awesome, fonts only */
+    @font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:normal;font-display:auto;src:url(../webfonts/fa-brands-400.eot);src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.svg#fontawesome) format("svg")}
+    .fab{font-family:"Font Awesome 5 Brands"}
+
+    @font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;font-display:auto;src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.eot);src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-regular-400.svg#fontawesome) format("svg")}
+
+    .far{font-weight:400}
+    @font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:auto;src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.eot);src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-solid-900.svg#fontawesome) format("svg")}
+    .fa,.far,.fas{font-family:"Font Awesome 5 Free"}
+    .fa,.fas{font-weight:900}
+
+    /* asciidoc */
+    div.paragraph {
+        margin-top: 1.4285ex;
+        margin-bottom: 1.4285ex;
+    }
+    div.paragraph:first-child {
+        margin-top: 0px;
+    }
+    div.paragraph:last-child {
+        margin-bottom: 0px;
+    }
+    .admonitionblock td.icon {
+        width: 28px;
+    }
+    .admonitionblock.warning td.icon:before {
+        content: "\f071";
+    }
+    .admonitionblock.note td.icon:before {
+        content: "\f05a";
+    }
+    .admonitionblock td.icon:before {
+        font-family: "Font Awesome 5 Free";
+        display: inline-block;
+        padding-right: 3px;
+        vertical-align: middle;
+        text-align: center;
+        font-weight: 900;
+        width: 28px;
+        line-height: 28px;
+        font-size: 21px;
+    }
+    .admonitionblock td.icon div {
+        display: none;
+    }
+    ul {
+        padding-left: 34px;
     }
 
 
@@ -36,7 +86,7 @@
       div.toc-pusher {
         margin-left: 16.5rem; 
       }
-      div.toc {
+      div.toc .ui {
         position: absolute;
         /*top: 0pt;*/
         width: 15.5rem;
@@ -133,6 +183,11 @@
       margin-top: 50px;
     }
 
+    #main {
+      padding-top: 2em;
+      padding-bottom: 2em;
+    }
+
   </style>
     
     <!-- Fonts -->
@@ -194,4 +249,15 @@
        ga('send', 'pageview');
     </script>
     {% endif %}
+
+    <!-- HighlightJS -->
+    <script type="text/javascript" src="/assets/highlight.pack.js"></script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', (event) => {
+          document.querySelectorAll('pre code').forEach((block) => {
+              hljs.highlightBlock(block);
+          });
+      });
+    </script>
+    <link href="/assets/highlight.github.css" rel="stylesheet"/>
 </head>

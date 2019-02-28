@@ -1,14 +1,159 @@
 ---
 layout: page
-title: Introduction
+title: Hercules CI Manual
 ---
+
+:toc: macro
 
 Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
 
  - hercules-ci.com
  - github.com
- - cachix.org
+// TODO - cachix.org
  - your agent machines
 
-This documentation helps you set up these integrations for your accounts.
+This document describes the steps to set up the integration. The process should be self-explanatory, guided by the https://hercules-ci.com[hercules-ci.com] web application. If you find yourself stuck, or if you want to know the process in advance, this document is intended to provide reference.
 
+EARLY ACCESS PHASE
+------------------
+
+[WARNING]
+====
+This is preview software. We're gathering feedback to improve the service. It is not meant to be relied upon just yet.
+====
+
+= Roadmap
+
+ - Web interface rework (hercules-ci.com)
+ - Cachix integration
+ - Impure tasks (CD)
+ - Multi-agent support (cluster)
+ - requiredFeatures support
+ - Non-linux architecture support
+ - Remove source code permission from the GitHub App
+
+= Known issues
+
+ - The identity token must be manually deleted when rekeying the agent token. https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+
+'''
+
+toc::[]
+
+= GitHub Setup
+
+== Sign in
+
+ 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
+
+ 2. Hercules-ci.com will now show the application instead of the regular front page.
+
+== Install the app
+
+Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
+
+// TODO frontend
+ 1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard].
+
+ 2. GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, assuming not all your repositories have suitable Nix expressions. Follow the steps.
+
+== Collaborators
+
+Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
+
+
+= Agent Setup
+
+The agent authenticates itself to the Hercules CI Service by means of tokens.
+
+
+////
+// TODO multi-agent
+[NOTE]
+====
+The agent token will be used by the agent to request a token that identifies the agent itself. A single agent token can therefore be used to deploy a cluster of agents.
+====
+//
+////
+
+[WARNING]
+====
+When updating the agent token on a previously deployed agent, you will need to remove the `identity.token` file and restart the agent in order to start using the new agent token.
+This file is stored in `~/.local/share/hercules-agent` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+====
+
+== Deploy with NixOps
+
+=== Stable
+
+Not available yet.
+
+=== Bleeding edge
+
+Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
+
+[source,nix]
+----
+include::network.example.nix[]
+----
+
+// TODO frontend
+1. Selecting an account in the https://hercules-ci.com[dashboard]
+2. Click the "Generate agent token" button near the bottom of the page
+   This produces a private token that should be protected like a password.
+3. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+
+4. Add a physical network specification (`deployment.targetEnv`, etc), adapt the example concurrency configuration as appropriate for your hardware and deploy the network. NixOps can deploy to
+     - https://nixos.org/nixops/manual/#sec-deploying-to-physical-nixos[Any existing NixOS machine]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-ec2[Amazon EC2]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-gce[Google Cloud Engine]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-azure[Microsoft Azure]
+     - https://nixos.org/nixops/manual/#idm140737318355376[Hetzner]
+     - https://nixos.org/nixops/manual/#sec-deploying-to-digital-ocean[Digital Ocean]
+
+   An example physical specification:
+[source,nix]
+----
+include::network-nixos.example.nix[]
+----
+
+5. To deploy the agent run the shell commands:
+
+[source,bash]
+----
+$ nixops create -d my-agent ./network.nix ./network-physical.nix 
+$ nixops deploy -d my-agent
+----
+
+The agent will start working as soon as the deployment has succeeded and work is pending.
+
+////
+
+TODO
+
+== Run locally
+
+
+The agent can be run on any machine by installing the agent and invoking the `hercules-agent` command. We recommend running the agent on machines that remain connected to the internet.
+
+This method of running the agent is not officially supported yet: its interface may change in breaking ways.
+
+// TODO is running on your laptop sufficient for some situations?
+
+////
+
+== Add a repository
+
+ 1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard] and follow the steps.
+ 2. Write a `default.nix` in the root of your repository.
+ 3. Test it locally by running the command
++
+[source,bash]
+----
+myrepo/$ NIX_PATH= nix-build --no-out-link
+----
+ 4. Commit and push, so Hercules CI will pick it up.
+
+== Troubleshooting
+
+To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
