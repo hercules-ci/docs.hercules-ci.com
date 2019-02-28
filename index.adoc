@@ -123,8 +123,8 @@ include::network-nixos.example.nix[]
 $ nixops create -d my-agent ./network.nix ./network-physical.nix 
 $ nixops deploy -d my-agent
 ----
-
-The agent will start working as soon as the deployment has succeeded and work is pending.
++
+The agent will start working as soon as the deployment has succeeded and work is pending. See link:#add-a-repository[Add a repository].
 
 ////
 
