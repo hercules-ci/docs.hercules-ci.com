@@ -161,3 +161,65 @@ Hercules CI behaves similarly to `nix-build`. `default.nix` can provide multiple
 myrepo/$ NIX_PATH= nix-build --no-out-link
 ----
  4. Commit and push, so Hercules CI will pick it up.
+
+= FAQ / How To / Troubleshooting
+
+== My commit status is stuck in Pending - Waiting for agent
+
+Make sure you've deployed an agent. If the agent didn't start, it should leave a message in the system journal. To see the last 100 lines of the journal with NixOps, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100`
+
+Note that an agent can currently only be assigned to a single account. Assigning agents to multiple accounts is on the roadmap, but for now you will have to run multiple agents to build for multiple accounts.
+
+== Can I disable an attribute? I don't want to build that attribute.
+
+You can exclude attributes by putting them inside an attribute set without `recurseIntoAttrs`. This way, you can still use the attribute for other purposes, but it will not show up in CI. For example:
+
+[source,nix]
+----
+# default.nix
+let pkgs = import ./nix {};
+in {
+  inherit (pkgs) myProject;
+  shells = {
+    projectShell = pkgs.mkShell {
+      buildInputs = [ pkgs.nixops ];
+    };
+  };
+}
+----
+
+[source,nix]
+----
+# shell.nix
+(import ./default.nix).shells.projectShell
+----
+
+[source,bash]
+----
+$ nix-build
+/nix/store/...-hello-2.10
+$ nix-shell --run 'nixops --version'
+NixOps 1.6.1
+----
+
+== My attribute doesn't show up in the evaluation
+
+Is it in a nested attribute set? Make sure you call `pkgs.recurseIntoAttrs` on all levels of nested attrsets.
+
+Does `nix-build` build the attribute? If it doesn't, Hercules CI shouldn't build it either. Otherwise, please contact us.
+
+== How can I manually trigger a build?
+
+Manually triggering builds is supported at the derivation level. Commit statuses and evaluations can be triggered by pushing a branch. You may use a temporary branch just to trigger an evaluation and commit status update.
+
+== Where is the evaluation log?
+
+A log of the evaluation is not available yet. Normally this should not be needed, however, we do want to show the `builtins.trace` messages in the future.
+
+To troubleshoot unexpected technical failures of evaluation on the agent, you may inspect the agent log.
+
+== My derivation is taking long and there's no build log yet. What's going on?
+
+Derivation logs are currently only available after the derivation has succeeded or failed.
+
+You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.
