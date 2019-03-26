@@ -1,4 +1,4 @@
-/* Medium asciidoctor theme, modified */ 
+/* Medium asciidoctor theme, modified */
 @import "asciidoctor.css";
 
 body {
@@ -9,7 +9,6 @@ body {
   letter-spacing: -.003em;
   margin-top: 29px;
   margin: 0 auto;
-  padding-left: 5vw!important;
 }
 
 h1 {
