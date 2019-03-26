@@ -19,23 +19,10 @@ EARLY ACCESS PHASE
 
 [WARNING]
 ====
-This is preview software. We're gathering feedback to improve the service. It is not meant to be relied upon just yet.
+This is preview software. We're https://github.com/hercules-ci/support[gathering feedback] to improve the service. It is not meant to be relied upon just yet.
+
+Have a look at our https://github.com/hercules-ci/support/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap[roadmap] to know what (not) to expect.
 ====
-
-= Roadmap
-
- - Web interface rework (hercules-ci.com)
- - Cachix integration
- - Impure tasks (CD)
- - Multi-agent support (cluster)
- - requiredFeatures support
- - Non-linux architecture support
- - Remove source code permission from the GitHub App
-
-= Known issues
-
- - The identity token must be manually deleted when rekeying the agent token. https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
-  - Agent can only build for a single github account (user / organization)
 
 '''
 
@@ -65,8 +52,12 @@ Hercules CI will automatically pick up permissions from GitHub. Collaborators wi
 
 = Step 2. Agent Setup
 
-The agent authenticates itself to the Hercules CI Service by means of tokens.
+The agent adds itself to a cluster of agents by means of the agent join token.
 
+[WARNING]
+====
+This section is under development
+====
 
 ////
 // TODO multi-agent
