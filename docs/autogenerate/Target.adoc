@@ -1,4 +1,4 @@
-Choose between backends NixOps can deploy to:
+Choose between backends. NixOps can deploy to:
 
 * https://nixos.org/nixops/manual/#sec-deploying-to-physical-nixos[Any existing NixOS machine]
 * https://nixos.org/nixops/manual/#sec-deploying-to-ec2[Amazon EC2]
