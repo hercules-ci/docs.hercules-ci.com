@@ -98,7 +98,7 @@ Not available yet.
 include::network.example.nix[]
 ----
 2. Find the account you'd like to deploy the agent in the https://hercules-ci.com[dashboard]
-3. Click the "Agent" button and then"Generate token" tab
+3. Click the "Agent" button and then "Generate token" tab
    This produces a private token that should be protected like a password.
 4. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
 
