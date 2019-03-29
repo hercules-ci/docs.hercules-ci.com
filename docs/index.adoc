@@ -92,9 +92,9 @@ include::autogenerate/Target.adoc[]
 3.
 
 --
-a. Find the account you'd like to deploy the agent in the https://hercules-ci.com[dashboard],
+a. In the https://hercules-ci.com[dashboard], find the account for which you would like to deploy the agent,
 b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-c. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+c. Copy the token into a plain text file `agent-token.key` in the same directory. Protect this file like a password.
 --
 
 4.
@@ -109,7 +109,7 @@ TODO
 
 The agent can be run on any machine by installing the agent and invoking the `hercules-agent` command. We recommend running the agent on machines that remain connected to the internet.
 
-This method of running the agent is not officially supported yet: its interface may change in breaking ways.
+This method of running the agent is not officially supported yet: its interface may change in incompatible ways.
 
 // TODO is running on your laptop sufficient for some situations?
 
@@ -127,7 +127,7 @@ Make sure you've deployed an agent. If the agent didn't start, it should leave a
 
 Note that an agent can currently only be assigned to a single account. Assigning agents to multiple accounts is on the roadmap, but for now you will have to run multiple agents to build for multiple accounts.
 
-== Can I disable an attribute? I don't want to build that attribute.
+== Can I disable an attribute? I don't want to build it on CI.
 
 You can exclude attributes by putting them inside an attribute set without `recurseIntoAttrs`. This way, you can still use the attribute for other purposes, but it will not show up in CI. For example:
 
@@ -163,11 +163,11 @@ NixOps 1.6.1
 
 Is it in a nested attribute set? Make sure you call `pkgs.recurseIntoAttrs` on all levels of nested attrsets.
 
-Does `nix-build` build the attribute? If it doesn't, Hercules CI shouldn't build it either. Otherwise, please contact us.
+Does `nix-build` build the attribute with specifying `-A`? If it doesn't, Hercules CI shouldn't build it either. Otherwise, please contact us.
 
 == How can I manually trigger a build?
 
-Manually triggering builds is supported at the derivation level. Commit statuses and evaluations can be triggered by pushing a branch. You may use a temporary branch just to trigger an evaluation and commit status update.
+You can trigger a rebuild of a derivation in the web interface. Evaluations can be triggered by pushing a branch. You may use a temporary branch just to trigger an evaluation and commit status update.
 
 == Where is the evaluation log?
 
