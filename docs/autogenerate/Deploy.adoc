@@ -1,0 +1,10 @@
+Deploy using:
+
+[source,bash]
+----
+$ nix-shell -p nixops
+$ nixops create -d my-agent ./hercules-ci-agents.nix ./hercules-ci-agents-target.nix
+$ nixops deploy -d my-agent
+----
+
+The agent will start working as soon as the deployment has succeeded and builds are queued.

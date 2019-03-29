@@ -8,7 +8,6 @@ url:         "https://blog.hercules-ci.com"
 date_format: "%b %-d, %Y"
 header_pages:
  - index.adoc
- - setup.adoc
 
 # Google services
 google_verification:

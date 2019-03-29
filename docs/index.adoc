@@ -1,0 +1,182 @@
+:toc: macro
+
+Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
+
+ - hercules-ci.com
+ - github.com
+// TODO - cachix.org
+ - your agent machines
+
+This document describes the steps to set up the integration. The process should be self-explanatory, guided by the https://hercules-ci.com[hercules-ci.com] web application. If you find yourself stuck, or if you want to know the process in advance, this document is intended to provide reference.
+
+EARLY ACCESS PHASE
+------------------
+
+[WARNING]
+====
+This is preview software. We're https://github.com/hercules-ci/support[gathering feedback] to improve the service. It is not meant to be relied upon just yet.
+
+Have a look at our https://github.com/hercules-ci/support/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap[roadmap] to know what (not) to expect.
+====
+
+'''
+
+toc::[]
+
+= Step 1. GitHub Setup
+
+== Sign in
+
+ 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
+
+ 2. Hercules-ci.com will now show the application instead of the regular front page.
+
+== Install the GitHub app
+
+Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
+
+ 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com[dashboard].
+
+ 2. GitHub will give you a choice to install the application on all repositories,
+    which includes repositories to be created in the future, or to select specific
+    repositories. We recommend that you make a selection of repositories, assuming
+    not all your repositories have suitable Nix expressions. Follow the steps.
+
+ 3. Write a `default.nix` in the root of your repository.
++
+If `default.nix` is a function, it must define default arguments in order to be auto-callable. `NIX_PATH` will be empty.
++
+Hercules CI behaves similarly to `nix-build`. `default.nix` can provide multiple derivations by returning an attribute set. Nested attribute sets can be traversed by calling Nixpkgs' `pkgs.recurseIntoAttrs`.
+
+ 4. Test it locally by running the command
++
+[source,bash]
+----
+myrepo/$ NIX_PATH= nix-build --no-out-link
+----
+ 5. Commit and push, so Hercules CI will pick it up.
+
+== Collaborators
+
+Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
+
+
+= Step 2. Agent Setup
+
+The agent adds itself to a cluster of agents by means of the agent join token.
+
+
+////
+// TODO multi-agent
+[NOTE]
+====
+The agent token will be used by the agent to request a token that identifies the agent itself. A single agent token can therefore be used to deploy a cluster of agents.
+====
+//
+////
+
+[WARNING]
+====
+When updating the agent token on a previously deployed agent, you will need to remove the `identity.token` file and restart the agent in order to start using the new agent token.
+This file is stored in `~/.local/share/hercules-agent` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+====
+
+== Deploy with NixOps
+
+1.
+include::autogenerate/Bootstrap.adoc[]
+
+2.
+include::autogenerate/Target.adoc[]
+
+3.
+
+--
+a. In the https://hercules-ci.com[dashboard], find the account for which you would like to deploy the agent,
+b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+c. Copy the token into a plain text file `agent-token.key` in the same directory. Protect this file like a password.
+--
+
+4.
+include::autogenerate/Deploy.adoc[]
+
+////
+
+TODO
+
+== Run locally
+
+
+The agent can be run on any machine by installing the agent and invoking the `hercules-agent` command. We recommend running the agent on machines that remain connected to the internet.
+
+This method of running the agent is not officially supported yet: its interface may change in incompatible ways.
+
+// TODO is running on your laptop sufficient for some situations?
+
+////
+
+== Troubleshooting
+
+To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
+
+= FAQ / How To
+
+== My commit status is stuck in Pending - Waiting for agent
+
+Make sure you've deployed an agent. If the agent didn't start, it should leave a message in the system journal. To see the last 100 lines of the journal with NixOps, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100`
+
+Note that an agent can currently only be assigned to a single account. Assigning agents to multiple accounts is on the roadmap, but for now you will have to run multiple agents to build for multiple accounts.
+
+== Can I disable an attribute? I don't want to build it on CI.
+
+You can exclude attributes by putting them inside an attribute set without `recurseIntoAttrs`. This way, you can still use the attribute for other purposes, but it will not show up in CI. For example:
+
+[source,nix]
+----
+# default.nix
+let pkgs = import ./nix {};
+in {
+  inherit (pkgs) myProject;
+  shells = {
+    projectShell = pkgs.mkShell {
+      buildInputs = [ pkgs.nixops ];
+    };
+  };
+}
+----
+
+[source,nix]
+----
+# shell.nix
+(import ./default.nix).shells.projectShell
+----
+
+[source,bash]
+----
+$ nix-build
+/nix/store/...-hello-2.10
+$ nix-shell --run 'nixops --version'
+NixOps 1.6.1
+----
+
+== My attribute doesn't show up in the evaluation
+
+Is it in a nested attribute set? Make sure you call `pkgs.recurseIntoAttrs` on all levels of nested attrsets.
+
+Does `nix-build` build the attribute with specifying `-A`? If it doesn't, Hercules CI shouldn't build it either. Otherwise, please contact us.
+
+== How can I manually trigger a build?
+
+You can trigger a rebuild of a derivation in the web interface. Evaluations can be triggered by pushing a branch. You may use a temporary branch just to trigger an evaluation and commit status update.
+
+== Where is the evaluation log?
+
+A log of the evaluation is not available yet. Normally this should not be needed, however, we do want to show the `builtins.trace` messages in the future.
+
+To troubleshoot unexpected technical failures of evaluation on the agent, you may inspect the agent log.
+
+== My derivation is taking long and there's no build log yet. What's going on?
+
+Derivation logs are currently only available after the derivation has succeeded or failed.
+
+You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.

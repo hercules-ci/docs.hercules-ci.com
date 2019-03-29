@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   src = lib.cleanSource ./.;
 
   buildInputs = [
-    pkgs.nodePackages.parcel-bundler
+    pkgs.asciidoctor
     # (pkgs.jekyll.override { withOptionalDependencies = true; })
     # ruby    # bundle
     gems      # deps
