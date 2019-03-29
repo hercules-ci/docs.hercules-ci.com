@@ -7,7 +7,7 @@ baseurl:     ""
 url:         "https://blog.hercules-ci.com"
 date_format: "%b %-d, %Y"
 header_pages:
- - docs/index.adoc
+ - index.adoc
 
 # Google services
 google_verification:

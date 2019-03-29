@@ -1,3 +1,5 @@
+Deploy using:
+
 [source,bash]
 ----
 $ nix-shell -p nixops

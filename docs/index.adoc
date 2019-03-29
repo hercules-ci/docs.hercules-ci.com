@@ -1,8 +1,3 @@
----
-layout: page
-title: Hercules CI Manual
----
-
 :toc: macro
 
 Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
@@ -53,10 +48,12 @@ toc::[]
 
 Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
 
-// TODO frontend
- 1. Click the "Install hercules-ci application" button near the bottom of the https://hercules-ci.com[dashboard].
+ 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com[dashboard].
 
- 2. GitHub will give you a choice to install the application on all repositories, which includes repositories to be created in the future, or to select specific repositories. We recommend that you make a selection of repositories, assuming not all your repositories have suitable Nix expressions. Follow the steps.
+ 2. GitHub will give you a choice to install the application on all repositories,
+    which includes repositories to be created in the future, or to select specific
+    repositories. We recommend that you make a selection of repositories, assuming
+    not all your repositories have suitable Nix expressions. Follow the steps.
 
 == Collaborators
 
@@ -85,34 +82,25 @@ This file is stored in `~/.local/share/hercules-agent` by default. This will be 
 
 == Deploy with NixOps
 
-=== Stable
+1.
+include::autogenerate/Bootstrap.adoc[]
 
-Not available yet.
+2.
+include::autogenerate/Target.adoc[]
 
-=== Bleeding edge
+3.
 
-1. Save the example https://nixos.org/nixops/[NixOps] network as `network.nix` in a new directory:
-+
-[source,nix]
-----
-include::network.example.nix[]
-----
-2. Find the account you'd like to deploy the agent in the https://hercules-ci.com[dashboard]
-3. Click the "Agent" button and then "Generate token" tab
-   This produces a private token that should be protected like a password.
-4. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+--
+a. Find the account you'd like to deploy the agent in the https://hercules-ci.com[dashboard],
+b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+c. Copy the bare token and save it to a plain text file `agent-token.key` in the same directory. Protect the `agent-token.key` file like a password.
+--
 
-5. 
+4.
+include::autogenerate/Deploy.adoc[]
 
-6. To deploy the agent run the shell commands:
-+
-[source,bash]
-----
-$ nixops create -d my-agent ./network.nix ./network-physical.nix
-$ nixops deploy -d my-agent
-----
-+
-The agent will start working as soon as the deployment has succeeded and work is pending. See link:#add-a-repository[Add a repository].
+5.
+link:#add-a-repository[Add a repository].
 
 ////
 
