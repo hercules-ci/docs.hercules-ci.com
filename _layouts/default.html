@@ -17,20 +17,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}(document, 'script', 'facebook-jssdk'));</script>
 	{% endif %}
 
-  <div class="pusher">
-    {% include header.html %}
+  {% include header.html %}
 
-    <!--div class="toc ui vertical menu">
-     {% include navigation.html %}
-    </div-->
+  <!--div class="toc ui vertical menu">
+   {% include navigation.html %}
+  </div-->
 
-    <div>
-     <article>
-       {{ content }}
-     </article>
-    </div>
-    {% include footer.html %}
-  </div>
+  {{ content }}
 
+  {% include footer.html %}
 </body>
 </html>
