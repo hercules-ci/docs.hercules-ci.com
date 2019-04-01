@@ -7,6 +7,7 @@
     })(window,document,'script','dataLayer','{{ site.google_tag_manager }}');</script>
     {% endif %}
     <link href="{{ "/assets/theme.css" | prepend: site.baseurl}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% if page.title %}{{ page.title | strip_html }} &#8211; {% endif %}{{ site.title | strip_html }}</title>
@@ -27,10 +28,7 @@
     <link rel="stylesheet" href="{{ "/assets/frontend.c61c7dbe.css" | prepend: site.baseurl }}?{{ site.time | date: "%Y%m%d%H%M" }}" type="text/css">
 
 <style type="text/css">
-    /* TODO: override this in semantic ui instead */
-    body, .ui.menu {
-      font-family: 'Montserrat', sans-serif;
-    }
+    
 
     /* font awesome, fonts only */
     @font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:normal;font-display:auto;src:url(../webfonts/fa-brands-400.eot);src:url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.7.2/webfonts/fa-brands-400.svg#fontawesome) format("svg")}

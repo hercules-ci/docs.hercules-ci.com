@@ -1,19 +1,19 @@
 /* Medium asciidoctor theme, modified */
 @import "asciidoctor.css";
 
+/* TODO: override this in semantic ui instead */
+html, body /*, h1, h2, h3, h4, h5, h6 */ {
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif !important;
+}
+
 body {
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
-  font-weight: 400;
-  font-size: 21px!important;
-  line-height: 1.58;
-  letter-spacing: -.003em;
   margin-top: 29px;
   margin: 0 auto;
 }
 
 h1 {
   margin-top: 0;
-  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+  font-family:Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 36px;
@@ -29,7 +29,7 @@ h1 {
 
 h2, h3, h4, h5, h6 {
   margin-top: 39px;
-  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+  font-family:Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 300;
   font-style: normal;
   margin-left: -1.75px;
@@ -59,7 +59,7 @@ h6 {
 
 blockquote {
   margin-top: 55px;
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 400;
   font-style: italic;
   font-size: 28px;
@@ -79,7 +79,7 @@ blockquote:before {
 .byline {
   font-style: italic;
   font-weight: 700;
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif;
   font-size: 21px;
   line-height: 1.58;
   letter-spacing: -.003em;
@@ -87,7 +87,7 @@ blockquote:before {
 }
 
 .blurb {
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 400;
   font-size: 21px;
   line-height: 1.58;
@@ -101,7 +101,7 @@ hr {
   text-align: center;
 }
 hr:before {
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 400;
   font-style: italic;
   font-size: 28px;
@@ -128,11 +128,16 @@ a:hover {
 }
 p {
   font-size: inherit;
+  line-height: 1.5em !important;
+}
+code, kbd, pre, pre>code {
+  line-height: 1.5em !important;
+  font-family: 'Fira Mono', monospace;
 }
 
 .title {
   font-style: normal!important;
-  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif!important;
+  font-family:Lato,Helvetica Neue,Arial,Helvetica,sans-serif;
   font-weight: 300!important;
   font-size: 13px!important;
   line-height: 1.4!important;
