@@ -180,3 +180,7 @@ To troubleshoot unexpected technical failures of evaluation on the agent, you ma
 Derivation logs are currently only available after the derivation has succeeded or failed.
 
 You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.
+
+= Evaluation
+
+include::autogenerate/Evaluation.adoc[]
