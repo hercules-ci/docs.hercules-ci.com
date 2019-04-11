@@ -1,6 +1,6 @@
 A few things to keep in mind for the evaluation phase:
 
-. At the top-level of your repository, an agent will search for a Nix file to
+. At the top-level of your repository, the agent will search for a Nix file to
    evaluate in the following order: `nix/ci.nix`, `ci.nix` or `default.nix`
 // TODO: link to how pinning is done
 . `NIX_PATH` will be empty. Make sure you pin nixpkgs and not rely on `<nixpkgs>`
