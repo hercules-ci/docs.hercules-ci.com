@@ -1,10 +1,10 @@
 /* Medium asciidoctor theme, modified */
 @import "asciidoctor.css";
-
+html, body {
+  font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif !important;
+}
 body {
-  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
   font-weight: 400;
-  font-size: 21px!important;
   line-height: 1.58;
   letter-spacing: -.003em;
   margin-top: 29px;
