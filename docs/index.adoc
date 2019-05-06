@@ -27,7 +27,7 @@ toc::[]
 
 == Sign in
 
- 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com[hercules-ci.com] and follow the steps.
+ 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com/dashboard[hercules-ci.com] and follow the steps.
 
  2. Hercules-ci.com will now show the application instead of the regular front page.
 
@@ -35,7 +35,7 @@ toc::[]
 
 Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
 
- 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com[dashboard].
+ 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com/dashboard[dashboard].
 
  2. GitHub will give you a choice to install the application on all repositories,
     which includes repositories to be created in the future, or to select specific
@@ -92,7 +92,7 @@ include::autogenerate/Target.adoc[]
 3.
 
 --
-a. In the https://hercules-ci.com[dashboard], find the account for which you would like to deploy the agent,
+a. In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
 b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
 c. Copy the token into a plain text file `agent-token.key` in the same directory. Protect this file like a password.
 --
