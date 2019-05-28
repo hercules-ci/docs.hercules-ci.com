@@ -1,0 +1,17 @@
+On macOS run:
+
+[source,bash]
+----
+sh <(curl https://nixos.org/nix/install) --daemon
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+nix-build https://github.com/hercules-ci/nix-darwin/archive/hercules-ci-agent.tar.gz -A installer
+./result/bin/darwin-installer
+----
+
+When asked for editing the configuration.nix add:
+
+[source,nix]
+----
+services.hercules-ci-agent.enable = true;
+----
