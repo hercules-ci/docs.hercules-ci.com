@@ -1,4 +1,4 @@
-Save the token to agent-join-token.key somewhere on the machine and run:
+Save the token to a new file `agent-join-token.key` on the machine and run:
 
 [source,bash]
 ----
@@ -7,6 +7,7 @@ sudo install \
     -m 0600 \
     agent-join-token.key \
     /var/lib/hercules-ci-agent/agent-join-token.key
+rm agent-join-token.key
 ----
 
 Tail /var/log/hercules-ci-agent.log to see what is going on with your agent.
