@@ -9,9 +9,10 @@ nix-build https://github.com/hercules-ci/nix-darwin/archive/hercules-ci-agent.ta
 ./result/bin/darwin-installer
 ----
 
-When asked for editing the configuration.nix add:
+When asked for editing the `darwin-configuration.nix` add:
 
 [source,nix]
 ----
+services.nix-daemon.enable = true;
 services.hercules-ci-agent.enable = true;
 ----
