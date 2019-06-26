@@ -1,0 +1,63 @@
+= Agent configuration file
+
+The agent can be run with a configuration by invoking `hercules-ci-agent --config agent.toml`
+formatted using https://github.com/toml-lang/toml#toml[TOML] markup.
+
+When deploying with NixOS, NixOps or nix-darwin you don't need to specify the config file,
+but rather configure the service via Nix.
+
+A basic `agent.toml` looks as follows:
+
+agent.toml
+[source,toml]
+----
+baseDirectory = "/var/lib/hercules-ci-agent"
+concurrentTasks = 4
+----
+
+== baseDirectory
+
+Required.
+
+Directory with all the agent state: secrets, work, etc.
+
+== apiBaseUrl
+
+Optional. Defaults to https://hercules-ci.com.
+
+HTTP API agent will connect to.
+
+== clusterJoinTokenPath
+
+Optional. Defaults to ${baseDirectory}/cluster-join-token.key.
+
+Path to a secret token retrieved when creating a new agent via
+https://hercules-ci.com for HTTP API authentication.
+
+== concurrentTasks
+
+Optional. Defaults to 4.
+
+Number of workers to use for building/evaluating Nix derivations.
+
+== binaryCachesPath
+
+Optional. Defaults to ${baseDirectory}/binary-caches.json
+
+Path to a JSON file containing binary cache secret keys.
+
+Currently only supports http://cachix.org/[Cachix] binary caches.
+
+Example:
+
+binary-caches.json
+[source,json]
+----
+{ "my-private":
+    { "kind": "CachixCache",
+      "authToken": "eyJhaf23GH53a.bc23BUSI.9q3048hWHh"
+    , "publicKeys": ["my-private.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="]
+    , "signingKeys": ["XXX"]
+    }
+}
+----

@@ -1,3 +1,5 @@
+:sectlinks:
+:sectanchors:
 :toc: macro
 
 Hercules CI is a continuous integration service for Nix. In order to provide this service, it connects the following components:
@@ -119,6 +121,10 @@ This method of running the agent is not officially supported yet: its interface 
 
 To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
 
+
+include::agent-config.adoc[]
+
+
 = FAQ / How To
 
 == My commit status is stuck in Pending - Waiting for agent
@@ -158,7 +164,6 @@ $ nix-build
 $ nix-shell --run 'nixops --version'
 NixOps 1.6.1
 ----
-
 == My attribute doesn't show up in the evaluation
 
 Is it in a nested attribute set? Make sure you call `pkgs.recurseIntoAttrs` on all levels of nested attrsets.
