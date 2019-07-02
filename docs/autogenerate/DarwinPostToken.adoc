@@ -1,13 +1,13 @@
-Save the token to a new file `agent-join-token.key` on the machine and run:
+Save the token to a new file `cluster-join-token.key` on the machine and run:
 
 [source,bash]
 ----
 sudo install \
     -o hercules-ci-agent  \
     -m 0600 \
-    agent-join-token.key \
-    /var/lib/hercules-ci-agent/secrets/agent-join-token.key
-rm agent-join-token.key
+    cluster-join-token.key \
+    /var/lib/hercules-ci-agent/secrets/cluster-join-token.key
+rm cluster-join-token.key
 ----
 
 Tail /var/log/hercules-ci-agent.log to see what is going on with your agent.
