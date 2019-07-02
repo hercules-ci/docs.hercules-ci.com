@@ -65,22 +65,13 @@ Hercules CI will automatically pick up permissions from GitHub. Collaborators wi
 
 = Step 2. Agent Setup
 
-The agent adds itself to a cluster of agents by means of the agent join token.
+The agent adds itself to a cluster by means of a _cluster join token_. The same token may be used to add multiple agents.
 
-
-////
-// TODO multi-agent
-[NOTE]
-====
-The agent token will be used by the agent to request a token that identifies the agent itself. A single agent token can therefore be used to deploy a cluster of agents.
-====
-//
-////
 
 [WARNING]
 ====
-When updating the agent token on a previously deployed agent, you will need to remove the `identity.token` file and restart the agent in order to start using the new agent token.
-This file is stored in `~/.local/share/hercules-agent` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+When updating the agent token on a previously deployed agent, you will need to remove the `session.key` file and restart the agent in order to start using the new cluster join token.
+This file is stored in `/var/lib/hercules-ci-agent/session.key` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
 ====
 
 == Deploy with NixOps
