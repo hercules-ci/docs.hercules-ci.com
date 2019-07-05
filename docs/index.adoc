@@ -11,9 +11,6 @@ Hercules CI is a continuous integration service for Nix. In order to provide thi
 
 This document describes the steps to set up the integration. The process should be self-explanatory, guided by the https://hercules-ci.com[hercules-ci.com] web application. If you find yourself stuck, or if you want to know the process in advance, this document is intended to provide reference.
 
-EARLY ACCESS PHASE
-------------------
-
 [WARNING]
 ====
 This is preview software. We're https://github.com/hercules-ci/support[gathering feedback] to improve the service. It is not meant to be relied upon just yet.
@@ -25,96 +22,12 @@ Have a look at our https://github.com/hercules-ci/support/issues?q=is%3Aissue+is
 
 toc::[]
 
-= Step 1. GitHub Setup
 
-== Sign in
+= Setup Guide
 
- 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com/dashboard[hercules-ci.com] and follow the steps.
+include::setup.adoc[leveloffset=+1]
 
- 2. Hercules-ci.com will now show the application instead of the regular front page.
-
-== Install the GitHub app
-
-Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
-
- 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com/dashboard[dashboard].
-
- 2. GitHub will give you a choice to install the application on all repositories,
-    which includes repositories to be created in the future, or to select specific
-    repositories. We recommend that you make a selection of repositories, assuming
-    not all your repositories have suitable Nix expressions. Follow the steps.
-
- 3. Write a `default.nix` in the root of your repository.
-+
-If `default.nix` is a function, it must define default arguments in order to be auto-callable. `NIX_PATH` will be empty.
-+
-Hercules CI behaves similarly to `nix-build`. `default.nix` can provide multiple derivations by returning an attribute set. Nested attribute sets can be traversed by calling Nixpkgs' `pkgs.recurseIntoAttrs`.
-
- 4. Test it locally by running the command
-+
-[source,bash]
-----
-myrepo/$ NIX_PATH= nix-build --no-out-link
-----
- 5. Commit and push, so Hercules CI will pick it up.
-
-== Collaborators
-
-Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
-
-
-= Step 2. Agent Setup
-
-The agent adds itself to a cluster by means of a _cluster join token_. The same token may be used to add multiple agents.
-
-
-[WARNING]
-====
-When updating the agent token on a previously deployed agent, you will need to remove the `session.key` file and restart the agent in order to start using the new cluster join token.
-This file is stored in `/var/lib/hercules-ci-agent/session.key` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
-====
-
-== Deploy with NixOps
-
-1.
-include::autogenerate/Bootstrap.adoc[]
-
-2.
-include::autogenerate/Target.adoc[]
-
-3.
-
---
-a. In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-c. Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
---
-
-4.
-include::autogenerate/Deploy.adoc[]
-
-////
-
-TODO
-
-== Run locally
-
-
-The agent can be run on any machine by installing the agent and invoking the `hercules-agent` command. We recommend running the agent on machines that remain connected to the internet.
-
-This method of running the agent is not officially supported yet: its interface may change in incompatible ways.
-
-// TODO is running on your laptop sufficient for some situations?
-
-////
-
-== Troubleshooting
-
-To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
-
-
-include::agent-config.adoc[]
-
+'''
 
 = FAQ / How To
 
@@ -177,6 +90,12 @@ Derivation logs are currently only available after the derivation has succeeded 
 
 You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.
 
-= Evaluation
+'''
 
-include::autogenerate/Evaluation.adoc[]
+= Reference
+
+== Evaluation
+
+include::autogenerate/Evaluation.adoc[leveloffset=+1]
+
+include::agent-config.adoc[leveloffset=+1]

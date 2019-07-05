@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hercules CI Manual
+title: Hercules CI Documentation
 ---
 
 include::docs/index.adoc[]

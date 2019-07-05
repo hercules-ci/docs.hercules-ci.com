@@ -4,8 +4,9 @@ html, body {
   font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif !important;
 }
 
-#toc {
-  display: none;
+#toc ul {
+  /* work around otherwise broken css */
+  margin-left: 1.25em !important;
 }
 
 /* Responsiveness fixes */
@@ -24,4 +25,5 @@ table {
 
 pre {
   font-size: large;
+}
 }
