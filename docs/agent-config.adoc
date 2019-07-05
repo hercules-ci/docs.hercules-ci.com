@@ -12,8 +12,7 @@ A basic `agent.toml` looks as follows:
 agent.toml
 [source,toml]
 ----
-baseDirectory = "/var/lib/hercules-ci-agent"
-concurrentTasks = 4
+include::agent-small-example.toml[]
 ----
 
 == apiBaseUrl
