@@ -43,7 +43,7 @@ The agent adds itself to a cluster by means of a _cluster join token_. The same 
 [WARNING]
 ====
 When updating the agent token on a previously deployed agent, you will need to remove the `session.key` file and restart the agent in order to start using the new cluster join token.
-This file is stored in `/var/lib/hercules-ci-agent/session.key` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+This file is stored in `/var/lib/hercules-ci-agent/secretState/session.key` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
 ====
 
 Choose one of the deployment options:
@@ -70,6 +70,9 @@ Get a cluster join token.
 - Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
 --
 
+3.
+Write a link:#binarycachespath[binary caches file], `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
+
 4.
 include::autogenerate/Deploy.adoc[]
 
@@ -79,10 +82,13 @@ To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-c
 
 == Deploy manually with a configuration file
 
-If the other deployment methods do not suit your needs, you choose to run it
-manually.
+If the other deployment methods do not suit your needs, you may choose to run or deploy the agent manually.
 
 1.
+Send us an e-mail at support@hercules-ci.com. We can give advice and
+we are interested in expanding our officially supported deployment methods.
+
+2.
 Write an `agent.toml` file. Most of the entries are optional. A small example:
 
 [source,toml]
@@ -90,9 +96,9 @@ Write an `agent.toml` file. Most of the entries are optional. A small example:
 include::agent-small-example.toml[]
 ----
 
-This guide assumes the that link:#basedirectory[`baseDirectory`] is set to `/var/lib/hercules-ci-agent`.
+This guide assumes that the link:#basedirectory[`baseDirectory`] is set to `/var/lib/hercules-ci-agent`.
 
-2.
+3.
 Get a cluster join token.
 
 --
@@ -101,13 +107,13 @@ Get a cluster join token.
 - Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key`.
 --
 
-3.
-Write a link:#binarycachespath[binary caches file] to `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
-
 4.
+Write a link:#binarycachespath[binary caches file] and install it in `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
+
+5.
 Configure the system to use the caches and accept their public keys.
 When using a private cache, you will also need to install an appropriate netrc
 file in `/etc/nix/daemon-netrc`.
 
-5.
-Start the agent with the command `hercules-agent --config agent.toml`.
+6.
+Start the agent with the command `hercules-agent --config agent.toml`, preferably via some process supervision system.
