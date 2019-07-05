@@ -56,11 +56,12 @@ include::autogenerate/Bootstrap.adoc[]
 include::autogenerate/Target.adoc[]
 
 3.
+Get a cluster join token.
 
 --
-a. In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-b. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-c. Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
+- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
+- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+- Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
 --
 
 4.
