@@ -1,0 +1,38 @@
+If you're using more than one agent or would like to share
+resulting binaries outside the build farm you'll need a binary cache.
+
+On https://cachix.org[Cachix] you can create a binary cache and
+instruct the agent how to use it:
+
+binary-caches.json
+[source,json]
+----
+{ "my-private":
+    { "kind": "CachixCache",
+      "authToken": "eyJhaf23GH53a.bc23BUSI.9q3048hWHh"
+    , "publicKeys": ["my-private.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="]
+    , "signingKeys": ["XXX"]
+    }
+}
+----
+
+and specify `services.hercules-ci-agent.binaryCachesFile = ./binary-caches.json`
+in Nix configuration.
+
+On Darwin, you'll additionally need to manually install the file:
+
+[source,bash]
+----
+sudo install \
+    -o hercules-ci-agent  \
+    -m 0600 \
+    binary-caches.json \
+    /var/lib/hercules-ci-agent/secrets/binary-caches.json
+rm binary-caches.json
+----
+
+If the cache is public you should omit the `authToken` field.
+
+NOTE: We're working on https://cachix.org[Cachix] to be able to restrict `authToken`
+to only reading one private cache. https://github.com/cachix/feedback/issues/7[Subscribe to the issue to get notified]
+when the token should be replaced.
