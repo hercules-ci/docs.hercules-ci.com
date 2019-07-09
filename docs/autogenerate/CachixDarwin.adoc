@@ -1,0 +1,11 @@
+You'll need to manually install the file:
+
+[source,bash]
+----
+sudo install \
+    -o hercules-ci-agent  \
+    -m 0600 \
+    binary-caches.json \
+    /var/lib/hercules-ci-agent/secrets/binary-caches.json
+rm binary-caches.json
+----
