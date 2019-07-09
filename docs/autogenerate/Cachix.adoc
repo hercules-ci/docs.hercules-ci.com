@@ -7,7 +7,7 @@ signingKeys:: A cache-specific secret key to sign store paths. You can find it i
 publicKeys:: The public part of the signing key. Look for "Public Key" on http://<mycache>.cachix.org
 authToken:: Only needed for private binary caches, you'll get it in https://cachix.org/[Getting started instructions (step 3)]
 
-Agent binary cache configuration is done via https://docs.hercules-ci.com/#binarycachespath[binary-cache.json] file:
+Agent binary cache configuration is done via a https://docs.hercules-ci.com/#binarycachespath[binary-cache.json] file:
 
 [source,json]
 ----
