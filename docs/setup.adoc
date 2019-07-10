@@ -49,9 +49,11 @@ This file is stored in `/var/lib/hercules-ci-agent/secretState/session.key` by d
 Choose one of the deployment options:
 
 - link:#deploy-with-nixops[NixOps], for existing or provisioning NixOS machines
+- link:#deploy-with-nixos[NixOS], for existing NixOS machines or custom deployment tools
 // TODO: nix-darwin section and link
 - Nix-darwin, the recommended configuration management tool for Mac OS X
 - link:#deploy-manually-with-a-configuration-file[Manually], when the other deployment methods are not suitable
 
 include::setup-deploy-nixops.adoc[leveloffset=+1]
+include::setup-deploy-nixos.adoc[leveloffset=+1]
 include::setup-deploy-toml.adoc[leveloffset=+1]

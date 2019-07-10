@@ -1,0 +1,7 @@
+
+Create `/etc/nixos/hercules-ci-agent.nix`:
+
+[source,nix]
+----
+include::nixos-module.example.nix[]
+----

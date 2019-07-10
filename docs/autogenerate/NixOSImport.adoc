@@ -1,0 +1,6 @@
+Import the file into `/etc/nixos/configuration.nix`:
+
+[source,nix]
+----
+include::nixos-import.example.nix[]
+----
