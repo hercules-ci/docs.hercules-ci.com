@@ -1,0 +1,7 @@
+
+Add this configuration to `/etc/nixos/configuration.nix`:
+
+[source,nix]
+----
+include::nixos-module.example.nix[]
+----

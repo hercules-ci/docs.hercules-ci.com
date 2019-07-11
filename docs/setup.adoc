@@ -49,71 +49,11 @@ This file is stored in `/var/lib/hercules-ci-agent/secretState/session.key` by d
 Choose one of the deployment options:
 
 - link:#deploy-with-nixops[NixOps], for existing or provisioning NixOS machines
+- link:#deploy-with-nixos[NixOS], for existing NixOS machines or custom deployment tools
 // TODO: nix-darwin section and link
 - Nix-darwin, the recommended configuration management tool for Mac OS X
 - link:#deploy-manually-with-a-configuration-file[Manually], when the other deployment methods are not suitable
 
-== Deploy with NixOps
-
-1.
-include::autogenerate/Bootstrap.adoc[]
-
-2.
-include::autogenerate/Target.adoc[]
-
-3.
-Get a cluster join token.
-
---
-- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-- Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
---
-
-3.
-Write a link:#binarycachespath[binary caches file], `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
-
-4.
-include::autogenerate/Deploy.adoc[]
-
-=== Troubleshooting
-
-To inspect the agent's local log, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100` to see the last 100 lines.
-
-== Deploy manually with a configuration file
-
-If the other deployment methods do not suit your needs, you may choose to run or deploy the agent manually.
-
-1.
-Send us an e-mail at support@hercules-ci.com. We can give advice and
-we are interested in expanding our officially supported deployment methods.
-
-2.
-Write an `agent.toml` file. Most of the entries are optional. A small example:
-
-[source,toml]
-----
-include::agent-small-example.toml[]
-----
-
-This guide assumes that the link:#basedirectory[`baseDirectory`] is set to `/var/lib/hercules-ci-agent`.
-
-3.
-Get a cluster join token.
-
---
-- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-- Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key`.
---
-
-4.
-Write a link:#binarycachespath[binary caches file] and install it in `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
-
-5.
-Configure the system to use the caches and accept their public keys.
-When using a private cache, you will also need to install an appropriate netrc
-file in `/etc/nix/daemon-netrc`.
-
-6.
-Start the agent with the command `hercules-agent --config agent.toml`, preferably via some process supervision system.
+include::setup-deploy-nixops.adoc[leveloffset=+1]
+include::setup-deploy-nixos.adoc[leveloffset=+1]
+include::setup-deploy-toml.adoc[leveloffset=+1]
