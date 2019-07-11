@@ -11,9 +11,6 @@ deployment, you will use some project directory in place of `/etc/nixos`.
 include::autogenerate/NixOSBootstrap.adoc[]
 
 2.
-include::autogenerate/NixOSImport.adoc[]
-
-3.
 Get a cluster join token.
 
 --
@@ -22,28 +19,28 @@ Get a cluster join token.
 - Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key` on the target machine.
 --
 
-4.
+3.
 Write a link:#binarycachespath[binary caches file], `binary-caches.json`. Continue with an applicable section below.
 
 [discrete]
 == Local deployment
 
 If you're deploying to the local machine, move it to `/var/lib/hercules-ci-agent/secrets/binary-caches.json` and add
-this line to `/etc/nixos/hercules-ci-agent.nix`:
+this line to your `/etc/nixos/configuration.nix`:
 
 [source,nix]
 ----
 services.hercules-ci-agent.binaryCachesFile = /var/lib/hercules-ci-agent/secrets/binary-caches.json;
 ----
 
-Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read by `root` and `hercules-ci-agent`.
+Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read by `hercules-ci-agent`.
 
 [discrete]
 == Remote deployment
 
 If you're deploying to a remote machine, you need to store it in two locations. One for evaluation,
-next to your `hercules-ci-agent.nix` file and one for deployed agent to read. Add this line to your
-`hercules-ci-agent.nix` file:
+in the directory of your `configuration.nix` file and one for the deployed agent to read. Add this line to your
+ `configuration.nix`:
 
 [source,nix]
 ----
@@ -52,9 +49,11 @@ services.hercules-ci-agent.binaryCachesFile = ./binary-caches.json;
 
 Install the same file on the target machine as `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
 
+Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read `hercules-ci-agent`.
+
 [TIP]
 ====
-*If* your deployment solution lacks a method to store configuration files securely,
+*If* your deployment solution lacks a method to store configuration files confidentially,
 you may choose to maintain the `binary-caches.json` file separately in both locations.
 This allows you to censor the secrets like `{"signingKeys": [], "authToken": ""}` in the file
 used for evaluation only.
@@ -63,8 +62,8 @@ Make sure not to lose the signing keys and do deploy them to
 the target machine!
 ====
 
-5.
-Apply the configuration by running `nixos-rebuild switch` or similar.
+4.
+Apply the configuration by running `nixos-rebuild switch`.
 
 == Troubleshooting
 
