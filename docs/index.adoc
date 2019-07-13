@@ -90,6 +90,17 @@ Derivation logs are currently only available after the derivation has succeeded 
 
 You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.
 
+== What are the `nix-store --realise` processes about?
+
+The agent talks to Nix via `nix-store` to build derivations.
+Each of these processes is for building a single derivation, which may include
+fetching the closure of dependencies.
+
+== Some build logs appear in the agent log (journalctl etc) but not all of them?
+
+Only evaluation currently logs to the agent log. Evaluation may include some
+building if you use import from derivation.
+
 '''
 
 = Reference
