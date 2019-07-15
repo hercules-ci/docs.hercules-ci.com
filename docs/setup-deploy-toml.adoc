@@ -1,3 +1,4 @@
+[[deploy-with-manual-config-file]]
 = Deploy manually with a configuration file
 
 If the other deployment methods do not suit your needs, you may choose to run or deploy the agent manually.

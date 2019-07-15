@@ -109,4 +109,6 @@ building if you use import from derivation.
 
 include::autogenerate/Evaluation.adoc[leveloffset=+1]
 
+include::reference-binary-caches-json.adoc[leveloffset=+1]
+
 include::agent-config.adoc[leveloffset=+1]

@@ -33,28 +33,12 @@ Optional. Defaults to `_staticSecretsDirectory_/binary-caches.json` if that file
 
 Path to a JSON file containing binary cache secret keys.
 
-Currently only supports http://cachix.org/[Cachix] binary caches.
+The agent currently only supports https://cachix.org/[Cachix] binary caches.
 
 Note that binary cache configuration affects the whole system's Nix configuration.
+If you're deploying without using the Nix module system, refer to <<deploy-with-manual-config-file>>.
 
-Make sure that your system accepts the binary cache. We currently recommend
-to look at the
-https://github.com/hercules-ci/hercules-ci-agent/search?l=Nix&q=cache[sources]
-for details.
-
-Example:
-
-binary-caches.json
-[source,json]
-----
-{ "my-private":
-    { "kind": "CachixCache",
-      "authToken": "eyJhaf23GH53a.bc23BUSI.9q3048hWHh"
-    , "publicKeys": ["my-private.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="]
-    , "signingKeys": ["XXX"]
-    }
-}
-----
+To write the file, see <<binary-caches-json>>.
 
 == clusterJoinTokenPath
 
