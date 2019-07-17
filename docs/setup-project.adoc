@@ -1,0 +1,47 @@
+
+Hercules CI is configured "by convention" using `.nix` files in your repository.
+Follow these steps to ensure a correct setup.
+
+// TODO: If you haven't set up a project with Nix before, we recommend the <<tutorial>>
+
+1. Clone your repository
+
+2. Choose which Nix file to use for CI
++
+Reuse `/default.nix`::
+For simple projects that only need to build for a single architecture and a single set of dependencies.
+or create a `/ci.nix` or `/nix/ci.nix`::
+For projects that need to build for multiple architectures or versions, or where `default.nix` already
+has a special meaning that conflicts with the need for CI.
+
+3. Use pinned dependencies instead of `<nixpkgs>` or similar.
++
+Hercules CI uses an empty `NIX_PATH` to help with evaluation reprodicibility.
++
+The unofficial NixOS wiki has https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs[a basic method of pinning Nixpkgs].
++
+You can use an impure evaluation-time fetcher such as `builtins.fetchUrl`, although this typically makes your evaluation unreproducible.
+
+4. Test locally with `nix-instantiate`
++
+The behavior of `nix-instantiate` serves as a reference for evaluation in Hercules CI.
+You may use the following command to test locally:
++
+[source,bash]
+----
+NIX_PATH="" nix-instantiate nix/ci.nix | tee /dev/stderr | wc -l
+----
++
+WARNING: Due to import from derivation, seeing any output is not sufficient. Check that the last line of output is `1` or more. This is the number of derivations to build from traversing the Nix expression.
++
+Ensure that all derivations you need are in the output.
++
+Typically a derivation may be missing from the traversal when:
++
+ - in *a nested attribute set* without `pkgs.recurseIntoAttrs`. This wrapping must be performed at every attribute set; it is not recursive by nature.
+ - in *a list* instead of attribute set. Lists at the top-level are currently https://github.com/hercules-ci/hercules-ci-agent/issues/79[not supported]. We recommend against this use of lists, because they must be ignored when in an attribute set and because they are often less useful than attributes.
+ - in *a function in an attribute set*. Only the top-level expression will be "auto-called". Functions in attributes are ignored by `nix-instantiate`. This prevents the needless traversal of library functions.
+
+5. Commit and push
+
+6. Check the attributes via the GitHub commit status or log in to https://hercules-ci.com/dashboard.

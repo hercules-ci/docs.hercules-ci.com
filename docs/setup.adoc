@@ -57,3 +57,7 @@ Choose one of the deployment options:
 include::setup-deploy-nixops.adoc[leveloffset=+1]
 include::setup-deploy-nixos.adoc[leveloffset=+1]
 include::setup-deploy-toml.adoc[leveloffset=+1]
+
+= Step 3. Set up a project
+
+include::setup-project.adoc[leveloffset=+1]
