@@ -15,31 +15,34 @@ agent.toml
 include::agent-small-example.toml[]
 ----
 
+NOTE: To get started with a manual deployment, see the Guide: <<deploy-with-manual-config-file>>.
+
+[[apiBaseUrl]]
 == apiBaseUrl
 
 Optional. Defaults to `https://hercules-ci.com`.
 
 HTTP API agent will connect to.
 
+[[baseDirectory]]
 == baseDirectory
 
 Required.
 
 Directory with all the agent state: secrets, work, etc.
 
+[[binaryCachesPath]]
 == binaryCachesPath
 
 Optional. Defaults to `_staticSecretsDirectory_/binary-caches.json` if that file exists.
 
 Path to a JSON file containing binary cache secret keys.
 
-The agent currently only supports https://cachix.org/[Cachix] binary caches.
+The contents of the file are described in <<binary-caches-json>>.
 
 Note that binary cache configuration affects the whole system's Nix configuration.
-If you're deploying without using the Nix module system, refer to <<deploy-with-manual-config-file>>.
 
-To write the file, see <<binary-caches-json>>.
-
+[[clusterJoinTokenPath]]
 == clusterJoinTokenPath
 
 Optional. Defaults to `_staticSecretsDirectory_/cluster-join-token.key`.
@@ -49,6 +52,7 @@ https://hercules-ci.com/dashboard.
 
 This token is used for authenticating to `_apiBaseUrl_`.
 
+[[concurrentTasks]]
 == concurrentTasks
 
 Optional. Defaults to 4.
@@ -58,6 +62,7 @@ Combined number of workers to use for building and evaluating Nix derivations.
 The optimal value depends on the resource consumption characteristics of your workload,
 including memory usage and in-task parallelism. This is typically determined empirically.
 
+[[staticSecretsDirectory]]
 == staticSecretsDirectory
 
 Optional. Defaults to `_baseDirectory_/secrets`.
@@ -65,6 +70,7 @@ Optional. Defaults to `_baseDirectory_/secrets`.
 This is the default directory to look for statically configured secrets like
 clusterJoinTokenPath.
 
+[[workDirectory]]
 == workDirectory
 
 Optional. Defaults to `_baseDirectory_/work`.

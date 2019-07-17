@@ -8,14 +8,14 @@ A `binary-caches.json` with a single pushable cache looks like:
 [[binary-caches-json-cachix-example]]
 [source,json,reftext="the example"]
 ----
-{ "my-private": <1>
+{ "mycache": <1>
     { "kind": "CachixCache" <2>
     , "publicKeys": ... <3>
     , ...
     }
 }
 ----
-<1> The name of the (Cachix) cache.
+<1> The name of the (Cachix) cache; for example the `mycache` part from `mycache.cachix.org`.
 <2> A `kind` field to distinguish between cache types.
 <3> Further details about the cache.
 
@@ -28,14 +28,16 @@ directly as the Cachix cache name.
 
 [source,json]
 ----
-{ "my-private": ...
+{ "mycache": ...
 , "some-other-cache": ...
 }
 ----
 
 == `CachixCache`
 
-The name for a cache is taken from the key in the top-level dictionary, such as `my-private` in <<binary-caches-json-cachix-example>>.
+This is currently the only supported cache kind.
+
+The name for a cache is taken from the key in the top-level dictionary, such as `mycache` in <<binary-caches-json-cachix-example>>.
 
 The details of a cachix cache can be specified with the following fields:
 
@@ -63,7 +65,7 @@ These are required to verify the integrity of cached store paths and to accept t
 +
 You may look up the public keys by going to `https://<cache-name>.cachix.org`.
 +
-A public key looks like `my-private.cachix.org-1:WsUIffActpYsfyxIZrfm6OXRHdNHkHk+X/lUsDTGtJS=`
+A public key looks like `mycache.cachix.org-1:WsUIffActpYsfyxIZrfm6OXRHdNHkHk+X/lUsDTGtJS=`
 
 [[CachixCache-signingKeys]]
 `signingKeys`::

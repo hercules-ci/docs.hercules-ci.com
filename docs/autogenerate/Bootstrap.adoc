@@ -1,5 +1,6 @@
 Create a folder called mycompany-agents with a file:
 
+.network.nix
 [source,nix]
 ----
 include::network.example.nix[]

@@ -1,4 +1,4 @@
-You'll need to manually install the file:
+Copy `binary-caches.json` to the target machine and install it by running:
 
 [source,bash]
 ----

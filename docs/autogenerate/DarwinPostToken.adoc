@@ -1,4 +1,4 @@
-Save the token to a new file `cluster-join-token.key` on the machine and run:
+Save the token to a new file `cluster-join-token.key` on the target machine and run:
 
 [source,bash]
 ----
