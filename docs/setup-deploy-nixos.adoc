@@ -20,7 +20,11 @@ Get a cluster join token.
 --
 
 3.
-Write a link:#binarycachespath[binary caches file], `binary-caches.json`. Continue with an applicable section below.
+Write a new file, `binary-caches.json`.
+
+include::autogenerate/BinaryCachesJson.adoc[]
+
+Continue with an applicable section below.
 
 [discrete]
 == Local deployment

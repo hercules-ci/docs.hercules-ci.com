@@ -8,6 +8,8 @@ Choose between backends. NixOps can deploy to:
 * https://nixos.org/nixops/manual/#sec-deploying-to-digital-ocean[Digital Ocean]
 
 An example physical specification:
+
+.hercules-ci-agents-target.nix
 [source,nix]
 ----
 include::network-nixos.example.nix[]

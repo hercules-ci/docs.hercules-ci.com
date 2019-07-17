@@ -15,10 +15,12 @@ Get a cluster join token.
 - Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
 --
 
-3.
-Write a link:#binarycachespath[binary caches file], `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
-
 4.
+Write a file `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
+
+include::autogenerate/BinaryCachesJson.adoc[]
+
+5.
 include::autogenerate/Deploy.adoc[]
 
 == Troubleshooting

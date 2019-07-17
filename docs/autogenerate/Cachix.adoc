@@ -1,24 +1,4 @@
-If you're using more than one agent or would like to share
-resulting binaries outside the build farm you'll need a binary cache.
-
-On https://cachix.org[Cachix] you can create a binary cache. Once you complete the process you'll have the following keys:
-
-signingKeys:: A cache-specific secret key to sign store paths. You can find it in `~/.config/cachix/cachix.dhall` or your key backup after following the setup instructions on cachix.org.
-publicKeys:: The public part of the signing key. Look for "Public Key" on http://<mycache>.cachix.org
-authToken:: Only needed for private binary caches, you'll get it in https://cachix.org/[Getting started instructions (step 3)]
-
-Agent binary cache configuration is done via a https://docs.hercules-ci.com/#binarycachespath[binary-cache.json] file:
-
-[source,json]
-----
-{ "mycache":
-    { "kind": "CachixCache"
-    , "publicKeys": ["mycache.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="]
-    , "signingKeys": ["XXX"]
-    , "authToken": "eyJhaf23GH53a.bc23BUSI.9q3048hWHh"
-    }
-}
-----
+include::BinaryCachesJson.adoc[]
 
 To specify `binary-caches.json` via Nix:
 

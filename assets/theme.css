@@ -4,6 +4,13 @@ html, body {
   font-family:"Fira Sans",Helvetica Neue,Arial,Helvetica,sans-serif !important;
 }
 
+/* Unselectable callouts */
+b.conum {
+user-select: none;
+-moz-user-select: none;
+-khtml-user-select: none;
+}
+
 #toc ul {
   /* work around otherwise broken css */
   margin-left: 1.25em !important;
