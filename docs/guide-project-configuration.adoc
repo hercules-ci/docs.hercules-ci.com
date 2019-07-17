@@ -2,7 +2,7 @@
 Hercules CI is configured "by convention" using `.nix` files in your repository.
 Follow these steps to ensure a correct setup.
 
-// TODO: If you haven't set up a project with Nix before, we recommend the <<tutorial>>
+// TODO: split this into an actual troubleshooting document and an advanced project setup tutorial
 
 1. Clone your repository
 
@@ -41,7 +41,8 @@ Typically a derivation may be missing from the traversal when:
  - in *a nested attribute set* without `pkgs.recurseIntoAttrs`. This wrapping must be performed at every attribute set; it is not recursive by nature.
  - in *a list* instead of attribute set. Lists at the top-level are currently https://github.com/hercules-ci/hercules-ci-agent/issues/79[not supported]. We recommend against this use of lists, because they must be ignored when in an attribute set and because they are often less useful than attributes.
  - in *a function in an attribute set*. Only the top-level expression will be "auto-called". Functions in attributes are ignored by `nix-instantiate`. This prevents the needless traversal of library functions.
+ - in `default.nix` while `ci.nix` or `nix/ci.nix` is also present, overriding `default.nix`.
 
 5. Commit and push
 
-6. Check the attributes via the GitHub commit status or log in to https://hercules-ci.com/dashboard.
+6. Check the attributes via the GitHub commit status or the https://hercules-ci.com/dashboard[dashboard].

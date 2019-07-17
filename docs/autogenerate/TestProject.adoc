@@ -1,0 +1,39 @@
+
+The goal of this step is to make sure everything is set up correctly.
+
+1. Create a new repository `hercules-ci-test` in the GitHub account you have configured.
+
+2. If you have installed the Hercules CI GitHub App on selected repositories, add the new repository with the "Add GitHub repositories, organizations" button in the https://hercules-ci.com/dashboard[dashboard^].
+
+3. Clone the repository and copy this `ci.nix` to the root of the repository. Adapt the attribute set of platforms near the bottom. You can find the agent platforms in the Agents tab in the https://hercules-ci.com/dashboard[dashboard^].
++
+.ci.nix
+[source,nix]
+----
+include::dummy.nix[]
+----
+
+4. Add `ci.nix`, commit it and push to GitHub.
++
+// TODO: make the agent troubleshooting parts hidden and (+)expandable?
++
+5. Browse to the project in the https://hercules-ci.com/dashboard[dashboard^] or click the Details link in the GitHub commit status.
++
+If nothing happened, make sure your repository is installed via the "Add GitHub repositories, organizations" button in the https://hercules-ci.com/dashboard[dashboard^] and push a new commit to trigger Hercules CI.
+
+6. Check that the build succeeds.
++
+Evaluation is https://github.com/hercules-ci/support/issues/24[currently^] only performed on `x86_64-linux` agents. Inspect the agent log if necessary with `journalctl -u hercules-ci-agent`.
++
+Build logs are available in the dashboard when done. However some configuration-related errors are reported to `journalctl`, or on macOS: `/var/log/hercules-ci-agent.log`.
++
+Contact us at support@hercules-ci.com for any questions or feedback.
+
+7. When done, delete the `hercules-ci-test` repository.
+
+This concludes the Setup Guide. To learn more, see
+
+// TODO: Tutorial: Build a Project with Nix
+// TODO: Tutorial: Make a Project Multi-Platform
+
+ - The <<#project-setup-and-troubleshooting,Project Setup and Troubleshooting Guide>> 

@@ -29,6 +29,13 @@ include::setup.adoc[leveloffset=+1]
 
 '''
 
+[[project-setup-and-troubleshooting]]
+= Project Configuration and Troubleshooting Guide
+
+include::guide-project-configuration.adoc[leveloffset=+1]
+
+'''
+
 = FAQ / How To
 
 == My commit status is stuck in Pending - Waiting for agent
