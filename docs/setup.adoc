@@ -44,6 +44,6 @@ include::setup-deploy-nixops.adoc[leveloffset=+1]
 include::setup-deploy-nixos.adoc[leveloffset=+1]
 include::setup-deploy-toml.adoc[leveloffset=+1]
 
-= Step 3. Test with a project
+= Step 3. Build a Project
 
 include::autogenerate/TestProject.adoc[leveloffset=+1]
