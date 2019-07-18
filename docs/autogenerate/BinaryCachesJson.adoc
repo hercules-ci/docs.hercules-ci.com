@@ -1,7 +1,7 @@
 If you're using more than one agent or would like to share
 resulting binaries outside the build farm you'll need a binary cache.
 
-On https://cachix.org[Cachix] you can create a binary cache. Once you complete the process, gather the keys into a `binary-caches.json` file, replacing all placeholders:
+On https://cachix.org[Cachix] you can create a binary cache. After you complete the process, gather the keys into a `binary-caches.json` file, replacing all placeholders:
 
 .binary-caches.json
 [source,json]
