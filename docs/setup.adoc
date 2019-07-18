@@ -1,49 +1,35 @@
-= Step 1. GitHub Setup
 
-== Sign in
+The setup can be performed by following the steps on https://hercules-ci.com[hercules-ci.com]
+instead.
 
- 1. Click the GitHub "Sign in" button on the top right of https://hercules-ci.com/dashboard[hercules-ci.com] and follow the steps.
+You may either follow this guide step by step, or use parts of it as reference for the setup process.
 
- 2. Hercules-ci.com will now show the application instead of the regular front page.
+= Step 1. GitHub
 
-== Install the GitHub app
+ 1. Click btn:[Sign in] on the top right of https://hercules-ci.com/dashboard[hercules-ci.com] and follow the steps.
 
-Having signed in, you are ready to add Hercules CI to your GitHub user account or to a GitHub organization account.
+ 2. Click btn:[Add GitHub repositories, organizations] near the top of the https://hercules-ci.com/dashboard[dashboard].
 
- 1. Click the "Connect GitHub repositories" button near the top of the https://hercules-ci.com/dashboard[dashboard].
-
- 2. GitHub will give you a choice to install the application on all repositories,
+ 3. GitHub will give you a choice to install the application on all repositories,
     which includes repositories to be created in the future, or to select specific
     repositories. We recommend that you make a selection of repositories, assuming
     not all your repositories have suitable Nix expressions. Follow the steps.
 
- 3. Write a `default.nix` in the root of your repository.
-+
-If `default.nix` is a function, it must define default arguments in order to be auto-callable. `NIX_PATH` will be empty.
-+
-Hercules CI behaves similarly to `nix-build`. `default.nix` can provide multiple derivations by returning an attribute set. Nested attribute sets can be traversed by calling Nixpkgs' `pkgs.recurseIntoAttrs`.
-
- 4. Test it locally by running the command
-+
-[source,bash]
-----
-myrepo/$ NIX_PATH= nix-build --no-out-link
-----
- 5. Commit and push, so Hercules CI will pick it up.
-
-== Collaborators
-
-Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
+NOTE: Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
 
 
 = Step 2. Agent Setup
 
-The agent adds itself to a cluster by means of a _cluster join token_. The same token may be used to add multiple agents.
+To start building, you need to deploy an agent first.
+
+The agent adds itself to a cluster by means of a _cluster join token_.
+This token corresponds to a GitHub user or organization.
+The same token may be used to add multiple agents.
 
 [WARNING]
 ====
-When updating the agent token on a previously deployed agent, you will need to remove the `session.key` file and restart the agent in order to start using the new cluster join token.
-This file is stored in `/var/lib/hercules-ci-agent/secretState/session.key` by default. This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+When updating the cluster join token on a previously deployed agent, remove the `/var/lib/hercules-ci-agent/secretState/session.key` file and restart the agent.
+This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
 ====
 
 Choose one of the deployment options:
@@ -51,7 +37,7 @@ Choose one of the deployment options:
 - link:#deploy-with-nixops[NixOps], for existing or provisioning NixOS machines
 - link:#deploy-with-nixos[NixOS], for existing NixOS machines or custom deployment tools
 // TODO: nix-darwin section and link
-- Nix-darwin, the recommended configuration management tool for Mac OS X
+- Nix-darwin, the recommended configuration management tool for Mac OS X (follow the instructions in the dashboard)
 - link:#deploy-manually-with-a-configuration-file[Manually], when the other deployment methods are not suitable
 
 include::setup-deploy-nixops.adoc[leveloffset=+1]

@@ -36,4 +36,4 @@ This concludes the Setup Guide. To learn more, see
 // TODO: Tutorial: Build a Project with Nix
 // TODO: Tutorial: Make a Project Multi-Platform
 
- - The <<#project-setup-and-troubleshooting,Project Setup and Troubleshooting Guide>> 
+ - The <<#project-configuration,Project Configuration Guide>> 
