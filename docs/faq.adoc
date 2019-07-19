@@ -105,6 +105,15 @@ A log of the evaluation is not available yet. Normally this should not be needed
 To troubleshoot unexpected technical failures of evaluation on the agent, you may inspect the agent log.
 
 
+== Why is my derivation status `Failure`, while the build log looks successful?
+
+Currently some "technical" errors are not reported all the way to the dashboard.
+Usually these errors are due to a small mistake in the agent configuration.
+
+We are addressing these issues. In the meanwhile, check the log on your agents:
+`journalctl -u hercules-ci-agent`, macOS: `/var/log/hercules-ci-agent.log`.
+
+
 == Why do some build logs appear in the agent log (journalctl etc) but not all of them?
 
 Only evaluation currently logs to the agent log. Evaluation may include some
