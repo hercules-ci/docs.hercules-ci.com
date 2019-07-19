@@ -107,7 +107,7 @@ To troubleshoot unexpected technical failures of evaluation on the agent, you ma
 
 == Why is my derivation status `Failure`, while the build log looks successful?
 
-Currently some "technical" errors are not reported all the way to the dashboard.
+Currently some technical errors and configuration errors are not reported all the way to the dashboard.
 Usually these errors are due to a small mistake in the agent configuration.
 
 We are addressing these issues. In the meanwhile, check the log on your agents:
