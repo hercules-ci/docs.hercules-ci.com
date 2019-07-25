@@ -1,15 +1,11 @@
-Based on [pixyll.com](http://www.pixyll.com) and Semantic UI.
+Official Hercules CI Documentation site source.
 
-It is configured to be auto-deployed via netlify.
+https://docs.hercules-ci.com/
 
 
 # Install and build (non-authoritative)
 
-    $ nix-build
-
-# Development (non-authoritative)
-
-    $ nix-shell --run "jekyll serve"
+    ./build
 
 # Style Guide
 

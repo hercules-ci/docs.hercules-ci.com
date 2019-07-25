@@ -1,0 +1,5 @@
+= Deploy with nix-darwin for macOS
+
+include::partial$autogenerate/Darwin.adoc[]
+
+include::partial$autogenerate/DarwinPostToken.adoc[]

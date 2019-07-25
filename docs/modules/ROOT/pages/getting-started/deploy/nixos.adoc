@@ -1,0 +1,74 @@
+= Deploy with NixOS
+
+NixOS deployment can be performed on the target machine itself or remotely
+by means of `nixos-rebuild --target-host`.
+
+These instructions will use `/etc/nixos` as the location for the configuration
+modules. This directory is only used at evaluation time. If you perform remote
+deployment, you will use some project directory in place of `/etc/nixos`.
+
+1.
+include::partial$autogenerate/NixOSBootstrap.adoc[]
+
+2.
+Get a cluster join token.
+
+--
+- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
+- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+- Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key` on the target machine.
+--
+
+3.
+Write a new file, `binary-caches.json`.
+
+include::partial$autogenerate/BinaryCachesJson.adoc[]
+
+Continue with an applicable section below.
+
+[discrete]
+== Local deployment
+
+If you're deploying to the local machine, move it to `/var/lib/hercules-ci-agent/secrets/binary-caches.json` and add
+this line to your `/etc/nixos/configuration.nix`:
+
+[source,nix]
+----
+services.hercules-ci-agent.binaryCachesFile = /var/lib/hercules-ci-agent/secrets/binary-caches.json;
+----
+
+Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read by `hercules-ci-agent`.
+
+[discrete]
+== Remote deployment
+
+If you're deploying to a remote machine, you need to store it in two locations. One for evaluation,
+in the directory of your `configuration.nix` file and one for the deployed agent to read. Add this line to your
+ `configuration.nix`:
+
+[source,nix]
+----
+services.hercules-ci-agent.binaryCachesFile = ./binary-caches.json;
+----
+
+Install the same file on the target machine as `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
+
+Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read `hercules-ci-agent`.
+
+[TIP]
+====
+*If* your deployment solution lacks a method to store configuration files confidentially,
+you may choose to maintain the `binary-caches.json` file separately in both locations.
+This allows you to censor the secrets like `{"signingKeys": [], "authToken": ""}` in the file
+used for evaluation only.
+
+Make sure not to lose the signing keys and do deploy them to
+the target machine!
+====
+
+4.
+Apply the configuration by running `nixos-rebuild switch`.
+
+== Troubleshooting
+
+To inspect the agent's local log, run `journalctl -u hercules-ci-agent -n 100` on the target machine to see the last 100 lines.

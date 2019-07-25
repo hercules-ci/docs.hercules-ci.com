@@ -1,0 +1,21 @@
+site:
+  title: Hercules CI Documentation
+  url: https://docs.hercules-ci.com
+content:
+  sources:
+  - url: .
+    start_path: docs
+    branches: HEAD
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./ui
+asciidoc:
+  attributes:
+    experimental: ''
+    sectlinks: ''
+    sectanchors: ''
+    hide-uri-scheme: ''
+output:
+  dir: ./public

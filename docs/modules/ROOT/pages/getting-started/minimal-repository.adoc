@@ -1,0 +1,1 @@
+include::partial$autogenerate/TestProject.adoc[]
