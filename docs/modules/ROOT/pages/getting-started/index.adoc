@@ -48,8 +48,4 @@ Choose one of the deployment options:
 [[repository-setup]]
 == Step 3. Repository Setup
 
-The goal of this step is to make sure everything is set up correctly.
-
-3a. xref:getting-started/repository.adoc[If you are familiar with Nix, set up your own git repository]
-
-3b. xref:getting-started/minimal-repository.adoc[Want to verify your agent setup with a minimal git repository]
+include::autogenerate:RepositorySetup.adoc[]
