@@ -1,4 +1,4 @@
-= Welcome to Hercules CI documentation
+= Welcome to the Hercules CI documentation
 
 [NOTE]
 ====
