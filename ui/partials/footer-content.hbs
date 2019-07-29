@@ -1,6 +1,14 @@
 <footer class="footer">
   <p>Copyright (C) 2019 Hercules Labs</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
+  // expand all navigation items
   document.querySelectorAll('.nav-item').forEach(function (item) { item.classList.add('is-active') });
+
+  docsearch({
+    apiKey: '6db1d0c2900f3c294e29baf1a65502ab',
+    indexName: 'hercules-ci',
+    inputSelector: '#algolia-search'
+  });
 </script>
