@@ -19,12 +19,3 @@ Evaluation is https://github.com/hercules-ci/support/issues/24[currently^] only 
 Build logs are available in the dashboard when done. However some configuration-related errors are reported to `journalctl`, or on macOS: `/var/log/hercules-ci-agent.log`.
 +
 Contact us at support@hercules-ci.com for any questions or feedback.
-
-'''
-
-This concludes the Setup Guide. To learn more, see
-
-// TODO: Tutorial: Build a Project with Nix
-// TODO: Tutorial: Make a Project Multi-Platform
-
- - The <<#project-configuration,Project Configuration Guide>>

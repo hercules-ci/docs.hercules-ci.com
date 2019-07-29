@@ -14,7 +14,7 @@ A basic `agent.toml` looks as follows:
 include::reference:partial$agent-small-example.toml[]
 ----
 
-NOTE: To get started with a manual deployment, see the Guide: <<deploy-with-manual-config-file>>.
+NOTE: To get started with a manual deployment read xref:ROOT:getting-started/deploy/manual.adoc[this Guide].
 
 [[apiBaseUrl]]
 == apiBaseUrl
@@ -37,7 +37,7 @@ Optional. Defaults to `_staticSecretsDirectory_/binary-caches.json` if that file
 
 Path to a JSON file containing binary cache secret keys.
 
-The contents of the file are described in <<binary-caches-json>>.
+The contents of the file are described in xref:binary-caches-json.adoc[binary-caches.json].
 
 Note that binary cache configuration affects the whole system's Nix configuration.
 

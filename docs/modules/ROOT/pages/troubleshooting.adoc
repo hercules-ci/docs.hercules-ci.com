@@ -71,7 +71,7 @@ The agent is designed to produce the same output as `nix-build`/`nix-instantiate
 Hercules CI currently requires that projects pin their dependencies.
 The Nix search path, also known as `<...>` syntax, `NIX_PATH` and `-I`, is empty.
 
-See <<pin,Pinning in the Project Configuration Guide>>.
+See xref:getting-started/repository.adoc#pin[Pinning in the Repository Setup Guide].
 
 
 == How can I manually trigger a build?

@@ -4,6 +4,6 @@
   "devDependencies": {
     "@antora/cli": "2.0.0",
     "@antora/site-generator-default": "2.0.0",
-    "@antora/xref-validator": "git+https://gitlab.com/antora/xref-validator#v1.0.0-alpha.1"
+    "@antora/xref-validator": "git+https://gitlab.com/antora/xref-validator#v1.0.0-alpha.2"
   }
 }
