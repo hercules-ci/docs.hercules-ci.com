@@ -1,15 +1,11 @@
-Based on [pixyll.com](http://www.pixyll.com) and Semantic UI.
+Official Hercules CI Documentation site source.
 
-It is configured to be auto-deployed via netlify.
+https://docs.hercules-ci.com/
 
 
 # Install and build (non-authoritative)
 
-    $ nix-build
-
-# Development (non-authoritative)
-
-    $ nix-shell --run "jekyll serve"
+    ./build
 
 # Style Guide
 
@@ -31,7 +27,7 @@ It is configured to be auto-deployed via netlify.
    = Understanding `baseDirectory`
    ```
 
- - When editing files from the frontend wizards in `autogenerate`, use links
+ - When editing files from the frontend wizards in `snippets`, use links
    that open in a new window (`^`) e.g. `https://hercules-ci.com/dashboard[dashboard^]`.
 
    The wizards are currently stateful and we don't want to lose their state by navigating.

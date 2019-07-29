@@ -1,0 +1,51 @@
+= Getting Started
+
+The setup can be performed by following the steps on https://hercules-ci.com[hercules-ci.com]
+instead.
+
+You may either follow this guide step by step, or use parts of it as reference for the setup process.
+
+[[github]]
+== Step 1. GitHub
+
+ 1. Click btn:[Sign in] on the top right of https://hercules-ci.com/dashboard[hercules-ci.com] and follow the steps.
+
+ 2. Click btn:[Add GitHub repositories, organizations] near the top of the https://hercules-ci.com/dashboard[dashboard].
+
+ 3. GitHub will give you a choice to install the application on all repositories,
+    which includes repositories to be created in the future, or to select specific
+    repositories. We recommend that you make a selection of repositories, assuming
+    not all your repositories have suitable Nix expressions. Follow the steps.
+
+NOTE: Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
+
+[[agent-deploy]]
+== Step 2. Agent Deploy
+
+To start building you need to deploy an agent first.
+
+The agent adds itself to a cluster by means of a _cluster join token_.
+This token corresponds to a GitHub user or organization.
+The same token may be used to add multiple agents.
+
+[WARNING]
+====
+When updating the cluster join token on a previously deployed agent, remove the `/var/lib/hercules-ci-agent/secretState/session.key` file and restart the agent.
+This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+====
+
+Choose one of the deployment options:
+
+2a. xref:getting-started/deploy/nixops.adoc[NixOps, for provisioning NixOS machines]
+
+2b. xref:getting-started/deploy/nixos.adoc[NixOS, for existing machines or custom deployment tools]
+
+2c. xref:getting-started/deploy/nix-darwin.adoc[nix-darwin, the recommended configuration management tool for macOS]
+
+2d. xref:getting-started/deploy/nix-darwin.adoc[Manually, when the other deployment methods are not suitable]
+
+
+[[repository-setup]]
+== Step 3. Repository Setup
+
+include::partial$snippets/RepositorySetup.adoc[]

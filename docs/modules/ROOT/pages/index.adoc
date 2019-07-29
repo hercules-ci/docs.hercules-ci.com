@@ -1,0 +1,16 @@
+= Welcome to the Hercules CI documentation
+
+[NOTE]
+====
+We're https://github.com/hercules-ci/support[gathering feedback] to improve the service.
+
+Have a look at our https://github.com/hercules-ci/support/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap[roadmap] to know what (not) to expect.
+====
+
+
+==  Hosted CI for building Nix projects on your infrastructure
+
+
+- xref:ROOT:getting-started[Getting Started]
+- xref:ROOT:troubleshooting[Troubleshooting]
+- xref:reference:index[Agent Reference]
