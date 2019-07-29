@@ -40,7 +40,7 @@ Choose one of the deployment options:
 
 2b. xref:getting-started/deploy/nixos.adoc[NixOS, for existing machines or custom deployment tools]
 
-2c. xref:getting-started/deploy/nix-darwin.adoc[nix-darwin, the recommended configuration management tool for Mac OS X (follow the instructions in the dashboard)]
+2c. xref:getting-started/deploy/nix-darwin.adoc[nix-darwin, the recommended configuration management tool for macOS]
 
 2d. xref:getting-started/deploy/nix-darwin.adoc[Manually, when the other deployment methods are not suitable]
 
