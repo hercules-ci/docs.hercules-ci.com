@@ -9,5 +9,3 @@ sudo install \
     /var/lib/hercules-ci-agent/secrets/cluster-join-token.key
 rm cluster-join-token.key
 ----
-
-Tail /var/log/hercules-ci-agent.log to see what is going on with your agent.

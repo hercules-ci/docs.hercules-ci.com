@@ -1,22 +1,4 @@
 If you're using more than one agent or would like to share
 resulting binaries outside the build farm you'll need a binary cache.
 
-On https://cachix.org[Cachix] you can create a binary cache. After you complete the process, gather the keys into a `binary-caches.json` file, replacing all placeholders:
-
-.binary-caches.json
-[source,json]
-----
-{ "mycache": <1>
-    { "kind": "CachixCache"
-    , "authToken": "eyJhaf23GH53a.bc23BUSI.9q3048hWHh" <2>
-    , "publicKeys": ["mycache.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="] <3>
-    , "signingKeys": ["uAhqM3jG..."] <4>
-    }
-}
-----
-<1> The name of the Cachix cache; for example the `mycache` part from `mycache.cachix.org`.
-<2> Optional; only required for private binary caches. You may retrieve this from the https://cachix.org/[Cachix Getting started instructions, step 3].
-<3> The public part of the signing key. Look for "Public Key" on your cache page (example page: `+https://mycache.cachix.org+`).
-<4> A cache-specific secret key to sign store paths. You can find it in `~/.config/cachix/cachix.dhall` or your key backup after following the setup instructions on cachix.org. Make sure you copy the right key if you have multiple in your `cachix.dhall`.
-
-NOTE: For more detail, see <<binary-caches-json,The `binary-caches.json` format>> in the Reference.
+include::partial$getting-started/create-binary-caches-json.adoc[]

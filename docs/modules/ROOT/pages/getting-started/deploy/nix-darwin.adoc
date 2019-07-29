@@ -1,5 +1,42 @@
 = Deploy with nix-darwin for macOS
 
+== Installation
+
 include::partial$autogenerate/Darwin.adoc[]
 
+== Binary Caches
+
+A binary cache is required, because evaluation is currently only performed on `x86_64-linux` machines. Reuse `binary-caches.json` or follow
+
+include::partial$getting-started/create-binary-caches-json.adoc[]
+
+Install the `binary-caches.json` file:
+
+[source,bash]
+----
+sudo install \
+    -o hercules-ci-agent  \
+    -m 0600 \
+    /etc/nix-darwin/binary-caches.json \
+    /var/lib/hercules-ci-agent/secrets/binary-caches.json
+----
+
+The caches must be enabled at the system level. Add this line to `darwin-configuration.nix`:
+
+[source,nix]
+----
+    services.hercules-ci-agent.binaryCachesFile = /var/lib/hercules-ci-agent/secrets/binary-caches.json;
+----
+
+Apply the system configuration
+
+[source,bash]
+----
+$ nix-darwin switch
+----
+
+== Cluster Join Token
+
 include::partial$autogenerate/DarwinPostToken.adoc[]
+
+Tail `/var/log/hercules-ci-agent.log` to see whether the agent started successfully.
