@@ -15,7 +15,7 @@ or create a `/ci.nix` or `/nix/ci.nix`::
 For projects that need to build for multiple architectures or versions, or where `default.nix` already
 has a special meaning that conflicts with the need for CI.
 +
-[[pin]]
+[#pin]
 3. Use pinned dependencies instead of `<nixpkgs>` or similar.
 +
 Hercules CI uses an empty `NIX_PATH` to help with evaluation reprodicibility.
@@ -39,5 +39,5 @@ This may produce a lot of output if you are using import from derivation. You ma
 5. Commit and push
 
 6. Check the attributes via the GitHub commit status or the https://hercules-ci.com/dashboard[dashboard]. If necessary, see
- - <<why-is-my-attribute-not-in-eval>>
- - <<how-can-i-disable-an-attribute>>
+ - xref:troubleshooting#why-is-my-attribute-not-in-eval[Why doesn't my attribute show up in an evaluation]
+ - xref:troubleshooting#how-can-i-disable-an-attribute[How can I disable an attribute]

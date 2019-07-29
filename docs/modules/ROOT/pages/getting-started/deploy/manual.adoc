@@ -15,7 +15,7 @@ Write an `agent.toml` file. Most of the entries are optional. A small example:
 include::reference:partial$agent-small-example.toml[]
 ----
 
-This guide will assume that the <<baseDirectory>> remains set to `/var/lib/hercules-ci-agent`.
+This guide will assume that the xref:reference:agent-config.adoc#baseDirectory[baseDirectory] remains set to `/var/lib/hercules-ci-agent`.
 
 3.
 Get a cluster join token.

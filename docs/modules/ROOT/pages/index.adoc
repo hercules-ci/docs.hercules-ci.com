@@ -11,6 +11,6 @@ Have a look at our https://github.com/hercules-ci/support/issues?q=is%3Aissue+is
 ==  Hosted CI for building Nix projects on your infrastructure
 
 
-- xref:ROOT:getting-started[Getting Started]
-- xref:ROOT:troubleshooting[Troubleshooting]
-- xref:reference:index[Agent Reference]
+- xref:ROOT:getting-started/index.adoc[Getting Started]
+- xref:ROOT:troubleshooting.adoc[Troubleshooting]
+- xref:reference:index.adoc[Agent Reference]
