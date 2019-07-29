@@ -27,7 +27,7 @@ https://docs.hercules-ci.com/
    = Understanding `baseDirectory`
    ```
 
- - When editing files from the frontend wizards in `autogenerate`, use links
+ - When editing files from the frontend wizards in `snippets`, use links
    that open in a new window (`^`) e.g. `https://hercules-ci.com/dashboard[dashboard^]`.
 
    The wizards are currently stateful and we don't want to lose their state by navigating.

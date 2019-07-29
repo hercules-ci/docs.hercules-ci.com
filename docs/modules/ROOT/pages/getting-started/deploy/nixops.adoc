@@ -1,10 +1,10 @@
 = Deploy with NixOps
 
 1.
-include::partial$autogenerate/Bootstrap.adoc[]
+include::partial$snippets/Bootstrap.adoc[]
 
 2.
-include::partial$autogenerate/Target.adoc[]
+include::partial$snippets/Target.adoc[]
 
 3.
 Get a cluster join token.
@@ -18,10 +18,10 @@ Get a cluster join token.
 4.
 Write a file `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
 
-include::partial$autogenerate/BinaryCachesJson.adoc[]
+include::partial$snippets/BinaryCachesJson.adoc[]
 
 5.
-include::partial$autogenerate/Deploy.adoc[]
+include::partial$snippets/Deploy.adoc[]
 
 == Troubleshooting
 

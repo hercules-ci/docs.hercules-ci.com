@@ -8,7 +8,7 @@ modules. This directory is only used at evaluation time. If you perform remote
 deployment, you will use some project directory in place of `/etc/nixos`.
 
 1.
-include::partial$autogenerate/NixOSBootstrap.adoc[]
+include::partial$snippets/NixOSBootstrap.adoc[]
 
 2.
 Get a cluster join token.
@@ -22,7 +22,7 @@ Get a cluster join token.
 3.
 Write a new file, `binary-caches.json`.
 
-include::partial$autogenerate/BinaryCachesJson.adoc[]
+include::partial$snippets/BinaryCachesJson.adoc[]
 
 Continue with an applicable section below.
 

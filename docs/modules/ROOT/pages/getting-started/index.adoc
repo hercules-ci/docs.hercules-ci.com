@@ -48,4 +48,4 @@ Choose one of the deployment options:
 [[repository-setup]]
 == Step 3. Repository Setup
 
-include::autogenerate:RepositorySetup.adoc[]
+include::partial$snippets/RepositorySetup.adoc[]

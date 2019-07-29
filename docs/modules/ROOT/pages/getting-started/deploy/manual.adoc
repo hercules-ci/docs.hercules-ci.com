@@ -29,7 +29,7 @@ Get a cluster join token.
 4.
 Write and install a `binary-caches.json`
 
-include::partial$autogenerate/BinaryCachesJson.adoc[]
+include::partial$snippets/BinaryCachesJson.adoc[]
 
 Install the file in `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
 

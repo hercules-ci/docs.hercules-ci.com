@@ -5,7 +5,7 @@
 .ci.nix
 [source,nix]
 ----
-include::dummy.nix[]
+include::partial$/snippets/dummy.nix[]
 ----
 +
 2. Adapt the attribute set of platforms near the bottom. You can find the agent platforms in the Agents tab in the https://hercules-ci.com/dashboard[dashboard^].

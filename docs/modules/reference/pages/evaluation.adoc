@@ -1,1 +1,1 @@
-include::ROOT:partial$autogenerate/Evaluation.adoc[]
+include::ROOT:partial$snippets/Evaluation.adoc[]
