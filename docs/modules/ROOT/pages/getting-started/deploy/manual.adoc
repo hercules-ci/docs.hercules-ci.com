@@ -3,11 +3,14 @@
 
 If the other deployment methods do not suit your needs, you may choose to run or deploy the agent manually.
 
-1.
+[NOTE]
+====
 Send us an e-mail at support@hercules-ci.com. We can give you advice and
 we are interested in expanding our officially supported deployment methods.
+====
 
-2.
+== 1. Configure the agent
+
 Write an `agent.toml` file. Most of the entries are optional. A small example:
 
 [source,toml]
@@ -17,26 +20,22 @@ include::reference:partial$agent-small-example.toml[]
 
 This guide will assume that the xref:reference:agent-config.adoc#baseDirectory[baseDirectory] remains set to `/var/lib/hercules-ci-agent`.
 
-3.
-Get a cluster join token.
+== 2. Get a cluster join token.
 
---
-- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-- Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key`.
---
+include::partial$generate-token.adoc[]
 
-4.
-Write and install a `binary-caches.json`
+== 3. Configure binary caches
 
 include::partial$snippets/BinaryCachesJson.adoc[]
 
 Install the file in `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
 
-5.
 Configure the system to use the caches and accept their public keys.
 When using a private cache, you will also need to install an appropriate netrc
 file in `/etc/nix/daemon-netrc`.
 
-6.
-Start the agent with the command `hercules-agent --config agent.toml`, preferably via some process supervision system.
+== 5. Start the agent
+
+Run `hercules-agent --config agent.toml`, preferably via some process supervision system.
+
+== 6. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]

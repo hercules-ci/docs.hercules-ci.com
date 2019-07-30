@@ -1,0 +1,5 @@
+--
+- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
+- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+- Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key`.
+--

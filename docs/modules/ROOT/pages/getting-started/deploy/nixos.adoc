@@ -7,27 +7,22 @@ These instructions will use `/etc/nixos` as the location for the configuration
 modules. This directory is only used at evaluation time. If you perform remote
 deployment, you will use some project directory in place of `/etc/nixos`.
 
-1.
+== 1. Bootstrap
+
 include::partial$snippets/NixOSBootstrap.adoc[]
 
-2.
-Get a cluster join token.
+== 2. Get a cluster join token.
 
---
-- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-- Copy the token into a plain text file `/var/lib/hercules-ci-agent/secrets/cluster-join-token.key` on the target machine.
---
+include::partial$generate-token.adoc[]
 
-3.
-Write a new file, `binary-caches.json`.
+== 3. Configure a binary cache
 
 include::partial$snippets/BinaryCachesJson.adoc[]
 
 Continue with an applicable section below.
 
 [discrete]
-== Local deployment
+=== Local deployment
 
 If you're deploying to the local machine, move it to `/var/lib/hercules-ci-agent/secrets/binary-caches.json` and add
 this line to your `/etc/nixos/configuration.nix`:
@@ -40,7 +35,7 @@ services.hercules-ci-agent.binaryCachesFile = /var/lib/hercules-ci-agent/secrets
 Make sure that `/var/lib/hercules-ci-agent/secrets` can only be read by `hercules-ci-agent`.
 
 [discrete]
-== Remote deployment
+=== Remote deployment
 
 If you're deploying to a remote machine, you need to store it in two locations. One for evaluation,
 in the directory of your `configuration.nix` file and one for the deployed agent to read. Add this line to your
@@ -66,8 +61,11 @@ Make sure not to lose the signing keys and do deploy them to
 the target machine!
 ====
 
-4.
+== 4. Activation
+
 Apply the configuration by running `nixos-rebuild switch`.
+
+== 5. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
 
 == Troubleshooting
 

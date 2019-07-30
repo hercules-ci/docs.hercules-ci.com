@@ -1,5 +1,14 @@
 = Deploy with nix-darwin for macOS
 
+== 1. Installation
 include::partial$snippets/Darwin.adoc[]
 
+== 2. Get a cluster join token.
+include::partial$generate-token.adoc[]
 include::partial$snippets/DarwinPostToken.adoc[]
+
+== 3. Configure binary caches
+include::partial$snippets/Cachix.adoc[]
+include::partial$snippets/CachixDarwin.adoc[]
+
+== 4. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
