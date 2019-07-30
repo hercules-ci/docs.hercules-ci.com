@@ -1,6 +1,6 @@
 * xref:getting-started/index.adoc[Getting Started]
 ** xref:getting-started/index.adoc#github[1. GitHub]
-** xref:getting-started/index.adoc#agent-setup[2. Deploy Agent]
+** xref:getting-started/index.adoc#deploy-agent[2. Deploy Agent]
 *** xref:getting-started/deploy/nixops.adoc[2a. NixOps]
 *** xref:getting-started/deploy/nixos.adoc[2b. NixOS]
 *** xref:getting-started/deploy/nix-darwin.adoc[2c. nix-darwin (macOS)]
