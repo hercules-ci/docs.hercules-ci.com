@@ -19,7 +19,7 @@ You may either follow this guide step by step, or use parts of it as reference f
 
 NOTE: Hercules CI will automatically pick up permissions from GitHub. Collaborators will find the repositories they have access to when they sign in.
 
-[[deploy-agent]]
+[[deploy-agent]][[agent-deploy]]
 == Step 2. Deploy Agent
 
 To start building you need to deploy an agent first.
