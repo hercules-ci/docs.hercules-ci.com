@@ -1,27 +1,27 @@
 = Deploy with NixOps
 
-1.
+== 1. Bootstrap
 include::partial$snippets/Bootstrap.adoc[]
 
-2.
+== 2. Pick provisioning target
+
 include::partial$snippets/Target.adoc[]
 
-3.
-Get a cluster join token.
+== 3. Get a cluster join token.
 
---
-- In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-- Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
-- Copy the token into a plain text file `cluster-join-token.key` in the same directory. Protect this file like a password.
---
+include::partial$generate-token.adoc[]
 
-4.
+== 4. Configure a binary cache
+
 Write a file `binary-caches.json` in the same directory as `hercules-ci-agents.nix`.
 
 include::partial$snippets/BinaryCachesJson.adoc[]
 
-5.
+== 5. Deploy
 include::partial$snippets/Deploy.adoc[]
+
+== 6. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
+
 
 == Troubleshooting
 
