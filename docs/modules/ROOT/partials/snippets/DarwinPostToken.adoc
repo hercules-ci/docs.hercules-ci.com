@@ -10,4 +10,4 @@ sudo install \
 rm cluster-join-token.key
 ----
 
-Tail /var/log/hercules-ci-agent.log to see what is going on with your agent.
+`tail -f /var/log/hercules-ci-agent.log` to see what is going on with your agent.
