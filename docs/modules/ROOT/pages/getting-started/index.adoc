@@ -31,7 +31,7 @@ The same token may be used to add multiple agents.
 [WARNING]
 ====
 When updating the cluster join token on a previously deployed agent, remove the `/var/lib/hercules-ci-agent/secretState/session.key` file and restart the agent.
-This will be resolved in https://github.com/hercules-ci/hercules-ci-agent/issues/8[issue #8]
+This is resolved in hercules-ci-agent 0.3.1 or later.
 ====
 
 Choose one of the deployment options:
