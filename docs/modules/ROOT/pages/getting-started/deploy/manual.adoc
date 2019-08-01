@@ -38,4 +38,6 @@ file in `/etc/nix/daemon-netrc`.
 
 Run `hercules-agent --config agent.toml`, preferably via some process supervision system.
 
-== 6. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
+== 6. Repository Setup
+
+include::partial$snippets/RepositorySetup.adoc[]

@@ -65,7 +65,9 @@ the target machine!
 
 Apply the configuration by running `nixos-rebuild switch`.
 
-== 5. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
+== 5. Repository Setup
+
+include::partial$snippets/RepositorySetup.adoc[]
 
 == Troubleshooting
 

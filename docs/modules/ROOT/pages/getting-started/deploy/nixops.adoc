@@ -20,7 +20,9 @@ include::partial$snippets/BinaryCachesJson.adoc[]
 == 5. Deploy
 include::partial$snippets/Deploy.adoc[]
 
-== 6. xref:getting-started/index.adoc#repository-setup[Continue with setting up your first repository]
+== 6. Repository Setup
+
+include::partial$snippets/RepositorySetup.adoc[]
 
 
 == Troubleshooting
