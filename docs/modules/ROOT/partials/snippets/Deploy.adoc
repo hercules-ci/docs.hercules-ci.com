@@ -1,3 +1,5 @@
+include::CachixBinaries.adoc[]
+
 Deploy using:
 
 [source,bash]
