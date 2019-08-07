@@ -9,6 +9,8 @@ deployment, you will use some project directory in place of `/etc/nixos`.
 
 == 1. Bootstrap
 
+include::partial$snippets/CachixBinaries.adoc[]
+
 include::partial$snippets/NixOSBootstrap.adoc[]
 
 == 2. Get a cluster join token.
