@@ -1,6 +1,7 @@
 site:
   title: Hercules CI Documentation
   url: https://docs.hercules-ci.com
+  start_page: hercules-ci::index.adoc
 content:
   sources:
   - url: .
