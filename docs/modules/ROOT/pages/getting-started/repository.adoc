@@ -18,7 +18,7 @@ has a special meaning that conflicts with the need for CI.
 [#pin]
 3. Use pinned dependencies instead of `<nixpkgs>` or similar.
 +
-Hercules CI uses an empty `NIX_PATH` to help with evaluation reprodicibility.
+Hercules CI uses an empty `NIX_PATH` to help with evaluation reproducibility.
 +
 The unofficial NixOS wiki has https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs[a basic method of pinning Nixpkgs].
 +
