@@ -1,6 +1,6 @@
 include::BinaryCachesJson.adoc[]
 
-To specify `binary-caches.json` via Nix:
+To specify `binary-caches.json` via NixOps:
 
 [source,nix]
 ----
