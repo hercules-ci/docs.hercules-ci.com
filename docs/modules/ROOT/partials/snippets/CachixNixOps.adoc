@@ -1,11 +1,11 @@
 include::BinaryCachesJson.adoc[]
 
-To specify `binary-caches.json` via Nix:
+To specify `binary-caches.json` via NixOps:
 
 [source,nix]
 ----
 services.hercules-ci-agent.enable = true;
-services.hercules-ci-agent.binaryCachesFile = ./binary-caches.json
+deployment.keys."binary-caches.json".keyFile = ./binary-caches.json;
 ----
 
 NOTE: We're working on https://cachix.org[Cachix] to be able to restrict `authToken`

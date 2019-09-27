@@ -12,7 +12,7 @@ in
 
     services.hercules-ci-agent.enable = true;
     services.hercules-ci-agent.concurrentTasks = 4; # Number of jobs to run
-    services.hercules-ci-agent.binaryCachesFile = ./binary-caches.json;
     deployment.keys."cluster-join-token.key".keyFile = ./cluster-join-token.key;
+    deployment.keys."binary-caches.json".keyFile = ./binary-caches.json;
   };
 }
