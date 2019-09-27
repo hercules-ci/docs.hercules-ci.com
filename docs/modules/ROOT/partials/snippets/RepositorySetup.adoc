@@ -1,7 +1,7 @@
 The goal of this step is to make sure everything is set up correctly.
 
 // TODO: xref:getting-started/repository.adoc
-a. https://docs.hercules-ci.com/hercules-ci/getting-started/repository/[If you are familiar with Nix, set up your own git repository]
-
+a. If you are familiar with Nix, https://docs.hercules-ci.com/hercules-ci/getting-started/repository/[set up your own git repository]
++
 // TODO: xref:getting-started/minimal-repository.adoc
 b. Otherwise https://docs.hercules-ci.com/hercules-ci/getting-started/minimal-repository/[verify your agent setup with a minimal git repository]
