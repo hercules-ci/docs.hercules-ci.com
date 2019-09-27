@@ -1,5 +1,3 @@
-If you're using more than one agent or would like to share
-resulting binaries outside the build farm you'll need a binary cache.
 
 On https://cachix.org[Cachix] you can create a binary cache. After you complete the process, gather the keys into a `binary-caches.json` file, replacing all placeholders:
 
@@ -21,3 +19,5 @@ On https://cachix.org[Cachix] you can create a binary cache. After you complete 
 
 // TODO: xref:reference:binary-cache-json.adoc[The `binary-caches.json` format]
 NOTE: For more detail, see https://docs.hercules-ci.com/hercules-ci/reference/binary-caches-json/[The `binary-caches.json` format] in the Reference.
+
+NOTE: Although a single-agent "cluster" works with an empty `{}` cache configuration, we highly recommend setting up a cache from the start. Running without a cache will break some features and will cause unexpectedly long build times due to automatic garbage collection.
