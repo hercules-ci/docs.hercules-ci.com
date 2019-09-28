@@ -36,14 +36,11 @@ This is resolved in hercules-ci-agent 0.3.1 or later.
 
 Choose one of the deployment options:
 
-2a. xref:getting-started/deploy/nixops.adoc[NixOps, for provisioning NixOS machines]
-
-2b. xref:getting-started/deploy/nixos.adoc[NixOS, for existing machines or custom deployment tools]
-
-2c. xref:getting-started/deploy/nix-darwin.adoc[nix-darwin, the recommended configuration management tool for macOS]
-
-2d. xref:getting-started/deploy/manual.adoc[Manually, when the other deployment methods are not suitable]
-
+- xref:getting-started/deploy/terraform.adoc[Deploy with Terraform], for a wide range of cloud support
+- xref:getting-started/deploy/nixops.adoc[Deploy with NixOps], for provisioning NixOS machines
+- xref:getting-started/deploy/nixos.adoc[Deploy with NixOS], for existing machines or custom deployment tools
+- xref:getting-started/deploy/nix-darwin.adoc[Deploy with nix-darwin], the recommended configuration management tool for macOS
+- xref:getting-started/deploy/manual.adoc[Install manually], when the other methods are not suitable
 
 [[repository-setup]]
 == Step 3. Repository Setup
