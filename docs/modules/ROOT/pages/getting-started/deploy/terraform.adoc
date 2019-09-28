@@ -1,12 +1,7 @@
 
 = Deploy with Terraform
 
-Terraform supports a wide range of cloud providers.
-To facilitate deployment with this tool, we provide terraform modules.
-
-If you already have a workflow for terraform deployments, the https://github.com/hercules-ci/terraform-hercules-ci#readme[terraform modules] are your starting point.
-
-If you are using AWS and/or this is your first terraform deployment, we provide an https://github.com/hercules-ci/example-deploy-agent-terraform-aws#readme[AWS example deployment project] that you can adapt.
+include::partial$snippets/Terraform.adoc[]
 
 [discrete]
 == After deployment
