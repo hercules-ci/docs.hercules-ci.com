@@ -122,3 +122,34 @@ We are addressing these issues. In the meanwhile, check the log on your agents:
 
 Only evaluation currently logs to the agent log. Evaluation may include some
 building if you use import from derivation.
+
+== What is the error `Exception: path '/nix/store/[...]' does not exist and cannot be created; type: nix::Error`
+
+This may be caused by a misconfiguration.
+
+Try
+
+```
+journalctl -u nix-daemon.service -n 10 -g hercules-ci-agent # where hercules-ci-agent is your agent's system user
+```
+
+It should print something like `accepted connection from pid 31134, user hercules-ci-agent (trusted)`. If `(trusted)` is missing, your daemon isn't configured correctly. Follow the steps in <<ignoring-untrusted-substituter>>.
+
+
+[[ignoring-untrusted-substituter]]
+== My agent logs `warning: ignoring untrusted substituter '[...]'`
+
+This means your daemon isn't configured correctly.
+
+On NixOS, using the supplied NixOS module for the agent:
+
+ * Make sure `nix.trustedUsers` is not set with `lib.mkForce` or similar, anywhere in your NixOS configuration or modules.
+ * *DO NOT* set `trusted-users` via [.line-through]#`nix.extraOptions`#.
+
+// ^ FIXME: line-through; use semantic syntax, blocked on https://github.com/asciidoctor/asciidoctor/issues/1030
+//   also broken: https://gitlab.com/antora/antora/issues/493
+
+On other systems, make sure that:
+
+ * `/etc/nix/nix.conf` has exactly one line starting with `trusted-users =`
+ * `/etc/nix/nix.conf` has `hercules-ci-agent` (or your agent's system user) in `trusted-users =`, e.g. `trusted-users = root @wheel hercules-ci-agent`
