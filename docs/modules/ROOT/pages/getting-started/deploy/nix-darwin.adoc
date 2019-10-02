@@ -9,7 +9,7 @@ include::partial$snippets/Darwin.adoc[]
 include::partial$generate-token.adoc[]
 
 == 3. Configure binary caches
-include::partial$snippets/Cachix.adoc[]
+include::partial$snippets/BinaryCachesJson.adoc[]
 include::partial$snippets/CachixDarwin.adoc[]
 
 == 4. Repository Setup

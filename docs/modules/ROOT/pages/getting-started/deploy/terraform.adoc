@@ -1,0 +1,9 @@
+
+= Deploy with Terraform
+
+include::partial$snippets/Terraform.adoc[]
+
+[discrete]
+== After deployment
+
+include::partial$snippets/RepositorySetup.adoc[]
