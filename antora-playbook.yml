@@ -7,6 +7,10 @@ content:
   - url: .
     start_path: docs
     branches: HEAD
+  - url: https://github.com/hercules-ci/arion
+    start_path: docs
+    branches: master
+    #tags: v*
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
