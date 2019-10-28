@@ -10,6 +10,7 @@ content:
   - url: https://github.com/hercules-ci/arion
     start_path: docs
     branches: master
+    # counter: 0
     #tags: v*
 ui:
   bundle:
