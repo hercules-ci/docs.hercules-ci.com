@@ -1,12 +1,9 @@
 [build]
 base = "netlify"
 publish = "public"
-
-# 1. clear any local master branches
-# 2. xref-validator
-# 3. build
-command = "for r in node_modules/.cache/antora/content/*/*; do cat $r/refs/remotes/origin/master >$r/HEAD; rm -f $r/refs/heads/master; done; ./node_modules/.bin/antora --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml"
+command = "./node_modules/.bin/antora --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml"
 
 [build.environment]
 NODE_VERSION = "10"
-ANTORA_CACHE_DIR = "node_modules/.cache/antora"
+# Don't cache or refs will go stale
+# ANTORA_CACHE_DIR = "node_modules/.cache/antora"
