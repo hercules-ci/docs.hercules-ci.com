@@ -7,6 +7,24 @@ https://docs.hercules-ci.com/
 
     ./build
 
+# Add a repo
+
+Needs Hercules CI authz.
+
+ - Add in antora-playbook.yml
+
+ - Generate build hook from the [settings page](https://app.netlify.com/sites/hercules-docs/settings/deploys)
+    - Build hook name: _name of the repo_
+    - Branch to build: always `master` because this is about the docs.hercules-ci.com repo
+    - Copy the generated url
+
+ - Add the build hook to the github repo settings
+    - `github.com/<owner>/<repo>/settings/hooks`
+    - Payload URL: _as copied_
+    - Content type: `application/json`
+    - Secret: _empty_
+    - Just the push event: _ticked_
+
 # Style Guide
 
  - The Headings are in Title Case
