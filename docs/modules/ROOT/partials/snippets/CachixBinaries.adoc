@@ -1,6 +1,6 @@
 [NOTE]
 ====
-To avoid compiling the agent you can use binary cache to speed it up:
+To avoid compiling the agent for hours you can use our binary cache to speed it up:
 
 [source,bash]
 ----
