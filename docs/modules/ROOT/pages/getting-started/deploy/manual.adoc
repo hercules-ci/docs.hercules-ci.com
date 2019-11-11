@@ -9,6 +9,15 @@ Send us an e-mail at support@hercules-ci.com. We can give you advice and
 we are interested in expanding our officially supported deployment methods.
 ====
 
+== 1. Install the agent
+
+include::partial$snippets/CachixBinaries.adoc[]
+
+[source,shell]
+----
+$ nix-env -iA hercules-ci-agent -f https://github.com/hercules-ci/hercules-ci-agent/tarball/stable
+----
+
 == 1. Configure the agent
 
 Write an `agent.toml` file. Most of the entries are optional. A small example:
@@ -36,7 +45,7 @@ file in `/etc/nix/daemon-netrc`.
 
 == 5. Start the agent
 
-Run `hercules-agent --config agent.toml`, preferably via some process supervision system.
+Run `hercules-ci-agent --config agent.toml`, preferably via some process supervision system.
 
 == 6. Repository Setup
 
