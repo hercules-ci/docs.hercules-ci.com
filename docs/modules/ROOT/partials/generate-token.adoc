@@ -1,5 +1,5 @@
 . In the https://hercules-ci.com/dashboard[dashboard], find the account for which you would like to deploy the agent,
-. Click the "Agents" button and the button in "Generate token" tab. This produces a private token that should be protected like a password.
+. Select your deployment method, select the Generate a token tab and use the button.
 ifdef::darwin[]
 . {blank}
 +

@@ -15,19 +15,15 @@ include::partial$snippets/NixOSBootstrap.adoc[]
 
 == 2. Get a cluster join token.
 
-include::partial$generate-token.adoc[]
+include::partial$snippets/NixOSToken.adoc[]
 
 == 3. Configure a binary cache
 
-include::partial$snippets/BinaryCachesJson.adoc[]
-
-Copy or move the `binary-caches.json` file into `/var/lib/hercules-ci-agent/secrets/`.
-
-Make sure that `/var/lib/hercules-ci-agent/secrets` and its contents can only be read by `hercules-ci-agent`.
+include::partial$snippets/NixOSBinaryCaches.adoc[]
 
 == 4. Activation
 
-Apply the configuration by running `nixos-rebuild switch`.
+include::partial$snippets/NixOSActivate.adoc[]
 
 == 5. Repository Setup
 
