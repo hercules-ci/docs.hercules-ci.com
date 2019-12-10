@@ -9,7 +9,7 @@ Evaluation is the first step when it comes to building your project. It is perfo
     search path. This is to ensure reproducability and purity also when it comes to nixpkgs
 . If any of the attributes fail to evaluate, job evaluation phase will be marked as failed
    and error messages will be shown inline per attribute
-
+== Differences from nix-build
 The agent expects the root of the file to be an attribute set and traverses it similarly to how `nix build` does it.
 A few differences exists:
 
