@@ -20,4 +20,4 @@ A few differences exists:
 
 NOTE: like `nix-build`, the evaluator will only traverse a nested attribute set if
 the nested attribute set itself has an attribute `recurseForDerivations = true`.
-This can be set with the `pkgs.recurseIntoAttrs` function.
+This can be set with the `pkgs.recurseIntoAttrs` function. For example: `{ myDrvs = recurseIntoAttrs { hello = pkgs.hello; }; }`.
