@@ -1,8 +1,8 @@
 Save `binary-caches.json` on the target machine and install it by running:
 
-[source,bash]
+[source,shell]
 ----
-sudo install \
+$ sudo install \
     -o hercules-ci-agent  \
     -m 0600 \
     binary-caches.json \
@@ -11,7 +11,7 @@ sudo install \
 
 And activate via:
 
-[source,bash]
+[source,shell]
 ----
-./result/bin/darwin-installer
+$ sudo ./result/bin/darwin-installer
 ----

@@ -2,7 +2,7 @@
 ====
 To avoid compiling the agent for hours you can use our binary cache to speed it up:
 
-[source,bash]
+[source,shell]
 ----
 $ nix-env -iA cachix -f https://cachix.org/api/v1/install
 $ cachix use hercules-ci
