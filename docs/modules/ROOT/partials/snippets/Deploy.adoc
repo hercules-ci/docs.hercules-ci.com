@@ -4,7 +4,7 @@ Deploy using:
 
 [source,shell]
 ----
-$ nix-shell -p nixops -I nixpkgs=http://nixos.org/channels/nixos-19.03/nixexprs.tar.xz
+$ nix-shell -p nixops -I nixpkgs=http://nixos.org/channels/nixos-19.09/nixexprs.tar.xz
 $ nixops create -d my-agent ./hercules-ci-agents.nix ./hercules-ci-agents-target.nix
 $ nixops deploy -d my-agent
 ----
