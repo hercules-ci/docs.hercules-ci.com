@@ -65,6 +65,50 @@ Typically a derivation may be missing from the traversal when:
 
 The agent is designed to produce the same output as `nix-build`/`nix-instantiate`, without specifying `-A`.
 
+See <<how-do-I-build-project-locally>>.
+
+
+[[how-do-I-build-project-locally]]
+== How do I build my project locally?
+
+Evaluation on Hercules CI follows nix-build quite closely.
+A good approximation is:
+
+[source,bash]
+----
+NIX_PATH="" nix-build nix/ci.nix    # or ci.nix or default.nix
+----
+
+Some xref:reference:evaluation.adoc[differences] do exist.
+
+You may also want to use the repl to inspect your expressions.
+
+[source,bash]
+----
+$ NIX_PATH="" nix repl
+nix-repl> ci = import ./nix/ci.nix
+
+nix-repl> ci
+«lambda @...»
+
+nix-repl> ci = import ./nix/ci.nix {}    # the agent will "auto-call" a function at the root
+
+nix-repl> ci.<TAB>
+ci.devTools    # attributes from your ci.nix
+ci.frontend
+
+nix-repl> ci.frontend
+«derivation /nix/store/n3zg734dldkfpsmrsjrfhympglygv4ge-frontend.drv»
+
+nix-repl> ci.devTools.<TAB>
+ci.devTools.arion
+ci.devTools.jq
+ci.devTools.recurseForDerivations    # This is important
+
+nix-repl> ci.devTools.recurseForDerivations
+true    # This means arion and jq will also be found
+----
+
 
 == How do I resolve `file 'nixpkgs' was not found in the Nix search path`?
 
