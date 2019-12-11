@@ -1,0 +1,18 @@
+Active your configuration with
+```shell
+[root@my-agent-host]# nixos-rebuild switch
+```
+
+This creates the `hercules-ci-agent` user. If you haven't set the file permissions yet:
+
+```shell
+[root@my-agent-host]# chown -R hercules-ci-agent /var/lib/hercules-ci-agent
+[root@my-agent-host]# chmod o-rwx /var/lib/hercules-ci-agent/secrets
+```
+
+The log should indicate `Agent online`.
+```shell
+[root@my-agent-host]# journalctl -u hercules-ci-agent.service
+[...]
+Nov 06 22:35:36 my-agent-host hercules-ci-agent[1305]: [2019-11-06 22:35:36][][Info][agent-machine-1][PID 1305][ThreadId 22][agent-version:0.6.1][main:Hercules.Agent hercules-ci-agent/Hercules/Agent.hs:73:8] Agent online.
+```
