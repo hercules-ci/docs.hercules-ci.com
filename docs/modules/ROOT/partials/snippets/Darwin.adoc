@@ -5,13 +5,13 @@ include::CachixBinaries.adoc[]
 
 On macOS run:
 
-[source,bash]
+[source,shell]
 ----
-sh <(curl https://nixos.org/nix/install) --daemon
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+[root@mac]# sh <(curl https://nixos.org/nix/install) --daemon
+[root@mac]# source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
-nix-build https://github.com/hercules-ci/nix-darwin/archive/hercules-ci-agent.tar.gz -A installer
-./result/bin/darwin-installer
+[root@mac]# nix-build https://github.com/hercules-ci/nix-darwin/archive/hercules-ci-agent.tar.gz -A installer
+[root@mac]# ./result/bin/darwin-installer
 ----
 
 When asked for editing the `darwin-configuration.nix` add:

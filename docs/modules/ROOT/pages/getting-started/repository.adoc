@@ -29,9 +29,9 @@ You can use an impure evaluation-time fetcher such as `builtins.fetchUrl`, altho
 The behavior of `nix-instantiate` serves as a reference for evaluation in Hercules CI.
 You may use the following command to test locally:
 +
-[source,bash]
+[source,shell]
 ----
-NIX_PATH="" nix-instantiate nix/ci.nix
+$ NIX_PATH="" nix-instantiate nix/ci.nix
 ----
 +
 This may produce a lot of output if you are using import from derivation. You may run it twice for clarity.

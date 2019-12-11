@@ -44,7 +44,7 @@ in {
 (import ./default.nix).shells.projectShell
 ----
 
-[source,bash]
+[source,shell]
 ----
 $ nix-build
 /nix/store/...-hello-2.10
