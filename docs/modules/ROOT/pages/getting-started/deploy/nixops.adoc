@@ -9,7 +9,7 @@ include::partial$snippets/Target.adoc[]
 
 == 3. Get a cluster join token.
 
-include::partial$generate-token.adoc[]
+include::partial$snippets/GenerateToken.adoc[]
 
 == 4. Configure a binary cache
 

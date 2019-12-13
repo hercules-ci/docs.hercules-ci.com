@@ -6,7 +6,7 @@
 include::partial$snippets/Darwin.adoc[]
 
 == 2. Get a cluster join token.
-include::partial$generate-token.adoc[]
+include::partial$snippets/GenerateToken.adoc[]
 
 == 3. Configure binary caches
 include::partial$snippets/BinaryCachesJson.adoc[]

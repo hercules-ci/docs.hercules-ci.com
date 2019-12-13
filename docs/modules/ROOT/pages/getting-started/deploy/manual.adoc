@@ -31,7 +31,7 @@ This guide will assume that the xref:reference:agent-config.adoc#baseDirectory[b
 
 == 2. Get a cluster join token.
 
-include::partial$generate-token.adoc[]
+include::partial$snippets/GenerateToken.adoc[]
 
 == 3. Configure binary caches
 
