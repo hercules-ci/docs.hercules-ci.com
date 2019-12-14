@@ -15,7 +15,7 @@ include::partial$snippets/NixOSBootstrap.adoc[]
 
 == 2. Get a cluster join token.
 
-include::partial$snippets/NixOSToken.adoc[]
+include::partial$snippets/GenerateToken.adoc[]
 
 == 3. Configure a binary cache
 
