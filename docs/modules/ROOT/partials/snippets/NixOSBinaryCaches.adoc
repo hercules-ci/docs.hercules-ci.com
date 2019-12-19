@@ -1,4 +1,4 @@
-include::partial$snippets/BinaryCachesJson.adoc[]
+include::BinaryCachesJson.adoc[]
 
 Copy or move the `binary-caches.json` file into `/var/lib/hercules-ci-agent/secrets/`.
 
