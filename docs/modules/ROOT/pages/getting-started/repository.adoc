@@ -7,13 +7,9 @@ Follow these steps to ensure a correct setup.
 
 1. Clone your repository
 
-2. Choose which Nix file to use for CI
+2. Write a Nix file. Hercules CI will look for `nix/ci.nix`, `ci.nix` or `default.nix` in the root of the repository.
 +
-Reuse `/default.nix`::
-For simple projects that only need to build for a single architecture and a single set of dependencies.
-or create a `/ci.nix` or `/nix/ci.nix`::
-For projects that need to build for multiple architectures or versions, or where `default.nix` already
-has a special meaning that conflicts with the need for CI.
+The reference has a chapter about xref:reference:evaluation.adoc[evaluation].
 +
 [#pin]
 3. Use pinned dependencies instead of `<nixpkgs>` or similar.
