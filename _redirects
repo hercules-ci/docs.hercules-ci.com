@@ -1,6 +1,8 @@
 
 # Redirect domain aliases to primary domain
 http://docs.hercstg.com/* https://docs.hercules-ci.com/:splat 301!
+https://docs.hercstg.com/* https://docs.hercules-ci.com/:splat 301!
 
 # Optional: Redirect default Netlify subdomain to primary domain
 http://hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 301!
+https://hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 301!
