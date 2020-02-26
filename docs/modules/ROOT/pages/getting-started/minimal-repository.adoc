@@ -16,6 +16,8 @@ If nothing happened, make sure your repository is installed via the "Add GitHub 
 +
 Evaluation is https://github.com/hercules-ci/support/issues/24[currently^] only performed on `x86_64-linux` agents. Inspect the agent log if necessary with `journalctl -u hercules-ci-agent`.
 +
-Build logs are available in the dashboard when done. However some configuration-related errors are reported to `journalctl`, or on macOS: `/var/log/hercules-ci-agent.log`.
+Build logs are available in the dashboard when done. However some configuration-related errors are reported to `journalctl -u hercules-ci-agent.service`, or on macOS: `/var/log/hercules-ci-agent.log`.
 +
 Contact us at support@hercules-ci.com for any questions or feedback.
++
+Continue by xref:getting-started/repository.adoc[configuring your own repository].

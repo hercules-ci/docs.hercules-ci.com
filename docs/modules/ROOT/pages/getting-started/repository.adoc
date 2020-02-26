@@ -18,7 +18,7 @@ Hercules CI uses an empty `NIX_PATH` to help with evaluation reproducibility.
 +
 The unofficial NixOS wiki has https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs[a basic method of pinning Nixpkgs].
 +
-You can use an impure evaluation-time fetcher such as `builtins.fetchUrl`, although this typically makes your evaluation unreproducible.
+You can use an impure evaluation-time fetcher such as `builtins.fetchTarball`. Note that this makes your evaluation unreproducible if the URL's resource is mutable.
 
 4. Optionally, test locally with `nix-instantiate`
 +
