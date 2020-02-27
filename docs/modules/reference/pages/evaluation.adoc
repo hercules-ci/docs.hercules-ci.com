@@ -51,6 +51,16 @@ in
 }
 ```
 
+== Platforms and build matrix
+
+Evaluation is always performed on an `x86_64-linux` agent. To build for other platforms, you have to explicitly pass the `system` parameter to Nixpkgs.
+
+To build your project for multiple platforms, the recommended approach is to make the top-level value of `ci.nix` an attribute set with an attribute per platform. Make sure to wrap the values in `recurseIntoAttrs`. The minimal repo from the xref:ROOT:getting-started/index.adoc#repository-setup[Getting Started guide] has an https://github.com/hercules-ci/nix-ci-minimal-repo/blob/master/ci.nix[example].
+
+This technique can be nested to achieve a build matrix where multiple independent variables are varied.
+
+If some derivations can not be built on a certain platform or configuration, you can use `lib.optionalAttrs`, `lib.filterAttrs` or other functions to remove those.
+
 == Differences with `nix-build`
 
 The agent expects the root of the file to be an attribute set and traverses it similarly to how `nix build` does it.
