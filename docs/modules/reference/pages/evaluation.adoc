@@ -69,3 +69,18 @@ A few differences exists:
 * Hercules CI allows all attribute names, including ones with characters like `.` that are ignored by `nix build`
 * The root must not be a list
 
+== Differences with Hydra
+
+Hydra is not compatible with `nix-build`. It rejects the `recurseForDerivations` attribute.
+
+The `ci.nix` format can be built by Hydra using a conversion function, but Hydra will not understand Hercules CI-specific attributes when introduced.
+
+[source,nix]
+----
+stripRecurseForDerivations =
+  lib.filterAttrsRecursive (n: _: n != "recurseForDerivations");
+----
+
+Hydra reads `meta.hydraPlatforms` to determine whether to build for a platform.
+This logic is not present in the agent, but can be implemented in Nix with a
+filtering function if necessary.
