@@ -16,3 +16,5 @@ The log should indicate `Agent online`.
 [...]
 Nov 06 22:35:36 my-agent-host hercules-ci-agent[1305]: [2019-11-06 22:35:36][][Info][agent-machine-1][PID 1305][ThreadId 22][agent-version:0.6.1][main:Hercules.Agent hercules-ci-agent/Hercules/Agent.hs:73:8] Agent online.
 ```
+
+If you are deploying to a remote machine, you might want to xref:getting-started/deploy/nixos-remote.adoc[script the deployment].
