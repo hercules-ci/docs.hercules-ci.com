@@ -1,12 +1,5 @@
 = Deploy with NixOS
 
-NixOS deployment can be performed on the target machine itself or remotely
-by means of `nixos-rebuild --target-host`.
-
-These instructions will use `/etc/nixos` as the location for the configuration
-modules. This directory is only used at evaluation time. If you perform remote
-deployment, you will use some project directory in place of `/etc/nixos`.
-
 == 1. Bootstrap
 
 include::partial$snippets/CachixBinaries.adoc[]

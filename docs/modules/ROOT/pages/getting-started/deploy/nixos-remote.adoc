@@ -1,0 +1,20 @@
+# Remote deployment with NixOS
+
+## Basic method
+
+You can set up an agent on a remote NixOS machine by following the same NixOS instructions via an SSH connection.
+
+
+## Scriptable
+
+Instead of deploying with Terraform, or NixOps with `deployment.targetEnv = "none"`, you could script the deployment yourself.
+
+`nixos-rebuild` has a `--target-host` option to make deployment via SSH easier. Evaluation of the NixOS configuration will happen on your local machine, but build and activation are performed via SSH.
+
+```shell
+[user@workstation:~/my-agent]$ NIXOS_CONFIG=$PWD/configuration.nix nixos-rebuild --target-host my-agent
+```
+
+Note that this determines the NixOS version via `NIX_PATH`, which defaults to a channel on `workstation`.
+
+Updating the secret files is still a manual operation.
