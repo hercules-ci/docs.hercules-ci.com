@@ -33,13 +33,11 @@ Directory with all the agent state: secrets, work, etc.
 [[binaryCachesPath]]
 == binaryCachesPath
 
-Optional. Defaults to `_staticSecretsDirectory_/binary-caches.json` if that file exists.
+Optional. Defaults to `<<staticSecretsDirectory,_staticSecretsDirectory_>>/binary-caches.json` if that file exists. With the NixOS module this defaults to `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
 
 Path to a JSON file containing binary cache secret keys.
 
 The contents of the file are described in xref:binary-caches-json.adoc[binary-caches.json].
-
-Note that binary cache configuration affects the whole system's Nix configuration.
 
 [[clusterJoinTokenPath]]
 == clusterJoinTokenPath
