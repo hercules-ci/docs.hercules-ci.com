@@ -59,6 +59,11 @@ Combined number of workers to use for building and evaluating Nix derivations.
 The optimal value depends on the resource consumption characteristics of your workload,
 including memory usage and in-task parallelism. This is typically determined empirically.
 
+[[logLevel]]
+== logLevel
+
+Optional. Defaults to `InfoS`. More verbose: `DebugS`, less verbose: `WarningS`, `ErrorS`.
+
 [[staticSecretsDirectory]]
 == staticSecretsDirectory
 
