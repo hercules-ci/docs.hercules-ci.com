@@ -7,6 +7,8 @@ The agent does not require any port forwarding to be set up. It can run behind f
 
  * any services where build inputs will be fetched via Nix
  * hercules-ci.com:443
+ * agent-socket.hercules-ci.com:443
+ * bulk-socket.hercules-ci.com:443
  * cachix.org:443
  * github.com:443
 
