@@ -1,0 +1,37 @@
+= Effects
+
+Beyond building the software, it is useful to effect change "in the real world". 
+Steps like deployment have characteristics that Nix's derivations are not intended for.
+To support tasks like these, Hercules CI provides an Effects feature, which lets
+you write Nix expressions that specify what to do when the build succeeds.
+
+// original size was ~43em
+image::effect-attributes.png[title=Dashboard links to a successful derivation and effect run,caption=,width=500]
+
+Effects do run in a custom sandbox that, unlike normal derivations, gives access
+to:
+
+* the Nix store, without the restrictions of the Nix build sandbox
+* the network
+* locally configured secrets
+* the Hercules CI state files API
+
+Secrets are configured locally on your agent machines, so you don't have to
+entrust us with your cloud credentials.
+
+The Hercules CI state file API helps with preserving essential information from
+one effect run to the next. For example, it can be used for the NixOps state or
+maintaining the SSH `known_hosts`. State files can be accessed through the
+dashboard in your project's btn:[State] tab, through the `hci state` command, or with the
+link:++https://hercules-ci.com/api/v1/#/default/get_api_v1_projects__projectId__state__stateName__data++[API].
+
+== Limitations
+
+* Currently, effects are https://github.com/hercules-ci/hercules-ci-agent/issues/271[not supported] on macOS (darwin).
+* State files do not come with a https://github.com/hercules-ci/hercules-ci-agent/issues/272[built-in/standard encryption method] yet.
+
+== Continue
+
+* Deploy a NixOS machine with `hercules-ci-effects`
+* Deploy a NixOps network with `hercules-ci-effects`
+* Write a custom effect
