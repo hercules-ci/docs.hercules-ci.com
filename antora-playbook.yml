@@ -10,8 +10,21 @@ content:
   - url: https://github.com/hercules-ci/arion
     start_path: docs
     branches: master
-    # counter: 0
-    #tags: v*
+  - url: https://github.com/hercules-ci/hercules-ci-effects
+    start_path: docs
+    branches:
+     - docs # TODO master
+
+  # Local dev:
+  # - url: ../hercules-ci-effects
+  #   start_path: docs
+  #   branches:
+  #   - HEAD
+
+  # other features?
+  #  branches: master
+  #  counter: 0
+  #  tags: v*
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
