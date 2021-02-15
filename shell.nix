@@ -37,7 +37,7 @@ in pkgs.stdenv.mkDerivation {
     live-rebuild() {
       (
         echo 1>&2 "Press ENTER to force a rebuild."
-        inotifywait -mr . ../hercules-ci-effects -e MODIFY \
+        inotifywait -mr . ../hercules-ci-effects ../arion -e MODIFY \
           | grep --line-buffered adoc &
         echo first build for good measure
         cat
