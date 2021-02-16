@@ -38,12 +38,16 @@ in pkgs.stdenv.mkDerivation {
       (
         echo 1>&2 "Press ENTER to force a rebuild."
         inotifywait -mr . ../hercules-ci-effects ../arion -e MODIFY \
-          | grep --line-buffered adoc &
+          | grep --line-buffered -E 'adoc|hbs' &
+        cleanup() {
+          kill %%
+        }
+        trap cleanup EXIT
         echo first build for good measure
         cat
         ) | while read ln; do
             echo 1>&2 "antora starting..."
-            antora antora-playbook
+            antora antora-playbook-local.yml
             echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
           done
     }
