@@ -5,5 +5,4 @@ command = "./node_modules/.bin/antora --fetch --generator=@antora/xref-validator
 
 [build.environment]
 NODE_VERSION = "10"
-# Don't cache or refs will go stale
-# ANTORA_CACHE_DIR = "node_modules/.cache/antora"
+ANTORA_CACHE_DIR = "node_modules/.cache/antora"
