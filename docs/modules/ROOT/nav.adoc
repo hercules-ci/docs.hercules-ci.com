@@ -9,4 +9,5 @@
 ** xref:getting-started/index.adoc#repository-setup[3. Repository Setup]
 *** xref:getting-started/repository.adoc[3a. Your Own Repository]
 *** xref:getting-started/minimal-repository.adoc[3b. Minimal Repository]
+* xref:effects/index.adoc[Effects]
 * xref:troubleshooting.adoc[Troubleshooting]

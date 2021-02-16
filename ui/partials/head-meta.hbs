@@ -1,12 +1,10 @@
 <link rel="icon" href="{{uiRootPath}}/img/favicon.png" type="image/png">
 <style type="text/css">
-  /* https://github.com/hercules-ci/docs.hercules-ci.com/issues/47 */
-  div.edit-this-page { display: none; }
-
   .algolia-autocomplete, #algolia-search {
     width: 100%!important;
-    height: 40px;
-    margin-bottom: 10px;
+    vertical-align: middle;
+    height: 2rem;
+    border-color: #1565c0;
   }
   .nav-panel-menu {
     overflow: visible;
@@ -17,6 +15,19 @@
   .icon .fa.fa-external-link {
     font-size: .6rem;
     vertical-align: super;
+  }
+  .nav-panel-menu {
+    overflow-y: auto;
+    height: calc(100vh - 3.5rem - 2.5rem - 2.5rem);
+    min-height: calc(100vh - 3.5rem - 2.5rem - 2.5rem) !important;
+    max-height: calc(100vh - 3.5rem - 2.5rem - 2.5rem);
+    padding-bottom: 2.5rem;
+  }
+  div.nav-panel-explore span.version {
+    min-width: 7em;
+  }
+  a code {
+    color: inherit !important;
   }
 </style>
 <link

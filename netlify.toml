@@ -1,9 +1,8 @@
 [build]
 base = "netlify"
 publish = "public"
-command = "./node_modules/.bin/antora --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml && tee <../_redirects --append ../public/_redirects"
+command = "./node_modules/.bin/antora --fetch --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml && tee <../_redirects --append ../public/_redirects"
 
 [build.environment]
 NODE_VERSION = "10"
-# Don't cache or refs will go stale
-# ANTORA_CACHE_DIR = "node_modules/.cache/antora"
+ANTORA_CACHE_DIR = "node_modules/.cache/antora"

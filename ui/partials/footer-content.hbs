@@ -1,10 +1,21 @@
-<footer class="footer">
-  <p>Copyright (C) 2019 Hercules Labs</p>
+<footer class="footer" style="text-align: center; margin-left: auto; margin-right: auto;">
+  <p>
+    <a class="item" href="https://www.iubenda.com/privacy-policy/14101005">Privacy Policy</a> | <a href="/terms" class="item">Terms</a> | <a class="item" href="https://status.hercules-ci.com/">Service Status</a> | <a class="item" href="mailto:help@hercules-ci.com">Support</a>
+  </p>
+  <p>Copyright (C) 2019-2021 Ensius B.V.</p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   // expand all navigation items
-  document.querySelectorAll('.nav-item').forEach(function (item) { item.classList.add('is-active') });
+  // document.querySelectorAll('.nav-item').forEach(function (item) { item.classList.add('is-active') });
+
+  // expand ancestry of current page
+  document.querySelectorAll('.is-current-page').forEach(function (curPage) {
+    curPage.classList.add('is-active')
+    for (var p = curPage; p.classList.contains("nav-item"); p = p.parentElement) {
+      p.classList.add('is-active')
+    }
+  });
 
   docsearch({
     apiKey: '6db1d0c2900f3c294e29baf1a65502ab',

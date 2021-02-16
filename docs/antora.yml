@@ -1,5 +1,5 @@
 name: hercules-ci
-title: Hercules CI Documentation
+title: Hercules CI
 version: 'master'
 nav:
 - modules/ROOT/nav.adoc

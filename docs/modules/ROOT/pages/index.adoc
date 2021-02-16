@@ -1,5 +1,6 @@
 = Welcome to the Hercules CI documentation
 
 - xref:ROOT:getting-started/index.adoc[Getting Started]
+- xref:ROOT:effects/index.adoc[Effects]
 - xref:ROOT:troubleshooting.adoc[Troubleshooting]
 - xref:reference:index.adoc[Agent Reference]
