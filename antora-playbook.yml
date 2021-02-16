@@ -13,7 +13,7 @@ content:
   - url: https://github.com/hercules-ci/hercules-ci-effects
     start_path: docs
     branches:
-     - docs # TODO master
+     - master
   # other features?
   #  branches: master
   #  counter: 0
