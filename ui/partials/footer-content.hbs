@@ -7,7 +7,15 @@
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   // expand all navigation items
-  document.querySelectorAll('.nav-item').forEach(function (item) { item.classList.add('is-active') });
+  // document.querySelectorAll('.nav-item').forEach(function (item) { item.classList.add('is-active') });
+
+  // expand ancestry of current page
+  document.querySelectorAll('.is-current-page').forEach(function (curPage) {
+    curPage.classList.add('is-active')
+    for (var p = curPage; p.classList.contains("nav-item"); p = p.parentElement) {
+      p.classList.add('is-active')
+    }
+  });
 
   docsearch({
     apiKey: '6db1d0c2900f3c294e29baf1a65502ab',
