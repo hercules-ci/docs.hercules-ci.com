@@ -25,13 +25,15 @@ maintaining the SSH `known_hosts`. State files can be accessed through the
 dashboard in your project's btn:[State] tab, through the `hci state` command, or with the
 link:++https://hercules-ci.com/api/v1/#/default/get_api_v1_projects__projectId__state__stateName__data++[API].
 
+[discrete]
 == Limitations
 
 * Currently, effects are https://github.com/hercules-ci/hercules-ci-agent/issues/271[not supported] on macOS (darwin).
 * State files do not come with a https://github.com/hercules-ci/hercules-ci-agent/issues/272[built-in/standard encryption method] yet.
 
+[discrete]
 == Continue
 
 * xref:hercules-ci-effects:ROOT:guide/deploy-a-nixos-machine.adoc[Deploy a NixOS machine with `hercules-ci-effects`]
-* Deploy a NixOps network with `hercules-ci-effects` (TBD)
+* xref:hercules-ci-effects:ROOT:guide/deploy-a-nixops-network.adoc[Deploy a NixOps network with `hercules-ci-effects`]
 * xref:hercules-ci-effects:ROOT:guide/write-a-custom-effect.adoc[Write a custom effect]
