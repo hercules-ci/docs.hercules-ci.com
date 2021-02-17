@@ -1,5 +1,5 @@
 [build]
-base = "netlify"
+base = "antora"
 publish = "public"
 command = "./node_modules/.bin/antora --fetch --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml && tee <../_redirects --append ../public/_redirects"
 
