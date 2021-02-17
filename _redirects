@@ -9,3 +9,6 @@ https://hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 301!
 
 http://master--hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 301!
 https://master--hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 301!
+
+http://docs.hercules-ci.com/hercules-ci/reference/* http://docs.hercules-ci.com/hercules-ci-agent/:splat 301!
+https://docs.hercules-ci.com/hercules-ci/reference/* https://docs.hercules-ci.com/hercules-ci-agent/:splat 301!

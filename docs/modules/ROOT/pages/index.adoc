@@ -1,6 +1,13 @@
 = Welcome to the Hercules CI documentation
 
+General information
+
 - xref:ROOT:getting-started/index.adoc[Getting Started]
-- xref:ROOT:effects/index.adoc[Effects]
+- xref:ROOT:effects/index.adoc[About Effects] (beta)
 - xref:ROOT:troubleshooting.adoc[Troubleshooting]
-- xref:reference:index.adoc[Agent Reference]
+
+Project Documentation
+
+- xref:hercules-ci-agent:ROOT:index.adoc[Hercules CI Agent] -- Nix-native build and deploy daemon
+- xref:hercules-ci-effects:ROOT:index.adoc[Hercules CI Effects] -- repository of deployment functions
+- xref:arion:ROOT:index.adoc[Arion] -- declarative container application tool

@@ -1,2 +1,0 @@
-baseDirectory = "/var/lib/hercules-ci-agent"
-concurrentTasks = 4

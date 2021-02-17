@@ -14,6 +14,10 @@ content:
     start_path: docs
     branches:
      - master
+  - url: https://github.com/hercules-ci/hercules-ci-agent
+    start_path: docs
+    branches:
+     - move-docs
   # other features?
   #  branches: master
   #  counter: 0

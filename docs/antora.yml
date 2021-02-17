@@ -3,4 +3,3 @@ title: Hercules CI
 version: 'master'
 nav:
 - modules/ROOT/nav.adoc
-- modules/reference/nav.adoc

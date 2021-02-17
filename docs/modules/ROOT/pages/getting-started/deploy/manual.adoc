@@ -18,22 +18,22 @@ include::partial$snippets/CachixBinaries.adoc[]
 $ nix-env -iA hercules-ci-agent -f https://github.com/hercules-ci/hercules-ci-agent/tarball/stable
 ----
 
-== 1. Configure the agent
+== 2. Configure the agent
 
 Write an `agent.toml` file. Most of the entries are optional. A small example:
 
 [source,toml]
 ----
-include::reference:partial$agent-small-example.toml[]
+include::hercules-ci-agent::partial$agent-small-example.toml[]
 ----
 
-This guide will assume that the xref:reference:agent-config.adoc#baseDirectory[baseDirectory] remains set to `/var/lib/hercules-ci-agent`.
+This guide will assume that the xref:hercules-ci-agent:ROOT:agent-config.adoc#baseDirectory[baseDirectory] remains set to `/var/lib/hercules-ci-agent`.
 
-== 2. Get a cluster join token.
+== 3. Get a cluster join token.
 
 include::partial$snippets/GenerateToken.adoc[]
 
-== 3. Configure binary caches
+== 4. Configure binary caches
 
 include::partial$snippets/BinaryCachesJson.adoc[]
 
