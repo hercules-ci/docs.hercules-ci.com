@@ -28,7 +28,7 @@ pkgs.mkShell {
     live-rebuild() {
       (
         echo 1>&2 "Press ENTER to force a rebuild."
-        inotifywait -mr . ../hercules-ci-effects ../arion -e MODIFY \
+        inotifywait -mr . ../hercules-ci-effects ../arion ../hercules-ci-agent -e MODIFY \
           | grep --line-buffered -E 'adoc|hbs' &
         cleanup() {
           kill %%

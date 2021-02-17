@@ -9,7 +9,7 @@ Follow these steps to ensure a correct setup.
 
 2. Write a Nix file. Hercules CI will look for `nix/ci.nix`, `ci.nix` or `default.nix` in the root of the repository.
 +
-The reference has a chapter about xref:reference:evaluation.adoc[evaluation].
+The reference has a chapter about xref:hercules-ci-agent:ROOT:evaluation.adoc[evaluation].
 +
 [#pin]
 3. Use pinned dependencies instead of `<nixpkgs>` or similar.

@@ -79,7 +79,7 @@ A good approximation is:
 NIX_PATH="" nix-build nix/ci.nix    # or ci.nix or default.nix
 ----
 
-Some xref:reference:evaluation.adoc[differences] do exist.
+Some xref:hercules-ci-agent:ROOT:evaluation.adoc[differences] do exist.
 
 You may also want to use the repl to inspect your expressions.
 

@@ -21,5 +21,5 @@ On https://cachix.org[Cachix] you can create a binary cache. After you complete 
 <3> The public part of the signing key. Look for "Public Key" on your cache page (example page: `+https://mycache.cachix.org+`).
 <4> A cache-specific secret key to sign store paths. You can find it in `~/.config/cachix/cachix.dhall` or your key backup after following the setup instructions on cachix.org. Make sure you copy the right key if you have multiple in your `cachix.dhall`.
 
-// TODO: xref:reference:binary-cache-json.adoc[The `binary-caches.json` format]
+// TODO: xref:hercules-ci-agent:ROOT:binary-cache-json.adoc[The `binary-caches.json` format]
 NOTE: For more detail, see https://docs.hercules-ci.com/hercules-ci/reference/binary-caches-json/[The `binary-caches.json` format] in the Reference.

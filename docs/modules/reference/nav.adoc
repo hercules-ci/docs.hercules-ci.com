@@ -1,2 +1,0 @@
-.xref:index.adoc[Agent Reference]
-include::reference:partial$nav-items.adoc[]
