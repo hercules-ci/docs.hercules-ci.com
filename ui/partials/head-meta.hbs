@@ -26,8 +26,13 @@
   div.nav-panel-explore span.version {
     min-width: 7em;
   }
+  /* Link color wins over code color */
   a code {
     color: inherit !important;
+  }
+  /* Highlight URL fragment focus */
+  :target a.link {
+    background-color: yellow;
   }
 </style>
 <link
