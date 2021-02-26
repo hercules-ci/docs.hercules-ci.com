@@ -7,6 +7,8 @@ content:
   - url: .
     start_path: docs
     branches: HEAD
+    web_url: https://github.com/hercules-ci/docs.hercules-ci.com
+    edit_url: true
   - url: https://github.com/hercules-ci/arion
     start_path: docs
     branches: master
