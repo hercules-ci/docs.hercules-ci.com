@@ -34,6 +34,7 @@ link:++https://hercules-ci.com/api/v1/#/default/get_api_v1_projects__projectId__
 [discrete]
 == Continue
 
+* xref:hercules-ci-effects:ROOT:index.adoc[`hercules-ci-effects` Documentation]
 * xref:hercules-ci-effects:ROOT:guide/deploy-a-nixos-machine.adoc[Deploy a NixOS machine with `hercules-ci-effects`]
 * xref:hercules-ci-effects:ROOT:guide/deploy-a-nixops-network.adoc[Deploy a NixOps network with `hercules-ci-effects`]
 * xref:hercules-ci-effects:ROOT:guide/write-a-custom-effect.adoc[Write a custom effect]
