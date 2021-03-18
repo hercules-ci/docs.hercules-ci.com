@@ -10,4 +10,7 @@
 *** xref:getting-started/repository.adoc[3a. Your Own Repository]
 *** xref:getting-started/minimal-repository.adoc[3b. Minimal Repository]
 * xref:effects/index.adoc[Effects]
+** xref:hercules-ci-effects:ROOT:index.adoc[`hercules-ci-effects`]
+* xref:hercules-ci-agent:hci:index.adoc[`hci` Command Reference]
+* xref:hercules-ci-agent:ROOT:index.adoc[Hercules CI Agent Reference]
 * xref:troubleshooting.adoc[Troubleshooting]
