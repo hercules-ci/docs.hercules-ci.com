@@ -9,5 +9,6 @@ General information
 Project Documentation
 
 - xref:hercules-ci-agent:ROOT:index.adoc[Hercules CI Agent] -- Nix-native build and deploy daemon
+- xref:hercules-ci-agent:hci:index.adoc[`hci` Command Reference] -- CLI for working with effects, etc
 - xref:hercules-ci-effects:ROOT:index.adoc[Hercules CI Effects] -- repository of deployment functions
 - xref:arion:ROOT:index.adoc[Arion] -- declarative container application tool
