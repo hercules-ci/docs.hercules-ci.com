@@ -1,0 +1,216 @@
+= Multi-platform CI and Build Matrix
+
+This guide will show you how to build your project in multiple configurations.
+
+Prerequisites:
+
+* You have xref:master@hercules-ci:ROOT:getting-started/index.adoc[set up an agent] for the account that owns the repository.
+* You have added a repository to your Hercules CI installation.
+* If you want to build natively on multiple `system` types, you have deployed agents on machines of those types.
+
+Hercules CI dispatches builds to the appropriate agent, depending on its link:https://nixos.org/manual/nix/unstable/expressions/derivations.html?highlight=system#derivations[`system`] value in the derivations, so to create a multi-platform CI job, you typically invoke a function for multiple `system` arguments and put the results in their own attributes.
+
+Here's a simple `ci.nix` that will build on two types of `system`:
+
+```nix
+{
+  hello-macos =
+    ( import (import ./nixpkgs.nix) { system = "x86_64-darwin"; }
+    ).hello;
+  hello-linux =
+    ( import (import ./nixpkgs.nix) { system = "x86_64-linux"; }
+    ).hello;
+}
+```
+
+The evaluator xref:hercules-ci-agent:ROOT:evaluation.adoc#traversal[traverses] the expression and Hercules CI will dispatch the `hello` derivations to the appropriate `hercules-ci-agent` processes.
+
+This example is perhaps a bit simplistic, so let's switch examples and adapt it to various requirements.
+
+[[starting-point]]
+== A starting point
+
+To see how we can scale this to a non-trivial project, let's say you've packaged a project with multiple components. It may look like this:
+
+```nix
+# default.nix
+let nixpkgs = import ./nixpkgs.nix; # file path
+    pkgs = import nixpkgs {};
+in
+rec {
+  backend = pkgs.callPackage ./backend.nix {};
+  frontend = pkgs.callPackage ./frontend.nix {};
+}
+```
+
+This lets you build the backend with `nix-build -A backend`.
+
+After committing this file, Hercules CI will build it for `x86_64-linux`, which is the default.
+This happens because without a `system` argument, the Nixpkgs function will produce derivations for the value of `builtins.currentSystem`.
+
+[[system]]
+== Pass `system` to Nixpkgs
+
+Now let's make our `default.nix` more useful, by allowing `system` to be passed to it.
+
+```nix
+# default.nix
+{ system ? builtins.currentSystem }: # This line turns the whole file into a function
+let nixpkgs = import ./nixpkgs.nix;
+    pkgs = import nixpkgs { inherit system; };  # and here we pass system along
+in
+rec {
+  backend = pkgs.callPackage ./backend.nix {};
+  frontend = pkgs.callPackage ./frontend.nix {};
+}
+```
+
+This also has the benefit that macOS developers can build for Linux with
+
+```shell
+nix-build default.nix --argstr system x86_64-linux
+```
+
+[[recurseIntoAttrs]]
+== `lib.recurseIntoAttrs`
+
+Now we're ready to create multi-platform CI jobs.
+
+```nix
+# ci.nix (without recurseIntoAttrs)
+{
+  linux = import ./default.nix { system = "x86_64-linux"; };
+  macos = import ./default.nix { system = "x86_64-darwin"; };
+}
+```
+
+However, this will not build anything. `nix-build ci.nix` will return immediately!
+
+`nix-build` and Hercules CI will ignore attribute sets, unless it's the root or
+unless has an attribute `recurseForDerivations = true`, which can be set with
+`lib.recurseIntoAttrs`.
+
+Let's add the latter.
+
+```nix
+# default.nix
+{ system ? builtins.currentSystem }:
+let nixpkgs = import ./nixpkgs.nix;
+    pkgs = import nixpkgs { inherit system; };
+in
+# recurseIntoAttrs makes nix-build and CI use the nested attributes
+pkgs.lib.recurseIntoAttrs rec {
+  backend = pkgs.callPackage ./backend.nix {};
+  frontend = pkgs.callPackage ./frontend.nix {};
+}
+```
+
+NOTE: Before Nixpkgs 20.09 you'd have to use `pkgs.recurseIntoAttrs`.
+
+[[build-matrix]]
+== A build matrix
+
+We can make use of Nix as a programming language to create a multitude of configurations to build and test.
+
+Particularly useful is the functionality of `mapAttrs`, although it's easier to read with the parameters flipped.
+
+Let's refactor `ci.nix` to use this and take care of `recurseForDerivations` while we're at it.
+
+```nix
+# ci.nix
+let
+  dimension = _ignoredName: attrs: f:
+    builtins.mapAttrs f attrs // {
+      recurseForDerivations = true;
+    };
+in
+dimension "system" {
+  "x86_64-linux" = {};
+  "x86_64-darwin" = {};
+} (system: _attrs:
+  import ./default.nix { inherit system; }
+)
+```
+
+Perhaps we want our app to be compatible with two versions of ElasticSearch.
+
+First, we add a parameter `getElasticSearch` and use it in `default.nix`.
+
+```nix
+# default.nix
+{ system ? builtins.currentSystem,
+  # How to get the right version of elasticsearch out of Nixpkgs
+  getElasticSearch ? p: p.elasticsearch
+}:
+let nixpkgs = import ./nixpkgs.nix;
+    pkgs = import nixpkgs { inherit system; };
+in
+pkgs.lib.recurseIntoAttrs rec {
+  backend = pkgs.callPackage ./backend.nix { elasticsearch = getElasticSearch pkgs; };
+  frontend = pkgs.callPackage ./frontend.nix {};
+}
+```
+
+Now we can define a new "dimension" in the build matrix.
+
+```nix
+# ci.nix
+let
+  dimension = _ignoredName: attrs: f:
+    {
+      recurseForDerivations = true;
+    } // builtins.mapAttrs f attrs;
+in
+dimension "system" {
+  x86_64-linux = {};
+  x86_64-darwin = {};
+} (system: _attrs:
+  dimension "elasticsearch" {
+    elasticsearch-6 = { getElasticSearch = p: p.elasticsearch6; };
+    elasticsearch-7 = { getElasticSearch = p: p.elasticsearch7; };
+  } (_name: { getElasticSearch }:
+
+    # In the functional argument of the deepest dimension call,
+    # all build matrix parameters are in scope.
+
+    import ./default.nix { inherit system getElasticSearch; }
+
+  )
+)
+```
+
+This will generate the eight derivation attributes for all four combinations.
+
+* `x86_64-darwin.elasticsearch-6.backend`
+* `x86_64-darwin.elasticsearch-6.frontend`
+* `x86_64-darwin.elasticsearch-7.backend`
+* `x86_64-darwin.elasticsearch-7.frontend`
+* `x86_64-linux.elasticsearch-6.backend`
+* `x86_64-linux.elasticsearch-6.frontend`
+* `x86_64-linux.elasticsearch-7.backend`
+* `x86_64-linux.elasticsearch-7.frontend`
+
+You can build any part of the tree locally. For example `nix-build ci.nix -A x86_64-linux`.
+
+NOTE: The Nix language and Hercules CI allow arbitrary strings for attribute names, but `nix-build` may xref:hercules-ci-agent:ROOT:evaluation.adoc#differences-with-nix-build[reject] some names.
+
+You can nest more `dimension` calls to multiply the number of combinations.
+
+To remove impossible or uninteresting combinations, you can add a conditional to omit some attributes or set `recurseForDerivations` to a boolean expression.
+
+If your Nixpkgs import looks like `import nixpkgs {}`, you can import `lib` without specifying `system` using `import (nixpkgs + "/lib")`. `lib.optionalAttrs` may come in handy. For example:
+
+```nix
+let lib = import (nixpkgs + "/lib"); in
+#...
+dimension "system" {
+  x86_64-linux = { };
+  x86_64-darwin = { supportES6 = false; };
+} (system: { supportES6 ? true }:
+  dimension "elasticsearch" ({
+    elasticsearch-7 = { getElasticSearch = p: p.elasticsearch7; };
+  } // lib.optionalAttrs supportES6 {
+    elasticsearch-6 = { getElasticSearch = p: p.elasticsearch6; };
+  }) (_name: { getElasticSearch }:
+#...
+```
