@@ -13,6 +13,7 @@ pkgs.mkShell {
 
     Commands:
       live-rebuild        Performs a local build whenever watched files change.
+      open-browser        Opens the homepage in a browser
 
     EOF
     last_status() {
@@ -42,6 +43,10 @@ pkgs.mkShell {
               antora antora-playbook-local.yml --generator=@antora/xref-validator
             echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
           done
+    }
+
+    open-browser() {
+      xdg-open public/index.html
     }
   '';
 
