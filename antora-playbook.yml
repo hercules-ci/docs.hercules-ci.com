@@ -20,6 +20,7 @@ content:
     start_path: docs
     branches:
      - master
+     - experimental-0.9
   # other features?
   #  branches: master
   #  counter: 0
