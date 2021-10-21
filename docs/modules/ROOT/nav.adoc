@@ -17,3 +17,4 @@
 * xref:hercules-ci-agent:hci:index.adoc[`hci` Command Reference]
 * xref:hercules-ci-agent:ROOT:index.adoc[Hercules CI Agent Reference]
 * xref:troubleshooting.adoc[Troubleshooting]
+* xref:glossary.adoc[Glossary]
