@@ -200,7 +200,7 @@
     vinyl "~2.2"
     vinyl-fs "~3.0"
 
-"@antora/xref-validator@git+https://gitlab.com/antora/xref-validator#v1.0.0-alpha.13":
+"@antora/xref-validator@git+https://gitlab.com/antora/xref-validator#refs/tags/v1.0.0-alpha.13":
   version "1.0.0-alpha.13"
   resolved "git+https://gitlab.com/antora/xref-validator#19bfaf88fc7dd39552cfd8b3ac41c55d6d8f9edd"
   dependencies:

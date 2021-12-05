@@ -11,11 +11,9 @@ we are interested in expanding our officially supported deployment methods.
 
 == 1. Install the agent
 
-include::partial$snippets/CachixBinaries.adoc[]
-
 [source,shell]
 ----
-$ nix-env -iA hercules-ci-agent -f https://github.com/hercules-ci/hercules-ci-agent/tarball/stable
+$ nix-env -iA hercules-ci-agent -f '<nixpkgs>'
 ----
 
 == 2. Configure the agent
