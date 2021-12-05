@@ -10,6 +10,7 @@
 *** xref:getting-started/index.adoc#repository-setup[3. Repository Setup]
 **** xref:getting-started/repository.adoc[3a. Your Own Repository]
 **** xref:getting-started/minimal-repository.adoc[3b. Minimal Repository]
+** xref:guides/install-another-version-of-hercules-ci-agent-using-flakes.adoc[Install another version of agent using Nix Flakes]
 ** xref:guides/multi-platform.adoc[Multi-platform CI / Build Matrix]
 ** xref:hercules-ci-effects:ROOT:index.adoc[Continuous Deployment Guides]
 * xref:effects/index.adoc[Effects]
