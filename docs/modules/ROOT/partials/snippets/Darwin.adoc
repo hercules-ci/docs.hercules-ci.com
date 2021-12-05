@@ -1,8 +1,6 @@
 
 WARNING: Evaluation https://github.com/hercules-ci/support/issues/24[currently] requires an `x86_64-linux` machine to be in your build cluster!
 
-include::CachixBinaries.adoc[]
-
 On macOS run:
 
 [source,shell]
