@@ -3,7 +3,7 @@
 
 Whereas the setup guides assume you want to install the version bundled with
 Nixpkgs, a specific version of `hercules-ci-agent` can be installed using
-a Nix Flake.
+a Nix flake.
 
 The `hercules-ci-agent` flake offers the following attributes:
 
@@ -14,7 +14,7 @@ The `hercules-ci-agent` flake offers the following attributes:
 * `packages.<system>.hercules-ci-agent`: just the agent package
 * `packages.<system>.hercules-ci-agent-<variant>`: variants of the agent package, such as different Nix versions
 
-NOTE: While Flakes allows you to append a path and import files from within the flake, the `/module.nix` file and other files do not work in Nix version `2.4` because it does not allow these files to open the flake, for apparently no good reason. Similarly, regressions have broken `flake-compat`.
+NOTE: While Flakes allows you to append a path and import files from within the flake, the `/module.nix` file and other files do not work in Nix version `2.4`, because it does not allow these files to open the flake, for apparently no good reason. Similarly, regressions have broken `flake-compat`.
 
 [[example-nixos]]
 ## Example NixOS configuration
