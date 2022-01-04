@@ -1,0 +1,100 @@
+
+# Install another version of hercules-ci-agent using Flakes
+
+Whereas the setup guides assume you want to install the version bundled with
+Nixpkgs, a specific version of `hercules-ci-agent` can be installed using
+a Nix flake.
+
+The `hercules-ci-agent` flake offers the following attributes:
+
+* `nixosModules.agent-service`: a module that replaces the Nixpkgs agent module
+* `nixosModules.agent-profile`: a similar module that has opinionated defaults for Nix garbage collection
+* `darwinModules.agent-service`: a module that replaces the nix-darwin agent module
+* `darwinModules.agent-profile`: a similar module that has opinionated defaults for Nix garbage collection
+* `packages.<system>.hercules-ci-agent`: just the agent package
+* `packages.<system>.hercules-ci-agent-<variant>`: variants of the agent package, such as different Nix versions
+
+NOTE: While Flakes allows you to append a path and import files from within the flake, the `/module.nix` file and other files do not work in Nix version `2.4`, because it does not allow these files to open the flake, for apparently no good reason. Similarly, regressions have broken `flake-compat`.
+
+https://hercules-ci.cachix.org[`hercules-ci.cachix.org`] provides binaries to accompany the flake.
+
+[[example-nixos]]
+## Example NixOS configuration
+
+```nix`
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hercules-ci-agent.url = "github:hercules-ci/hercules-ci-agent/stable";
+    # or to pin a specific version, for example:
+    # hercules-ci-agent.url = "github:hercules-ci/hercules-ci-agent/hercules-ci-agent-0.8.4";
+  };
+
+  outputs = inputs@{ self, nixpkgs, ... }: {
+
+    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ({ config, lib, pkgs, ... }: {
+          imports = [
+            inputs.hercules-ci-agent.nixosModules.agent-service
+            # ... other imports if you have them
+          ];
+
+          services.hercules-ci-agent.enable = true;
+          
+          # ... other option value definitions
+        })
+      ];
+    };
+  };
+}
+```
+
+[[agent-package-variant]]
+## Install an agent variant; different Nix version
+
+Add to the NixOS or nix-darwin configuration:
+
+```nix
+# Make sure your module starts with at least the parameters
+{ lib, pkgs, ... }: {
+
+  services.hercules-ci-agent.package =
+    let inherit (pkgs.stdenv.hostPlatform) system;
+    in inputs.hercules-ci-agent.package.${system}.hercules-ci-agent-nix_2_4;
+}
+```
+
+
+[[agent-package-variant-separate-module]]
+## Install an agent variant using a separate module file
+
+If your flake references a separate file for the module, for example using `imports`, you can wire up `inputs` along as follows:
+
+Make sure you bind `inputs` where you define the flake `outputs`:
+
+```nix
+  outputs = inputs@{ self, nixpkgs, ... }: {
+```
+
+Pass `inputs` along to all modules.
+
+```nix`
+    nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+
+      # ...
+    }
+```
+
+Make your module ask for the `inputs` argument:
+
+```nix
+{ inputs, ... }: {
+  services.hercules-ci-agent.package =
+    let inherit (pkgs.stdenv.hostPlatform) system;
+    in inputs.hercules-ci-agent.package.${system}.hercules-ci-agent-nix_2_4;
+}
+```

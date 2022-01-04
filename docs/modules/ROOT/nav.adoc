@@ -1,7 +1,7 @@
 * Guides
 ** xref:getting-started/index.adoc[Getting Started]
 *** xref:getting-started/index.adoc#github[1. GitHub]
-*** xref:getting-started/index.adoc#deploy-agent[2. Deploy Agent]
+*** xref:getting-started/index.adoc#deploy-agent[2. Deploy an Agent]
 **** xref:getting-started/deploy/terraform.adoc[2a. Terraform]
 **** xref:getting-started/deploy/nixops.adoc[2b. NixOps]
 **** xref:getting-started/deploy/nixos.adoc[2c. NixOS]
@@ -10,6 +10,7 @@
 *** xref:getting-started/index.adoc#repository-setup[3. Repository Setup]
 **** xref:getting-started/repository.adoc[3a. Your Own Repository]
 **** xref:getting-started/minimal-repository.adoc[3b. Minimal Repository]
+** xref:guides/update-agent-using-flake.adoc[Update Agent using Nix Flakes]
 ** xref:guides/multi-platform.adoc[Multi-platform CI / Build Matrix]
 ** xref:hercules-ci-effects:ROOT:index.adoc[Continuous Deployment Guides]
 * xref:effects/index.adoc[Effects]
