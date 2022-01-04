@@ -16,6 +16,8 @@ The `hercules-ci-agent` flake offers the following attributes:
 
 NOTE: While Flakes allows you to append a path and import files from within the flake, the `/module.nix` file and other files do not work in Nix version `2.4`, because it does not allow these files to open the flake, for apparently no good reason. Similarly, regressions have broken `flake-compat`.
 
+https://hercules-ci.cachix.org[`hercules-ci.cachix.org`] provides binaries to accompany the flake.
+
 [[example-nixos]]
 ## Example NixOS configuration
 
