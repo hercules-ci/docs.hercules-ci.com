@@ -7,7 +7,3 @@ To specify `binary-caches.json` via NixOps:
 services.hercules-ci-agent.enable = true;
 deployment.keys."binary-caches.json".keyFile = ./binary-caches.json;
 ----
-
-NOTE: We're working on https://cachix.org[Cachix] to be able to restrict `authToken`
-to only reading one private cache. https://github.com/cachix/feedback/issues/7[Subscribe to the issue to get notified]
-when the token should be replaced.

@@ -37,10 +37,6 @@ include::partial$snippets/BinaryCachesJson.adoc[]
 
 Install the file in `/var/lib/hercules-ci-agent/secrets/binary-caches.json`.
 
-Configure the system to use the caches and accept their public keys.
-When using a private cache, you will also need to install an appropriate netrc
-file in `/etc/nix/daemon-netrc`.
-
 == 5. Start the agent
 
 Run `hercules-ci-agent --config agent.toml`, preferably via some process supervision system.
