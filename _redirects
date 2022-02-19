@@ -12,3 +12,5 @@ https://master--hercules-docs.netlify.com/* https://docs.hercules-ci.com/:splat 
 
 http://docs.hercules-ci.com/hercules-ci/reference/* http://docs.hercules-ci.com/hercules-ci-agent/:splat 301!
 https://docs.hercules-ci.com/hercules-ci/reference/* https://docs.hercules-ci.com/hercules-ci-agent/:splat 301!
+
+/hercules-ci-effects/guide/install-the-hci-command/ /hercules-ci-agent/hci/installation/
