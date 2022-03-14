@@ -1,0 +1,72 @@
+
+# Upgrade to hercules-ci-agent 0.9
+
+0.9 introduces a few changes to improve usability and security.
+
+This includes a few incompatibilities with prior releases. We've kept these to
+a minimum and you can have a smooth upgrade by following these steps.
+
+## Prepare your agents' `secrets.json`
+
+You can skip this step if your `secrets.json` is empty: `{ }`
+
+Most significant is the addition of a xref:hercules-ci-agent:ROOT:secrets-json.adoc#condition[`condition`] field in `secrets.json`.
+Lack of a `condition` makes a secret inaccessible, to be secure by default.
+
+The following snippet will generate a template that you can use as your replacement `secrets.json`. You'll want to replace `your-github-org` but leave `enter repo here`, as you must replace those manually.
+
+```console
+nix-shell -p jq
+jq <secrets.json 'map_values(. + {"condition": {"or": [{"and": ["isDefaultBranch", {"isOwner": "your-github-org"}, {"isRepo": "enter repo here"}]}]}})'
+```
+
+The `"or"` node is technically redundant, but comes in handy when a secret must be used in multiple scenarios. The `"and"` describes each situation and the `"or"` allows each independently.
+
+For each secret, you can review which repositories and branches should be allowed to access them. The default branch is typically `main`, `master` or `develop`. You can specify a different branch criterium with xref:hercules-ci-agent:ROOT:secrets-json.adoc#condition[`isBranch`]. You can remove the branch restrictions by removing branch-related nodes.
+
+This may also be a good time to enable https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches[GitHub branch protection], to enforce checks and reviews of your privileged branches. Repo admins can find this under each GitHub's repo btn:[Settings] tab -> btn:[Branches] menu item.
+
+After preparing your updated `secrets.json`, you can choose to deploy it before updating your agents, as older versions ignore the new field.
+
+## Update your agents
+
+As of writing you need to use a git revision from `master` to deploy version 0.9. A release to `nixos-unstable` is currently blocked on a Haskell GHC major upgrade.
+
+xref:hercules-ci:ROOT:guides/update-agent-using-flake.adoc[This guide] describes how to update to a flake-provided version, but come back to this guides for updates to the repositories.
+
+## Upgrade your repositories
+
+The agent will now prioritize `flake.nix` over `default.nix`. When a `ci.nix` or `nix/ci.nix` is present, it will be picked up just like before. If your repository contains both a `flake.nix` and a CI configuration in `default.nix`, you can put `import ./default.nix` in `ci.nix` or upgrade to the flake-based format.
+
+Regardless of file choice, you can now configure your Hercules CI jobs using the new xref:hercules-ci-agent:ROOT:evaluation.adoc[`herculesCI` attribute].
+
+Flakes have the additional benefit of a default `onPush` job based on well-known flake attributes. Please compare the attributes list in the https://hercules-ci.com/dashboard[dashboard].
+
+```nix
+outputs = { ... }: flake-utils.xyz (
+  # ...
+)
+// { # make sure to set a _top-level_ outputs attribute
+
+  # restrict which systems to build in CI
+  herculesCI.ciSystems = ["x86_64-linux"];
+}
+```
+
+If something is missing, or if you want to make use of some new features, you can define your own `herculesCI.onPush` attributes using the xref:hercules-ci-agent:ROOT:evaluation.adoc[documented schema].
+
+### Upgrade from `flake-compat-ci`
+
+If your repository was using the `flake-compat-ci` flake, similar to the https://github.com/NixOS/templates/tree/4396ff1aec6e7c2828257bc21496f336a8c09358/hercules-ci[old template] you can do the following:
+
+ - Remove `ci.nix`
+ - Remove `flake-compat.nix`
+ - Open `flake.nix`
+   * Remove `inputs.flake-compat-ci`
+   * Remove `inputs.flake-compat` (unless you have a reason to keep it)
+   * Remove the corresponding parameters in `outputs`
+   * Remove the `ciNix` output
+
+Note that changes to the lockfile may cause unrelated changes.
+
+If an attribute is missing or if you're having any other kind of trouble, contact @roberthensing in the Nix Flakes matrix room, or email `support@hercules-ci.com`.

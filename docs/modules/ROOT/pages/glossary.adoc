@@ -12,7 +12,7 @@ It is also used by Nix to describe development shells and by Hercules CI to desc
 [[effect]]
 == effect
 
-A Hercules CI Effect is a program that runs in the xref:0.9@hercules-ci-agent:ROOT:effects.adoc[effects sandbox] instead of the Nix sandbox. It can access the network, Nix store and locally configured <<secret,secrets>>.
+A Hercules CI Effect is a program that runs in the xref:hercules-ci-agent:ROOT:effects.adoc[effects sandbox] instead of the Nix sandbox. It can access the network, Nix store and locally configured <<secret,secrets>>.
 
 An effect is described by a special <<derivation>>.
 
@@ -45,7 +45,7 @@ A job is the largest coherent "unit of work" in Hercules CI, in the sense that i
 
 A job produces one commit status, or, before agent 0.9, three statuses for evaluation, build and effects.
 
-See xref:0.9@hercules-ci-agent:ROOT:job-definition.adoc[Job Definition (prerelease)].
+See xref:hercules-ci-agent:ROOT:job-definition.adoc[Job Definition (prerelease)].
 
 [[package]]
 == package
@@ -61,7 +61,7 @@ A secret is a confidential value, typically related to some form of authenticati
 
 Secrets require special treatment and should not be copied to the <<store>>, because the store is generally readable by too many processes, services and users, that can compromise their confidentiality too easily.
 
-See also the xref:0.9@hercules-ci-agent:ROOT:secrets-json.adoc[`secrets.json` format reference (prerelease)].
+See also the xref:hercules-ci-agent:ROOT:secrets-json.adoc[`secrets.json` format reference (prerelease)].
 
 [[store]]
 == store
