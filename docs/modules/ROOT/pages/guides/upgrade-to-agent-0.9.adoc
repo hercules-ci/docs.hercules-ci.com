@@ -22,7 +22,7 @@ nix-shell -p jq
 jq <secrets.json 'map_values(. + {"condition": {"or": [{"and": ["isDefaultBranch", {"isOwner": "your-github-org"}, {"isRepo": "enter repo here"}]}]}})'
 ```
 
-The `"or"` node is technically redundant, but comes in handy when a secret must be used in multiple scenarios. The `"and"` describes each situation and the `"or"` allows each independently. (academic detail: this is the disjunctive normal form)
+The `"or"` node is technically redundant, but comes in handy when a secret must be used in multiple scenarios. The `"and"` describes each situation and the `"or"` allows each independently.
 
 For each secret, you can review which repositories and branches should be allowed to access them. The default branch is typically `main`, `master` or `develop`. You can specify a different branch with xref:hercules-ci-agent:ROOT:secrets-json.adoc#condition[`isBranch`]. You can remove the branch restrictions by removing branch-related nodes.
 
