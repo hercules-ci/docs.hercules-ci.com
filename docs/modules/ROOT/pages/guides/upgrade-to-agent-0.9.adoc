@@ -53,6 +53,8 @@ outputs = { ... }: flake-utils.xyz (
 }
 ```
 
+Update your branch protection configuration to require `ci/hercules/onPush/default` instead of `ci/hercules/derivations`. Remove `ci/hercules/effects`.
+
 If something is missing, or if you want to make use of some new features, you can define your own `herculesCI.onPush` attributes using the xref:hercules-ci-agent:ROOT:evaluation.adoc[documented schema].
 
 ### Upgrade from `flake-compat-ci`
@@ -66,6 +68,8 @@ If your repository was using the `flake-compat-ci` flake, similar to the https:/
    * Remove `inputs.flake-compat` (unless you have a reason to keep it)
    * Remove the corresponding parameters in `outputs`
    * Remove the `ciNix` output
+ - Push
+ - Before merging, update your branch protection settings to require `ci/hercules/onPush/default` instead of `ci/hercules/derivations`. Remove `ci/hercules/effects`.
 
 Note that changes to the lockfile may cause unrelated changes.
 
