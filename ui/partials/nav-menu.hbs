@@ -4,8 +4,70 @@
 </div>
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="{{relativize page.url page.componentVersion.url}}">{{page.component.title}}</a></h3>
-{{> nav-tree navigation=page.navigation}}
+    {{!-- HACK:
+    this style is taken from class="nav-list" so that it's not picked up
+    by antora's js, which breaks on my custom html
+    --}}
+    <ul style="margin: 0 0 0 0.75rem; padding: 0;">
+      {{#each site.components}}
+      {{!-- Classify by topic and only display menu for the topic.
+      Topics: default, "arion"
+      --}}
+      {{#if (eq
+      (eq ../page.component.name "arion")
+      (eq this.name "arion")
+      )
+      }}
+      <li class="nav-item" style="padding-bottom: 4ex">
+        {{!-- <div class="nav-trees"> --}}
+          {{!-- HACK: Skip components that only have a latest version --}}
+          {{#unless (or (eq this.name "hercules-ci") (eq this.name "hercules-ci-effects"))}}
+          <div style="float: right">
+            <div>
+              {{#each this.versions}}
+              <a href="{{{relativize ./url}}}"
+                style="{{#if (and (eq ../../page.component.name ../name) (eq this.version ../../page.version)) }}color: #a00; font-weight: 500;{{/if}} border: 1px solid #c1c1c1; border-radius: 0.25rem; padding: 0.125em 0.25em;">
+                {{#if (eq this.displayVersion "master")}}
+                latest
+                {{/if}}
+                {{#if (not (eq this.displayVersion "master"))}}
+                {{this.displayVersion}}
+                {{/if}}
+              </a>
+              {{/each}}
+            </div>
+          </div>
+          {{/unless}}
+          {{#each this.versions}}
+          {{#if (or
+          (and
+          (eq ../../page.component.name ../name)
+          (eq this.version ../../page.version)
+          )
+          (and
+          (not (eq ../../page.component.name ../name))
+          (eq ./version ../latestVersion.version)
+          )
+          )}}
+          <div data-component="{{../name}}" data-version="{{this.version}}">
+            <div class="nav-link">
+              <a class="{{#unless ./navigation.length}}spacer{{/unless}}{{#if (eq @root.page.url ./url)}} is-current-page-and-root{{/if}}"
+                href="{{{relativize ./url}}}">
+                {{{./title}}}
+              </a>
+            </div>
+            {{> nav-tree navigation=./navigation }}
+          </div>
+          {{/if}}
+          {{/each}}
+      </li>
+      {{/if}}
+      {{/each}}
+    </ul>
   </nav>
 </div>
+
+{{!-- <h3 class="title"><a href="{{relativize page.url page.componentVersion.url}}">{{page.component.title}}</a></h3>
+{{> nav-tree navigation=page.navigation}} --}}
+
 {{/if}}
