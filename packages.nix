@@ -1,6 +1,7 @@
 import (builtins.fetchTarball {
-  url = "https://github.com/NixOS/nixpkgs/archive/2394284537b89471c87065b040d3dedd8b5907fe.tar.gz";
-  sha256 = "sha256:1j7vp735is5d32mbrgavpxi3fbnsm6d99a01ap8gn30n5ysd14sl";
+  # nixos-unstable 2022-03-23
+  url = "https://github.com/NixOS/nixpkgs/archive/1d08ea2bd83abef174fb43cbfb8a856b8ef2ce26.tar.gz";
+  sha256 = "sha256:1q8p2bz7i620ilnmnnyj9hgx71rd2j6sjza0s0w1wibzr9bx0z05";
 }) {
   config.allowUnfree = true;
   overlays = [
