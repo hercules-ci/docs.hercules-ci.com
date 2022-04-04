@@ -20,6 +20,10 @@ content:
     start_path: docs
     branches:
     - HEAD
+  - url: ../hercules-ci-agent
+    start_path: docs
+    branches:
+    - 0.8-maintenance
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
