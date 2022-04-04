@@ -8,7 +8,7 @@
     this style is taken from class="nav-list" so that it's not picked up
     by antora's js, which breaks on my custom html
     --}}
-    <ul style="margin: 0 0 0 0.75rem; padding: 0;">
+    <ul style="margin: 0 0 0 0.75rem; padding: 0; list-style: none;">
       {{#each site.components}}
       {{!-- Classify by topic and only display menu for the topic.
       Topics: default, "arion"
@@ -18,7 +18,7 @@
       (eq this.name "arion")
       )
       }}
-      <li class="nav-item" style="padding-bottom: 4ex">
+      <li class="nav-item" style="padding-bottom: 4ex;">
         {{!-- <div class="nav-trees"> --}}
           {{!-- HACK: Skip components that only have a latest version --}}
           {{#unless (or (eq this.name "hercules-ci") (eq this.name "hercules-ci-effects"))}}
