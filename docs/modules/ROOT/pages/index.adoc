@@ -3,7 +3,7 @@
 General information
 
 - xref:ROOT:getting-started/index.adoc[Getting Started]
-- xref:ROOT:effects/index.adoc[About Effects] (beta)
+- xref:ROOT:effects/index.adoc[Introduction to Effects] for Continuous Deployment
 - xref:ROOT:troubleshooting.adoc[Troubleshooting]
 
 Project Documentation
