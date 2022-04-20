@@ -5,7 +5,7 @@ On macOS run:
 
 [source,shell]
 ----
-[root@mac]# sh <(curl https://nixos.org/nix/install) --daemon
+[root@mac]# sh <(curl -L https://nixos.org/nix/install) --daemon
 [root@mac]# source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 [root@mac]# nix-build https://github.com/hercules-ci/nix-darwin/archive/hercules-ci-agent.tar.gz -A installer
