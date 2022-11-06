@@ -117,8 +117,9 @@
                     "--debug"
                     "--build"
                   ] ++ lib.optionals (!isProd) [
-                    "--alias"
-                    branch
+                    # Try without branch name
+                    # "--alias"
+                    # branch
                   ];
                 }
               );
