@@ -121,6 +121,9 @@
                     # "--alias"
                     # branch
                   ];
+                  postEffect = ''
+                    find
+                  '';
                 }
               );
             in
