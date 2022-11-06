@@ -95,35 +95,43 @@
                   secretName = "default-netlify";
                   productionDeployment = isProd;
                   content = "./public";
-                  src = lib.cleanSourceWith {
-                    src = ./.;
-                    filter = path: type:
-                      # netlify will fetch any node packages it finds, but
-                      # we don't want it to do that.
-                      baseNameOf path != "node_modules" &&
-                      baseNameOf path != "package.json";
-                  };
+                  src = ./.;
                   nativeBuildInputs = [
                     config.packages.antora
                     pkgs.tree
+                    pkgs.git
                   ];
-                  preEffect = lib.optionalString (!isProd) ''
+                  preEffect = ''
                     mkdir -p public
+                    git config --global user.email "no-reply@hercules-ci.com"
+                    git config --global user.name CI
+                    git config --global init.defaultBranch master
+                    git init .
+                    git remote add origin https://github.com/hercules-ci/docs.hercules-ci.com
+                    git add -N .
+                    git commit -m init .
+                    git checkout -B ${lib.escapeShellArg branch}
+
+                    checklog() {
+                      tee $TMPDIR/err
+                      ! grep -E 'error|fatal'
+                    }
+                    export CI=true;
+                    export FORCE_SHOW_EDIT_PAGE_LINK=true;
+                    antora --fetch --generator=@antora/xref-validator ./antora-playbook.yml 2>&1 | checklog;
+                    antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
+                    cat <./_redirects >>./public/_redirects
+                  '' + lib.optionalString (!isProd) ''
                     { echo 'User-agent: *'
                       echo 'Disallow: /'
                     } >public/robots.txt
                   '';
                   extraDeployArgs = [
-                    "--debug"
-                    "--build"
+                    # "--debug"
                   ] ++ lib.optionals (!isProd) [
-                    # Try without branch name
-                    # "--alias"
-                    # branch
+                    "--alias"
+                    branch
                   ];
-                  postEffect = ''
-                    find
-                  '';
                 }
               );
             in

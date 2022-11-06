@@ -1,3 +1,0 @@
-[build]
-publish = "public"
-command = "set -ex; echo $(date) build start; export CI=true; export FORCE_SHOW_EDIT_PAGE_LINK=true; antora --fetch --generator=@antora/xref-validator ./antora-playbook.yml && antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml && tee <./_redirects --append ./public/_redirects; echo $(date) build done;"
