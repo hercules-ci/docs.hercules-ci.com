@@ -146,13 +146,6 @@ Derivation logs are currently only available after the derivation has succeeded 
 You may run `nix-store --realise /nix/store/<...>.drv` on an agent for troubleshooting purposes.
 
 
-== Where is the evaluation log?
-
-A log of the evaluation is not available yet. Normally this should not be needed, however, we do want to show the `builtins.trace` messages in the future.
-
-To troubleshoot unexpected technical failures of evaluation on the agent, you may inspect the agent log.
-
-
 == Why is my derivation status `Failure`, while the build log looks successful?
 
 Currently some technical errors and configuration errors are not reported all the way to the dashboard.
