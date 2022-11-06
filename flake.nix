@@ -7,7 +7,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
-    hercules-ci-effects.url = "/home/user/h/hercules-ci-effects";
+    hercules-ci-effects.url = "hercules-ci-effects/netlifyDeploy-extraDeployArgs";
   };
 
   outputs = inputs@{ self, flake-parts, hercules-ci-effects, ... }:
@@ -91,7 +91,14 @@
                   secretName = "default-netlify";
                   productionDeployment = isProd;
                   content = "./public";
-                  src = ./.;
+                  src = lib.cleanSourceWith {
+                    src = ./.;
+                    filter = path: type:
+                      # netlify will fetch any node packages it finds, but
+                      # we don't want it to do that.
+                      baseNameOf path != "node_modules" &&
+                      baseNameOf path != "package.json";
+                  };
                   nativeBuildInputs = [
                     config.packages.antora
                     pkgs.tree

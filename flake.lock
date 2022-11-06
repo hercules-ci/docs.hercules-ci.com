@@ -38,14 +38,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1664386111,
-        "narHash": "sha256-EwNhvvFlyKTN2kWwvW2NJsc08lDipzHRJaC2hsp1U7w=",
-        "type": "git",
-        "url": "file:///home/user/h/hercules-ci-effects"
+        "lastModified": 1667741441,
+        "narHash": "sha256-dJ3+Yyi6yb+0suS2upKB4S6E9VU+G24RKEeOkEvHykw=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "37e87def7dff8b5540dd93b1024c5cadb563feb8",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/user/h/hercules-ci-effects"
+        "id": "hercules-ci-effects",
+        "ref": "netlifyDeploy-extraDeployArgs",
+        "type": "indirect"
       }
     },
     "nixpkgs": {
