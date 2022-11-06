@@ -1,8 +1,3 @@
 [build]
-base = "antora"
 publish = "public"
-command = "export CI=true; export FORCE_SHOW_EDIT_PAGE_LINK=true; ./node_modules/.bin/antora --fetch --generator=@antora/xref-validator ../antora-playbook.yml && ./node_modules/.bin/antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ../antora-playbook.yml && tee <../_redirects --append ../public/_redirects"
-
-[build.environment]
-NODE_VERSION = "10"
-ANTORA_CACHE_DIR = "node_modules/.cache/antora"
+command = "echo $(date) build start; export CI=true; export FORCE_SHOW_EDIT_PAGE_LINK=true; antora --fetch --generator=@antora/xref-validator ./antora-playbook.yml && antora --url ${DEPLOY_PRIME_URL:-$URL} --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml && tee <./_redirects --append ./public/_redirects; echo $(date) build done;"
