@@ -22,6 +22,10 @@
         perSystem = { config, self', inputs', pkgs, ... }: {
           packages.antora = pkgs.callPackage ./antora/package.nix { };
           pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
+          pre-commit.settings.excludes = [
+            # The snippets didn't improve. May try again later.
+            "docs/modules/ROOT/partials/snippets"
+          ];
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = [
               config.packages.antora
