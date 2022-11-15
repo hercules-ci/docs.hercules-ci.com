@@ -141,7 +141,7 @@
                   inherit (self) checks packages;
                 };
               };
-              onSchedule.timed-deploy = {
+              onSchedule.scheduled-deploy = {
                 outputs.effects.netlifyDeploy = deploy;
                 when.hour = [ 0 6 12 18 ];
               };
