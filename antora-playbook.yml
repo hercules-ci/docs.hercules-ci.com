@@ -11,7 +11,8 @@ content:
     edit_url: true
   - url: https://github.com/hercules-ci/arion
     start_path: docs
-    branches: master
+    branches:
+    - main
   - url: https://github.com/hercules-ci/hercules-ci-effects
     start_path: docs
     branches:
