@@ -31,6 +31,7 @@
               pkgs.inotify-tools
               pkgs.netlify-cli
               pkgs.nixpkgs-fmt
+              pkgs.yarn
             ];
             NODE_PATH = config.packages.antora.node_modules;
             shellHook = ''
