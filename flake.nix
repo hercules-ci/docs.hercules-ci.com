@@ -99,9 +99,14 @@
                     config.packages.antora
                     pkgs.tree
                     pkgs.git
+                    pkgs.nix
                   ];
+                  # TODO package the extension properly
+                  NODE_PATH = config.packages.antora.node_modules;
                   preEffect = ''
                     mkdir -p public
+                    mkdir -p ~/.config/nix
+                    echo >>~/.config/nix/nix.conf experimental-features = flakes nix-command
                     git config --global user.email "no-reply@hercules-ci.com"
                     git config --global user.name CI
                     git config --global init.defaultBranch master
@@ -117,7 +122,7 @@
                     }
                     export CI=true;
                     export FORCE_SHOW_EDIT_PAGE_LINK=true;
-                    antora --fetch ./antora-playbook.yml 2>&1 | checklog;
+                    antora --fetch ./antora-playbook.yml --stacktrace 2>&1 | checklog;
                     antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
                     cat <./_redirects >>./public/_redirects
                   '' + lib.optionalString (!isProd) ''
