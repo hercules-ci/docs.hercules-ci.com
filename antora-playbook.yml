@@ -6,12 +6,14 @@ content:
   sources:
   - url: .
     start_path: docs
-    branches: HEAD
+    branches:
+    - HEAD
     web_url: https://github.com/hercules-ci/docs.hercules-ci.com
     edit_url: true
   - url: https://github.com/hercules-ci/arion
     start_path: docs
-    branches: master
+    branches:
+    - main
   - url: https://github.com/hercules-ci/hercules-ci-effects
     start_path: docs
     branches:
@@ -38,3 +40,6 @@ asciidoc:
     hide-uri-scheme: ''
 output:
   dir: ./public
+antora:
+  extensions:
+  - ./lib/generated-content.js

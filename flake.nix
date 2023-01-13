@@ -31,8 +31,9 @@
               pkgs.inotify-tools
               pkgs.netlify-cli
               pkgs.nixpkgs-fmt
+              pkgs.yarn
             ];
-
+            NODE_PATH = config.packages.antora.node_modules;
             shellHook = ''
               ${config.pre-commit.installationScript}
 
@@ -61,7 +62,7 @@
                 (
                   echo 1>&2 "Press ENTER to force a rebuild."
                   inotifywait -mr . ../hercules-ci-effects ../arion ../hercules-ci-agent -e MODIFY \
-                    | grep --line-buffered -E 'adoc|hbs' &
+                    | grep --line-buffered -E 'adoc|hbs|(lib/.*\.js)' &
                   cleanup() {
                     kill %%
                   }
@@ -70,8 +71,7 @@
                   cat
                   ) | while read ln; do
                       echo 1>&2 "antora starting..."
-                      antora antora-playbook-local.yml && \
-                        antora antora-playbook-local.yml --generator=@antora/xref-validator
+                      antora antora-playbook-local.yml --stacktrace
                       echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
                     done
               }
@@ -99,9 +99,14 @@
                     config.packages.antora
                     pkgs.tree
                     pkgs.git
+                    pkgs.nix
                   ];
+                  # TODO package the extension properly
+                  NODE_PATH = config.packages.antora.node_modules;
                   preEffect = ''
                     mkdir -p public
+                    mkdir -p ~/.config/nix
+                    echo >>~/.config/nix/nix.conf experimental-features = flakes nix-command
                     git config --global user.email "no-reply@hercules-ci.com"
                     git config --global user.name CI
                     git config --global init.defaultBranch master
@@ -113,11 +118,11 @@
 
                     checklog() {
                       tee $TMPDIR/err
-                      ! grep -E 'error|fatal'
+                      ! grep -E 'ERROR'
                     }
                     export CI=true;
                     export FORCE_SHOW_EDIT_PAGE_LINK=true;
-                    antora --fetch --generator=@antora/xref-validator ./antora-playbook.yml 2>&1 | checklog;
+                    antora --fetch ./antora-playbook.yml --stacktrace 2>&1 | checklog;
                     antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
                     cat <./_redirects >>./public/_redirects
                   '' + lib.optionalString (!isProd) ''
