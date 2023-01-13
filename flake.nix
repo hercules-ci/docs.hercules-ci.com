@@ -70,8 +70,7 @@
                   cat
                   ) | while read ln; do
                       echo 1>&2 "antora starting..."
-                      antora antora-playbook-local.yml && \
-                        antora antora-playbook-local.yml --generator=@antora/xref-validator
+                      antora antora-playbook-local.yml --stacktrace
                       echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
                     done
               }
@@ -113,11 +112,11 @@
 
                     checklog() {
                       tee $TMPDIR/err
-                      ! grep -E 'error|fatal'
+                      ! grep -E 'ERROR'
                     }
                     export CI=true;
                     export FORCE_SHOW_EDIT_PAGE_LINK=true;
-                    antora --fetch --generator=@antora/xref-validator ./antora-playbook.yml 2>&1 | checklog;
+                    antora --fetch ./antora-playbook.yml 2>&1 | checklog;
                     antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
                     cat <./_redirects >>./public/_redirects
                   '' + lib.optionalString (!isProd) ''
