@@ -37,3 +37,6 @@ asciidoc:
     hide-uri-scheme: ''
 output:
   dir: ./public
+antora:
+  extensions:
+  - ./lib/generated-content.js

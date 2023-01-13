@@ -32,7 +32,7 @@
               pkgs.netlify-cli
               pkgs.nixpkgs-fmt
             ];
-
+            NODE_PATH = config.packages.antora.node_modules;
             shellHook = ''
               ${config.pre-commit.installationScript}
 
@@ -61,7 +61,7 @@
                 (
                   echo 1>&2 "Press ENTER to force a rebuild."
                   inotifywait -mr . ../hercules-ci-effects ../arion ../hercules-ci-agent -e MODIFY \
-                    | grep --line-buffered -E 'adoc|hbs' &
+                    | grep --line-buffered -E 'adoc|hbs|(lib/.*\.js)' &
                   cleanup() {
                     kill %%
                   }
