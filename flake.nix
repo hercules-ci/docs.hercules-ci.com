@@ -18,6 +18,12 @@
           inputs.pre-commit-hooks-nix.flakeModule
         ];
         systems = [ "x86_64-linux" ];
+        hercules-ci.flake-update = {
+          enable = true;
+          when = {
+            dayOfMonth = 5;
+          };
+        };
         perSystem = { config, self', inputs', pkgs, ... }: {
           packages.antora = pkgs.callPackage ./antora/package.nix { };
           pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
