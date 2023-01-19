@@ -3,7 +3,7 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-parts.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -11,13 +11,19 @@
 
   outputs = inputs@{ self, flake-parts, hercules-ci-effects, ... }:
     flake-parts.lib.mkFlake
-      { inherit self; }
+      { inherit inputs; }
       ({ lib, withSystem, ... }: {
         imports = [
           inputs.hercules-ci-effects.flakeModule
           inputs.pre-commit-hooks-nix.flakeModule
         ];
         systems = [ "x86_64-linux" ];
+        hercules-ci.flake-update = {
+          enable = true;
+          when = {
+            dayOfMonth = 5;
+          };
+        };
         perSystem = { config, self', inputs', pkgs, ... }: {
           packages.antora = pkgs.callPackage ./antora/package.nix { };
           pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
@@ -84,73 +90,71 @@
             LANG = "en_US.utf8";
           };
         };
-        flake = {
-          herculesCI = { branch, ... }:
-            let
-              isProd = branch == "master";
-              deploy = withSystem "x86_64-linux" ({ config, pkgs, effects, ... }:
-                effects.netlifyDeploy {
-                  siteId = "48f50b78-b03a-4f2b-bc57-8e043b0f569f";
-                  secretName = "default-netlify";
-                  productionDeployment = isProd;
-                  content = "./public";
-                  src = ./.;
-                  nativeBuildInputs = [
-                    config.packages.antora
-                    pkgs.tree
-                    pkgs.git
-                    pkgs.nix
-                  ];
-                  # TODO package the extension properly
-                  NODE_PATH = config.packages.antora.node_modules;
-                  preEffect = ''
-                    mkdir -p public
-                    mkdir -p ~/.config/nix
-                    echo >>~/.config/nix/nix.conf experimental-features = flakes nix-command
-                    git config --global user.email "no-reply@hercules-ci.com"
-                    git config --global user.name CI
-                    git config --global init.defaultBranch master
-                    git init .
-                    git remote add origin https://github.com/hercules-ci/docs.hercules-ci.com
-                    git add -N .
-                    git commit -m init .
-                    git checkout -B ${lib.escapeShellArg branch}
+        herculesCI = { config, ... }:
+          let
+            inherit (config.repo) branch;
+            isProd = branch == "master";
+            deploy = withSystem "x86_64-linux" ({ config, pkgs, hci-effects, ... }:
+              hci-effects.netlifyDeploy {
+                siteId = "48f50b78-b03a-4f2b-bc57-8e043b0f569f";
+                secretName = "default-netlify";
+                productionDeployment = isProd;
+                content = "./public";
+                src = ./.;
+                nativeBuildInputs = [
+                  config.packages.antora
+                  pkgs.tree
+                  pkgs.git
+                  pkgs.nix
+                ];
+                # TODO package the extension properly
+                NODE_PATH = config.packages.antora.node_modules;
+                preEffect = ''
+                  mkdir -p public
+                  mkdir -p ~/.config/nix
+                  echo >>~/.config/nix/nix.conf experimental-features = flakes nix-command
+                  git config --global user.email "no-reply@hercules-ci.com"
+                  git config --global user.name CI
+                  git config --global init.defaultBranch master
+                  git init .
+                  git remote add origin https://github.com/hercules-ci/docs.hercules-ci.com
+                  git add -N .
+                  git commit -m init .
+                  git checkout -B ${lib.escapeShellArg branch}
 
-                    checklog() {
-                      tee $TMPDIR/err
-                      ! grep -E 'ERROR'
-                    }
-                    export CI=true;
-                    export FORCE_SHOW_EDIT_PAGE_LINK=true;
-                    antora --fetch ./antora-playbook.yml --stacktrace 2>&1 | checklog;
-                    antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
-                    cat <./_redirects >>./public/_redirects
-                  '' + lib.optionalString (!isProd) ''
-                    { echo 'User-agent: *'
-                      echo 'Disallow: /'
-                    } >public/robots.txt
-                  '';
-                  extraDeployArgs = [
-                    # "--debug"
-                  ] ++ lib.optionals (!isProd) [
-                    "--alias"
-                    branch
-                  ];
-                }
-              );
-            in
-            {
-              onPush.default = {
-                outputs = {
-                  effects.netlifyDeploy = deploy;
-                  inherit (self) checks packages;
-                };
-              };
-              onSchedule.scheduled-deploy = {
-                outputs.effects.netlifyDeploy = deploy;
-                when.hour = [ 0 6 12 18 ];
+                  checklog() {
+                    tee $TMPDIR/err
+                    ! grep -E 'ERROR'
+                  }
+                  export CI=true;
+                  export FORCE_SHOW_EDIT_PAGE_LINK=true;
+                  antora --fetch ./antora-playbook.yml --stacktrace 2>&1 | checklog;
+                  antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
+                  cat <./_redirects >>./public/_redirects
+                '' + lib.optionalString (!isProd) ''
+                  { echo 'User-agent: *'
+                    echo 'Disallow: /'
+                  } >public/robots.txt
+                '';
+                extraDeployArgs = [
+                  # "--debug"
+                ] ++ lib.optionals (!isProd) [
+                  "--alias"
+                  branch
+                ];
+              }
+            );
+          in
+          {
+            onPush.default = {
+              outputs = {
+                effects.netlifyDeploy = deploy;
               };
             };
-        };
+            onSchedule.scheduled-deploy = {
+              outputs.effects.netlifyDeploy = deploy;
+              when.hour = [ 0 6 12 18 ];
+            };
+          };
       });
 }
