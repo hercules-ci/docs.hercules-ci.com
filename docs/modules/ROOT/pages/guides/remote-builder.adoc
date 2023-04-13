@@ -45,3 +45,27 @@ The agent will read and incorporate options from the Nix dotfile of the user it 
 On a NixOS system, this location is `/var/lib/hercules-ci-agent/.config/nix/nix.conf`. You may use this file to reset the https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=builders#conf-builders[`builders`] option, or append to the option using `extra-builders` entries.
 
 The Nix manual https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds.html?highlight=builders#remote-builds[page about remote builder setup] may be useful here as well.
+
+=== Example: Use a single remote builder
+
+Suppose you have multiple remote builders in the system configuration. You may want to use only one of them for the agent.
+
+```shellSession
+$ cat /etc/nix/machines
+aarch64-linux-0.example.com ...
+aarch64-linux-1.example.com ...
+...
+
+$ grep aarch64-linux-1 /etc/nix/nix.conf > /var/lib/hercules-ci-agent/.config/nix/machines
+
+$ cat /var/lib/hercules-ci-agent/.config/nix/machines
+aarch64-linux-1.example.com ...
+
+$ echo 'builders = @/var/lib/hercules-ci-agent/.config/nix/machines' >> /var/lib/hercules-ci-agent/.config/nix/nix.conf
+
+$ cat /var/lib/hercules-ci-agent/.config/nix/nix.conf
+...
+
+```
+
+Now the agent will only use the remote builder at `aarch64-linux-1.example.com`.
