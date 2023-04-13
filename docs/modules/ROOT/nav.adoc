@@ -13,6 +13,7 @@
 ** xref:guides/upgrade-to-agent-0.9.adoc[Upgrade to Agent 0.9]
 ** xref:guides/update-agent-using-flake.adoc[Update Agent using Nix Flakes]
 ** xref:guides/multi-platform.adoc[Multi-platform CI / Build Matrix]
+** xref:guides/remote-builder.adoc[Agent as Remote Builder Client]
 * xref:effects/index.adoc[Effects Introduction (CI/CD)]
 * xref:troubleshooting.adoc[Troubleshooting]
 * xref:glossary.adoc[Glossary]
