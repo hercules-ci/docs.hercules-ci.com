@@ -1,0 +1,47 @@
+= Set up hercules-ci-agent as a remote builder client
+
+Nix can dispatch builds over SSH. While this protocol isn't as flexible as the agent's protocol, it's still useful for builds in Effects.
+If you need to build derivations in an effect, and those derivations' `system` does not match that of the effect, you currently need to set up a remote builder.
+All other dispatch is done via the agent's own protocol.
+
+This guide focuses on the case where the agent machine is a client of the remote builder.
+
+You **do NOT need to do anything special** if you only want to:
+
+ - Build derivations on multiple `system` types or on multiple machines of the same type, or with different supported features. You only need to configure an agent on each. Correct dispatch to all agents is handled by hercules-ci.com. This rule has one exception, which is that builds of a different `system` type that are started by an effect must use a remote builder currently.
+
+ - Use the same machine as an agent and as a remote builder. These services (SSH and `hercules-ci-agent`) are configured independently. They only "interact" by consuming resources, which are mainly mediated by the system's Nix daemon.
+
+Prerequisites:
+
+ - You have xref:getting-started/index.adoc[set up] an agent.
+
+
+== Configure Nix to use the remote builder
+
+This guide consists of two steps: configuring Nix as a client of the remote builder, and checking that hercules-ci-agent can use the remote builder.
+
+The agent reads the configuration like any other user, so you can use the same configuration methods.
+
+ - On NixOS, set https://search.nixos.org/options?query=nix.distributedBuilds[`nix.distributedBuilds`] and https://search.nixos.org/options?query=nix.buildMachines[`nix.buildMachines`]. If you need more explanation, or if your agent does not run on NixOS,
+ - Refer to the https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds.html?highlight=builders#remote-builds[instructions in the Nix manual].
+
+When you have configured the agent machine to use the remote builder, you can check that the agent can use it. For example, on NixOS you may test with the following command. Make sure to set the `system` value to that of the remote builder.
+
+```shellSession
+sudo -u hercules-ci-agent nix-build --expr 'with import <nixpkgs> { system = "aarch64-darwin"; }; hello.overrideAttrs (o: { n = 123; })'
+```
+
+Change the value of `n` if you see neither an error nor a build log appear. Let it substitute and wait for the configure script to log its first lines.
+
+NOTE: It may not be sufficient to check that some *other* user can use the remote builder.
+
+== Using a non-default set of builders
+
+You may use a different set of builders for the agent than what your default configuration allows.
+
+The agent will read and incorporate options from the Nix dotfile of the user it runs as; usually the `hercules-ci-agent` user.
+
+On a NixOS system, this location is `/var/lib/hercules-ci-agent/.config/nix/nix.conf`. You may use this file to reset the https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=builders#conf-builders[`builders`] option, or append to the option using `extra-builders` entries.
+
+The Nix manual https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds.html?highlight=builders#remote-builds[page about remote builder setup] may be useful here as well.
