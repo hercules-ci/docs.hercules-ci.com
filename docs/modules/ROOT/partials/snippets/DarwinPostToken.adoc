@@ -3,7 +3,7 @@ Save the token to a new file `cluster-join-token.key` on the target machine and 
 [source,shell]
 ----
 $ sudo install \
-    -o hercules-ci-agent  \
+    -o _hercules-ci-agent \
     -m 0600 \
     cluster-join-token.key \
     /var/lib/hercules-ci-agent/secrets/cluster-join-token.key
