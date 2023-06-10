@@ -3,7 +3,7 @@ Save `binary-caches.json` on the target machine and install it by running:
 [source,shell]
 ----
 $ sudo install \
-    -o hercules-ci-agent  \
+    -o _hercules-ci-agent \
     -m 0600 \
     binary-caches.json \
     /var/lib/hercules-ci-agent/secrets/binary-caches.json
