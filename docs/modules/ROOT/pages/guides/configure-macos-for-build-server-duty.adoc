@@ -1,0 +1,34 @@
+= Configure macOS for build server duty
+
+Out of the box, macOS systems are configured for physical, interactive use, making them unsuitable for network-driven use. This page describes a couple of steps to make macOS a reliable agent host.
+
+[[auto-start-after-power-loss]]
+== Auto start after power loss
+
+- Open Settings (cogs icon in the dock, or Apple menu > btn:[System Settings])
+- Go to Energy Saver
+- Enable Start up automatically after a power failure
+
+[[disable-sleep-when-idle]]
+== Disable sleep when idle
+
+- Open Settings (cogs icon in the dock, or Apple menu > btn:[System Settings])
+- Go to btn:[Displays]
+- Click btn:[Advanced...]
+- Enable **Prevent automatic sleeping when the display is off**
+
+[[turn-off-spotlight]]
+== Turn off Spotlight
+
+Spotlight is macOS' desktop search engine. Even on a machine that doubles as a desktop, it may try to index your Nix store, which is not worth the overhead.
+
+[[enable-remote-login]]
+== Enable remote login
+
+SSH access can be configured using System Settings.
+
+- Open Settings (cogs icon in the dock, or Apple menu > btn:[System Settings])
+- Go to btn:[Sharing]
+- Turn on **Remote Login**
+
+Keys and user accounts can be managed by nix-darwin or by following [Apple's documentation](https://support.apple.com/en-gb/guide/mac-help/mchlp1066/mac).

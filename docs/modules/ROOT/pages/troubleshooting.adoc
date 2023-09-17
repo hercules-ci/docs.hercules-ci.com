@@ -190,3 +190,18 @@ On other systems, make sure that:
 
  * `/etc/nix/nix.conf` has exactly one line starting with `trusted-users =`
  * `/etc/nix/nix.conf` has `hercules-ci-agent` (or your agent's system user) in `trusted-users =`, e.g. `trusted-users = root @wheel hercules-ci-agent`
+
+[[macos-negative-dns-cache]]
+== An agent running on macOS reports `exception:Network.Socket.getAddrInfo` but DNS works fine
+
+This can be a symptom of the default macOS power saving settings. See xref:guides/configure-macos-for-build-server-duty.adoc[Configure macOS for build server duty]
+
+Unfortunately, macOS has negative DNS caching, which means that a temporary failure in your DNS will be remembered, rendering the agent's built in retry behavior ineffective.
+
+It [appears](https://discussions.apple.com/thread/252332579) that this behavior can not be disabled in macOS.
+
+Otherwise, a one-off situation can be resolved by running
+
+```
+sudo dscacheutil -flushcache
+```
