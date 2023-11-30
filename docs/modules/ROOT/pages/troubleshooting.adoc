@@ -127,7 +127,9 @@ Evaluation can currently only be restarted by pushing to a branch.
 
 == My commit status is stuck in Pending - Waiting for agent
 
-Make sure you've deployed an agent. If the agent didn't start, it should leave a message in the system journal. To see the last 100 lines of the journal with NixOps, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100`
+Make sure you have at least one `x86_64-linux` agent up and running.
+
+If the agent didn't start, it should leave a message in the system journal. To see the last 100 lines of the journal with NixOps, run `nixops ssh agent journalctl -u hercules-ci-agent -n 100`
 
 Note that an agent can currently only be assigned to a single account. Assigning agents to multiple accounts is on the roadmap, but for now you will have to run multiple agents to build for multiple accounts.
 
