@@ -23,6 +23,7 @@ content:
   - url: ../hercules-ci-agent
     start_path: docs
     branches:
+    - 0.9-maintenance
     - 0.8-maintenance
 ui:
   bundle:
