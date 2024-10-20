@@ -1,0 +1,102 @@
+= Add USB devices to Effects
+
+This guide will show you how to use a USB device from within an Hercules CI Effect on NixOS.
+
+Prerequisites:
+
+* You have xref:master@hercules-ci:ROOT:getting-started/index.adoc[set up an agent] for the account that owns the repository, and you have access to deploy changes to its configuration.
+* You have added a repository to your Hercules CI installation.
+* You have a USB device that you want to use in your builds, plugged into the machine that runs the agent.
+
+= 1. Configure the agent
+
+By default, the NixOS module for Hercules CI Agent locks down the agent's permissions, as most agents have no business accessing USB devices or other capabilities.
+
+To allow the agent to access USB devices, you need to add the following to your NixOS agent configuration.
+
+Instead of `USER_NAME`, replace it with the username of your agent service, typically `hercules-ci-agent`, or `hci-<something>`.
+Instead of `SERVICE_NAME`, replace it with the name of your agent service, typically `hercules-ci-agent`, or `hercules-ci-agent-<something>`. _Omit_ the `.service` suffix.
+
+[source,nix]
+----
+users.extraGroups.my-hci-usb = { };
+users.extraUsers.USER_NAME.extraGroups = [ "my-hci-usb" ];
+systemd.services.SERVICE_NAME.serviceConfig.DeviceAllow = "char-usb_device rw";
+# You may need the AF_NETLINK protocol for device discovery
+systemd.services.SERVICE_NAME.serviceConfig.RestrictAddressFamilies = [ "AF_NETLINK" ];
+services.udev.extraRules = ''
+  # My USB device; replace with your device's vendor and product IDs
+  ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="204f", MODE="660", GROUP="my-hci-usb"
+'';
+# Alternatively, if you're using an old style single agent configuration:
+# services.hercules-ci-agent = {
+services.hercules-ci-agents.NAME = {
+  settings = {
+    effectMountables =
+    let
+      # Allow access from any repository
+      usbCondition = true;
+      # Allow access only from a specific repository
+      # usbCondition = { isRepo = "my-repo"; };
+    in
+    {
+      "dev-bus-usb" = {
+        source = "/dev/bus/usb";
+        readOnly = false;
+        condition = usbCondition;
+      };
+      "sys-bus-usb" = {
+        source = "/sys/bus/usb";
+        readOnly = false;
+        condition = usbCondition;
+      };
+      # If your device is a serial device, you may need to add the following:
+      "ttyACM0" = {
+        source = "/dev/ttyACM0";
+        readOnly = false;
+        condition = usbCondition;
+      };
+      "ttyACM1" = {
+        source = "/dev/ttyACM1";
+        readOnly = false;
+        condition = usbCondition;
+      };
+    };
+  };
+}
+----
+
+= 2. Deploy the configuration
+
+- Deploy the updated configuration to your agent machine, e.g. using `nixos-rebuild switch`.
+
+- Reload the udev rules, e.g. using `udevadm control --reload && sudo udevadm trigger`.
+
+- Restart the agent service, e.g. using `systemctl restart SERVICE_NAME`.
+
+= 3. Use the USB device in an Effect
+
+Now that the agent has access to the USB device, you can use it in your Effects.
+
+Here's an example of how you can use a USB device in an Effect:
+
+[source,nix]
+----
+hci-effects.modularEffect {
+  mounts = {
+    "/dev/bus/usb" = "dev-bus-usb";
+    "/sys/bus/usb" = "sys-bus-usb";
+    # If you need these:
+    "/dev/ttyACM0" = "ttyACM0";
+    "/dev/ttyACM1" = "ttyACM1";
+  };
+}
+----
+
+= Troubleshooting
+
+If you encounter issues, the `strace` command might give insight into which resource is unavailable in the sandbox.
+The agent logs may also contain useful information.
+
+// FIXME: support _page_
+If you need help, feel free to reach out in the https://matrix.to/#/#hercules-ci:matrix.org[Hercules CI Matrix room] or by email at mailto:help@hercules-ci.com[help@hercules-ci.com].

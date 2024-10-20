@@ -15,6 +15,7 @@
 ** xref:guides/multi-platform.adoc[Multi-platform CI / Build Matrix]
 ** xref:guides/remote-builder.adoc[Agent as Remote Builder Client]
 ** xref:guides/configure-macos-for-build-server-duty.adoc[Configure macOS for build server duty]
+** xref:guides/add-a-usb-device.adoc[Add USB devices to Effects]
 * xref:effects/index.adoc[Effects Introduction (CI/CD)]
 * xref:troubleshooting.adoc[Troubleshooting]
 * xref:glossary.adoc[Glossary]
