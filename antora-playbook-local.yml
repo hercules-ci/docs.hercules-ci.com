@@ -4,23 +4,28 @@ site:
   start_page: hercules-ci::index.adoc
 content:
   sources:
-  - url: .
+  - url: /home/user/git/docs.hercules-ci.com
+    worktrees: true
     start_path: docs
     branches:
     - HEAD
-  - url: ../arion
+  - url: /home/user/git/arion
+    worktrees: true
     start_path: docs
     branches:
     - HEAD
-  - url: ../hercules-ci-effects
+  - url: /home/user/git/hercules-ci-effects
+    worktrees: test-hci
+    start_path: docs
+    branches:
+    - test-hci
+  - url: /home/user/git/hercules-ci-agent
+    worktrees: true
     start_path: docs
     branches:
     - HEAD
-  - url: ../hercules-ci-agent
-    start_path: docs
-    branches:
-    - HEAD
-  - url: ../hercules-ci-agent
+  - url: /home/user/git/hercules-ci-agent
+    worktrees: true
     start_path: docs
     branches:
     - 0.9-maintenance
