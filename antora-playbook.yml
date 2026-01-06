@@ -8,16 +8,19 @@ content:
     start_path: docs
     branches:
     - HEAD
+    version: master
     web_url: https://github.com/hercules-ci/docs.hercules-ci.com
     edit_url: true
   - url: https://github.com/hercules-ci/arion
     start_path: docs
     branches:
     - main
+    version: master
   - url: https://github.com/hercules-ci/hercules-ci-effects
     start_path: docs
     branches:
-     - master
+    - master
+    version: master
   - url: https://github.com/hercules-ci/hercules-ci-agent
     start_path: docs
     branches:
