@@ -21,9 +21,18 @@ content:
   - url: https://github.com/hercules-ci/hercules-ci-agent
     start_path: docs
     branches:
-     - 0.9-maintenance
-     - 0.8-maintenance
-     - master
+    - master
+    version: master
+  - url: https://github.com/hercules-ci/hercules-ci-agent
+    start_path: docs
+    branches:
+    - 0.9-maintenance
+    version: '0.9'
+  - url: https://github.com/hercules-ci/hercules-ci-agent
+    start_path: docs
+    branches:
+    - 0.8-maintenance
+    version: '0.8'
   # other features?
   #  branches: master
   #  counter: 0
