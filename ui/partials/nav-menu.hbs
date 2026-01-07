@@ -20,8 +20,8 @@
       }}
       <li class="nav-item" style="padding-bottom: 4ex;">
         {{!-- <div class="nav-trees"> --}}
-          {{!-- HACK: Skip components that only have a latest version --}}
-          {{#unless (or (eq this.name "hercules-ci") (eq this.name "hercules-ci-effects"))}}
+          {{!-- Only show version dropdown if there's more than one version --}}
+          {{#if (not (eq this.versions.length 1))}}
           <div style="float: right">
             <div>
               {{#each this.versions}}
@@ -37,7 +37,7 @@
               {{/each}}
             </div>
           </div>
-          {{/unless}}
+          {{/if}}
           {{#each this.versions}}
           {{#if (or
           (and

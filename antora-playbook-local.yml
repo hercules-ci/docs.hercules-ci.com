@@ -4,32 +4,42 @@ site:
   start_page: hercules-ci::index.adoc
 content:
   sources:
-  - url: /home/user/git/docs.hercules-ci.com
-    worktrees: true
+  - url: .
     start_path: docs
     branches:
     - HEAD
-  - url: /home/user/git/arion
-    worktrees: true
+    version: master
+  - url: ../arion
     start_path: docs
     branches:
     - HEAD
-  - url: /home/user/git/hercules-ci-effects
-    worktrees: test-hci
-    start_path: docs
-    branches:
-    - test-hci
-  - url: /home/user/git/hercules-ci-agent
-    worktrees: true
+    version: master
+  - url: ../hercules-ci-effects
     start_path: docs
     branches:
     - HEAD
-  - url: /home/user/git/hercules-ci-agent
-    worktrees: true
+    version: master
+  - url: ../hercules-ci-agent
+    start_path: docs
+    branches:
+    - HEAD
+    version: master
+  - url: ../hercules-ci-agent
     start_path: docs
     branches:
     - 0.9-maintenance
+    version: '0.9'
+  - url: ../hercules-ci-agent
+    start_path: docs
+    branches:
     - 0.8-maintenance
+    version: '0.8'
+  # To preview documentation from a feature branch worktree, add an entry like:
+  # - url: ../hercules-ci-agent+my-feature
+  #   start_path: docs
+  #   branches:
+  #   - HEAD
+  #   version: my-feature
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
