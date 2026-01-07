@@ -9,6 +9,7 @@ result-*
 
 # Antora
 /public
+/ui-bundle
 
 # pre-commit-hooks.nix
 .pre-commit-config.yaml

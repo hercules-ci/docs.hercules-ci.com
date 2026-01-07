@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "antora-ui": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767826622,
+        "narHash": "sha256-Y6y9/rrV35D26jDDnAvcQesOY/NclaOW4N5OEhh6gi0=",
+        "ref": "refs/heads/master",
+        "rev": "68abd5fe770edc2e5cd136edabf94f857d04c674",
+        "revCount": 893,
+        "type": "git",
+        "url": "https://gitlab.com/hercules-ci/antora-hercules-ci-theme"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.com/hercules-ci/antora-hercules-ci-theme"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -151,6 +174,7 @@
     },
     "root": {
       "inputs": {
+        "antora-ui": "antora-ui",
         "flake-parts": "flake-parts",
         "hercules-ci-effects": "hercules-ci-effects",
         "nixpkgs": "nixpkgs_2",
