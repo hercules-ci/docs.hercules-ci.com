@@ -1,7 +1,25 @@
 {
   "nodes": {
+    "Fomantic-UI": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1617712596,
+        "narHash": "sha256-silObfccIohXG2XnBy6K7l8wcf6tArt817vLVnWihHs=",
+        "owner": "fomantic",
+        "repo": "Fomantic-UI",
+        "rev": "863d7123323f642238daaa5c92f005073fb9e204",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fomantic",
+        "repo": "Fomantic-UI",
+        "rev": "863d7123323f642238daaa5c92f005073fb9e204",
+        "type": "github"
+      }
+    },
     "antora-ui": {
       "inputs": {
+        "Fomantic-UI": "Fomantic-UI",
         "flake-parts": [
           "flake-parts"
         ],
@@ -10,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767826622,
-        "narHash": "sha256-Y6y9/rrV35D26jDDnAvcQesOY/NclaOW4N5OEhh6gi0=",
+        "lastModified": 1767830768,
+        "narHash": "sha256-4LSjotOf2HJ+qHaQXxsbri4Dyt1S1/hsfF2lCubbfd0=",
         "ref": "refs/heads/master",
-        "rev": "68abd5fe770edc2e5cd136edabf94f857d04c674",
-        "revCount": 893,
+        "rev": "5ab790b32a405c878f5052a044fb506f11a21311",
+        "revCount": 895,
         "type": "git",
         "url": "https://gitlab.com/hercules-ci/antora-hercules-ci-theme"
       },
