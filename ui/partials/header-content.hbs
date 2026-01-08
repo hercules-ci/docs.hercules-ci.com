@@ -1,28 +1,23 @@
 <header class="header" role="banner">
-  <nav class="navbar">
-    <div class="navbar-brand">
-      <div class="navbar-item">
-        <a href="{{site.url}}">{{site.title}}</a>
-      </div>
-      {{#if env.ALGOLIA_API_KEY}}
-      <div class="navbar-item hide-for-print">
+  <nav class="ui inverted menu navbar">
+    <a class="item brand" href="{{site.url}}">{{site.title}}</a>
+    {{#if env.ALGOLIA_API_KEY}}
+    <div class="item hide-for-print">
+      <div class="ui inverted transparent icon input">
         <input id="search-input" type="text" placeholder="Search docs">
+        <i class="search icon"></i>
       </div>
-      {{/if}}
-      <button class="navbar-burger" data-target="topbar-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
-    <div id="topbar-nav" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item" href="mailto:help@hercules-ci.com">Support</a>
-        <div class="navbar-item theme-toggle" title="Toggle theme">
-          <i class="adjust icon"></i> <span class="theme-label">Auto</span>
-        </div>
-        <a class="navbar-item" href="https://hercules-ci.com/dashboard">Dashboard</a>
+    {{/if}}
+    <a class="item navbar-burger" data-target="topbar-nav">
+      <i class="bars icon"></i>
+    </a>
+    <div id="topbar-nav" class="right menu">
+      <a class="item" href="mailto:help@hercules-ci.com">Support</a>
+      <div class="item theme-toggle" title="Toggle theme">
+        <i class="adjust icon"></i> <span class="theme-label">Auto</span>
       </div>
+      <a class="item" href="https://hercules-ci.com/dashboard">Dashboard</a>
     </div>
   </nav>
 </header>

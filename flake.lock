@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767830768,
-        "narHash": "sha256-4LSjotOf2HJ+qHaQXxsbri4Dyt1S1/hsfF2lCubbfd0=",
+        "lastModified": 1767831672,
+        "narHash": "sha256-ZkUBKKTdREjaMJBFcJId7JzCzpJ0o3yf6qu8CyCHLy8=",
         "ref": "refs/heads/master",
-        "rev": "5ab790b32a405c878f5052a044fb506f11a21311",
-        "revCount": 895,
+        "rev": "ca8b948e250d758d5b263718f3e39f2015640e2f",
+        "revCount": 896,
         "type": "git",
         "url": "https://gitlab.com/hercules-ci/antora-hercules-ci-theme"
       },
