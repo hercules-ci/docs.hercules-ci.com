@@ -26,7 +26,7 @@
             <div>
               {{#each this.versions}}
               <a href="{{{relativize ./url}}}"
-                style="{{#if (and (eq ../../page.component.name ../name) (eq this.version ../../page.version)) }}color: #a00; font-weight: 500;{{/if}} border: 1px solid #c1c1c1; border-radius: 0.25rem; padding: 0.125em 0.25em;">
+                class="version-badge{{#if (and (eq ../../page.component.name ../name) (eq this.version ../../page.version)) }} is-current{{/if}}">
                 {{#if (eq this.displayVersion "master")}}
                 latest
                 {{/if}}

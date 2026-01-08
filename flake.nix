@@ -7,6 +7,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    antora-ui.url = "git+https://gitlab.com/hercules-ci/antora-hercules-ci-theme";
+    antora-ui.inputs.nixpkgs.follows = "nixpkgs";
+    antora-ui.inputs.flake-parts.follows = "flake-parts";
   };
 
   outputs = inputs@{ self, flake-parts, hercules-ci-effects, ... }:
@@ -24,72 +28,86 @@
             dayOfMonth = 5;
           };
         };
-        perSystem = { config, self', inputs', pkgs, ... }: {
-          packages.antora = pkgs.callPackage ./antora/package.nix { };
-          pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
-          pre-commit.settings.excludes = [
-            # The snippets didn't improve. May try again later.
-            "docs/modules/ROOT/partials/snippets"
-          ];
-          devShells.default = pkgs.mkShell {
-            nativeBuildInputs = [
-              config.packages.antora
-              pkgs.inotify-tools
-              pkgs.netlify-cli
-              pkgs.nixpkgs-fmt
-              pkgs.yarn
-            ];
-            NODE_PATH = config.packages.antora.node_modules;
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-
-              echo
-              echo 1>&2 "antora $(antora --version)"
-              cat 1>&2 <<EOF
-              
-              Welcome to the docs.hercules-ci.com shell
-
-              Commands:
-                live-rebuild        Performs a local build whenever watched files change.
-                open-browser        Opens the homepage in a browser
-
-              EOF
-              last_status() {
-                local r=$?
-                if [[ $r = 0 ]]; then
-                  echo ok
-                elif [[ $r = 1 ]]; then
-                  echo FAILED
-                else
-                  echo "FAILED ($r)"
-                fi
-              }
-              live-rebuild() {
-                (
-                  echo 1>&2 "Press ENTER to force a rebuild."
-                  inotifywait -mr . ../hercules-ci-effects ../arion ../hercules-ci-agent -e MODIFY \
-                    | grep --line-buffered -E 'adoc|hbs|(lib/.*\.js)' &
-                  cleanup() {
-                    kill %%
-                  }
-                  trap cleanup EXIT
-                  echo first build for good measure
-                  cat
-                  ) | while read ln; do
-                      echo 1>&2 "antora starting..."
-                      antora antora-playbook-local.yml --stacktrace
-                      echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
-                    done
-              }
-
-              open-browser() {
-                xdg-open public/index.html
-              }
+        perSystem = { config, self', inputs', pkgs, ... }:
+          let
+            linkGeneratedFiles = ''
+              set-link ${inputs'.antora-ui.packages.antora-ui} ui-bundle
             '';
+          in
+          {
+            packages.antora = pkgs.callPackage ./antora/package.nix { };
+            packages.antora-ui = inputs'.antora-ui.packages.antora-ui;
+            pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
+            pre-commit.settings.excludes = [
+              # The snippets didn't improve. May try again later.
+              "docs/modules/ROOT/partials/snippets"
+            ];
+            devShells.default = pkgs.mkShell {
+              nativeBuildInputs = [
+                config.packages.antora
+                pkgs.inotify-tools
+                pkgs.netlify-cli
+                pkgs.nixpkgs-fmt
+                pkgs.yarn
+              ];
+              NODE_PATH = config.packages.antora.node_modules;
+              shellHook = ''
+                ${config.pre-commit.installationScript}
 
-            LANG = "en_US.utf8";
+                # Set up generated symlinks (GC roots pattern from hercules-ci-frontend)
+                set-link() {
+                  echo "Adding root for $2"
+                  nix-store -r --add-root "$2" "$1" >/dev/null
+                }
+                ${linkGeneratedFiles}
+
+                echo
+                echo 1>&2 "antora $(antora --version)"
+                cat 1>&2 <<EOF
+
+                Welcome to the docs.hercules-ci.com shell
+
+                Commands:
+                  live-rebuild        Performs a local build whenever watched files change.
+                  open-browser        Opens the homepage in a browser
+
+                EOF
+                last_status() {
+                  local r=$?
+                  if [[ $r = 0 ]]; then
+                    echo ok
+                  elif [[ $r = 1 ]]; then
+                    echo FAILED
+                  else
+                    echo "FAILED ($r)"
+                  fi
+                }
+                live-rebuild() {
+                  (
+                    echo 1>&2 "Press ENTER to force a rebuild."
+                    inotifywait -mr . ../hercules-ci-effects ../arion ../hercules-ci-agent -e MODIFY \
+                      | grep --line-buffered -E 'adoc|hbs|(lib/.*\.js)' &
+                    cleanup() {
+                      kill %%
+                    }
+                    trap cleanup EXIT
+                    echo first build for good measure
+                    cat
+                    ) | while read ln; do
+                        echo 1>&2 "antora starting..."
+                        antora antora-playbook-local.yml --stacktrace
+                        echo 1>&2 "antora finished ($(last_status)) at $(date +%T)";
+                      done
+                }
+
+                open-browser() {
+                  xdg-open public/index.html
+                }
+              '';
+
+              LANG = "en_US.utf8";
+            };
           };
-        };
         herculesCI = { config, ... }:
           let
             inherit (config.repo) branch;
@@ -122,6 +140,9 @@
                   git commit -m init .
                   git checkout -B ${lib.escapeShellArg branch}
 
+                  # Set up UI bundle
+                  ln -sfn ${config.packages.antora-ui} ui-bundle
+
                   checklog() {
                     tee $TMPDIR/err
                     ! grep -E 'ERROR'
@@ -129,6 +150,7 @@
                   export CI=true;
                   export FORCE_SHOW_EDIT_PAGE_LINK=true;
                   antora --fetch ./antora-playbook.yml --stacktrace 2>&1 | checklog;
+                  rm -rf public
                   antora --url https://docs.hercules-ci.com --html-url-extension-style=indexify --redirect-facility=netlify ./antora-playbook.yml 2>&1 | checklog;
                   cat <./_redirects >>./public/_redirects
                 '' + lib.optionalString (!isProd) ''
