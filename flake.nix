@@ -52,7 +52,7 @@
               ];
               NODE_PATH = config.packages.antora.node_modules;
               shellHook = ''
-                ${config.pre-commit.installationScript}
+                ${config.pre-commit.shellHook}
 
                 # Set up generated symlinks (GC roots pattern from hercules-ci-frontend)
                 set-link() {
